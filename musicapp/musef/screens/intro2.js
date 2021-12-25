@@ -1,39 +1,31 @@
 import {React} from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView} from 'react-native';
-
 import { AntDesign } from '@expo/vector-icons';
 
-
-export default function Intro3({ navigation }) {
+export default function Intro2({ navigation }) {
   return (
     <View style={styles.container}>
-      <Image source={require('../assets/lady.jpg')} style={styles.image} />
+      <Image source={require('../assets/people.jpg')} style={styles.image} />
 
       <View style={{marginLeft: "10%", marginTop: 10}}>
           <Text style={styles.mainText}>
-          No{"\n"} advertisement
+          Share your{"\n"} playlist
           </Text>
           <Text style={styles.subText}>
-          Stream your music with no ads in{"\n"} the background.
+          Share playlists you've created with your friends using the app.
           </Text>
       </View>
 
       <View style={{display: "flex", flexDirection: "row"}}>
         <View style={{display: "flex", flexDirection: "row", marginLeft: "10%", marginTop: "5%"}}>
           <View style={{backgroundColor: "#cdcfd1", height: 12, width: 12, borderRadius: 20}}></View>
-          <View style={{backgroundColor: "#cdcfd1", height: 12, width: 12, borderRadius: 20, marginLeft: 10}}></View>
           <View style={{backgroundColor: "#65686e", height: 12, width: 12, borderRadius: 20, marginLeft: 10}}></View>
+          <View style={{backgroundColor: "#cdcfd1", height: 12, width: 12, borderRadius: 20, marginLeft: 10}}></View>
         </View>
 
-        <TouchableOpacity style={styles.next} onPress={() => {(navigation.navigate("Tabs"))}}>
-
-        <TouchableOpacity style={styles.next} onPress={() => {(navigation.navigate("Tabs"))}} >
-
+        <TouchableOpacity style={styles.next} onPress={() => {(navigation.navigate("Intro3"))}} >
         <AntDesign name="right" size={24} color="white" />
-
-        <TouchableOpacity style={styles.next}>
-        <Text style={{color: "#ffffff", fontWeight: "bold"}}>Get Started</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -61,18 +53,9 @@ const styles = StyleSheet.create({
     marginTop: 7,
   },
   next: {
-
     marginLeft: "60%",
-    backgroundColor: "#494a47",
+    backgroundColor: "#96234d",
     padding: "4%",
     borderRadius: 30,
-/*
-    marginLeft: "40%",
-    backgroundColor: "#494a47",
-    padding: "4%",
-    borderRadius: 30,
-    paddingLeft: "7%",
-    paddingRight: "7%",
-*/
   }
 });
