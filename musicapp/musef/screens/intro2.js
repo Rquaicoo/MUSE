@@ -13,7 +13,7 @@ export default function Intro2({ navigation }) {
           Share your{"\n"} playlist
           </Text>
           <Text style={styles.subText}>
-          Share playlists you've created with your friends{"\n"} using the app.
+          Share playlists you've created with your friends using the app.
           </Text>
       </View>
 
