@@ -1,7 +1,6 @@
 import {React} from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView} from 'react-native';
-import { AntDesign } from '@expo/vector-icons';
 
 export default function Intro3({ navigation }) {
   return (
@@ -25,7 +24,7 @@ export default function Intro3({ navigation }) {
         </View>
 
         <TouchableOpacity style={styles.next}>
-        <AntDesign name="right" size={24} color="white" />
+        <Text style={{color: "#ffffff", fontWeight: "bold"}}>Get Started</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -53,9 +52,11 @@ const styles = StyleSheet.create({
     marginTop: 7,
   },
   next: {
-    marginLeft: "60%",
+    marginLeft: "40%",
     backgroundColor: "#494a47",
     padding: "4%",
     borderRadius: 30,
+    paddingLeft: "7%",
+    paddingRight: "7%",
   }
 });
