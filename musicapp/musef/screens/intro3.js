@@ -24,7 +24,11 @@ export default function Intro3({ navigation }) {
           <View style={{backgroundColor: "#65686e", height: 12, width: 12, borderRadius: 20, marginLeft: 10}}></View>
         </View>
 
+<<<<<<< Updated upstream
         <TouchableOpacity style={styles.next} onPress={() => {(navigation.navigate("Tabs"))}}>
+=======
+        <TouchableOpacity style={styles.next} onPress={() => {(navigation.navigate("Tabs"))}} >
+>>>>>>> Stashed changes
         <AntDesign name="right" size={24} color="white" />
         </TouchableOpacity>
       </View>
