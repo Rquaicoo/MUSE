@@ -13,7 +13,7 @@ export default function Intro1({ navigation }) {
               Enjoy your {"\n"} music
           </Text>
           <Text style={styles.subText}>
-              Stream your favorite songs from your{"\n"} favourite artistes.
+              Stream your favorite songs from your{"\n"}favourite artistes.
           </Text>
       </View>
 
