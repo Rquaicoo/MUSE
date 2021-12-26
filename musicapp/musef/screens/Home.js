@@ -80,7 +80,7 @@ export default function Home ({navigation}) {
                      <ImageBackground source={rad} style={{width:'100%', height:'100%', marginRight:20,borderRadius:20, opacity:1,}}>
                      <View style={{flexDirection:'row'}}>
                      <Text style={{position:'absolute', fontSize:25, fontWeight: 'bold', color:'white', paddingTop:10, paddingLeft:120,color:'white', }}> 
-                     Liston Now</Text>
+                     Listen Now</Text>
                      
                      </View>
                      </ImageBackground>
@@ -128,7 +128,8 @@ export default function Home ({navigation}) {
 
 const styles = StyleSheet.create({
     container: { backgroundColor: '#151723',
-    marginTop: 50,
+    marginTop: 20,
+    height: "100%"
 },
 
     header: {

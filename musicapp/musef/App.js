@@ -9,6 +9,8 @@ import Intro3 from './screens/intro3';
 
 import Tabs from './screens/Tabs';
 
+import MyMusic from './screens/mymusic';
+
 
 const Stack = createNativeStackNavigator();
 
