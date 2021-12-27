@@ -35,11 +35,9 @@ function Tabs() {
       <MaterialCommunityIcons name="account-music-outline" size={30} color="white" /> }}/>
       <Tab.Screen name="Home" component={Home} 
       options={{ tabBarLabel:() => {return null}, headerShown: false , tabBarIcon: ({color}) => 
-      <View style={{backgroundColor: "#151723", marginTop:10,}}>
-        <TouchableOpacity style={{height:70, width:70, backgroundColor:'#343547', borderRadius:100,}}>
+        <TouchableOpacity  component={Home} style={{height:70, width:70, backgroundColor:'#343547', borderRadius:100, marginTop:10,}}>
         <Foundation name="home" size={34} color="white" style={{ paddingTop:17,paddingLeft:23,}} />
         </TouchableOpacity>
-      </View>
     }}/>
       <Tab.Screen name="Genres" component={Home} 
       options={{ tabBarLabel:('Genres'), headerShown: false , tabBarIcon: ({color}) => 
