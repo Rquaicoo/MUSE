@@ -24,8 +24,10 @@ export default function Intro3({ navigation }) {
           <View style={{backgroundColor: "#65686e", height: 12, width: 12, borderRadius: 20, marginLeft: 10}}></View>
         </View>
 
-        <TouchableOpacity style={styles.next} onPress={() => {(navigation.navigate("Tabs"))}} >
         <AntDesign name="right" size={24} color="white" />
+
+        <TouchableOpacity style={styles.next} onPress={() => {(navigation.navigate("Tabs"))}}>
+        <Text style={{color: "#ffffff", fontWeight: "bold"}}>Get Started</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -53,9 +55,15 @@ const styles = StyleSheet.create({
     marginTop: 7,
   },
   next: {
-    marginLeft: "60%",
+
+    marginLeft: "35%",
     backgroundColor: "#494a47",
     padding: "4%",
     borderRadius: 30,
+    paddingLeft: "7%",
+    paddingRight: "7%",
+
+
+
   }
 });

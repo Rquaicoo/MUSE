@@ -2,46 +2,52 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView} from 'react-native';
 
 import Home from './Home';
-import Intro3 from './intro3';
-import Intro2 from './intro2';
+import MyMusic from './mymusic';
 import { MaterialIcons } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { AntDesign } from '@expo/vector-icons';
+import { Foundation } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
+import artists from './artists';
 
 const Tab = createBottomTabNavigator();
 
 function Tabs() {
   return (
     <Tab.Navigator 
-      screenOptions={{
+    
+    screenOptions={{
         activeTintColor: '#ffc107',
         inactiveTintColor: '#bdbdbd',
         showLabel: false,
-          style: {
-              backgroundColor: '#494a47',
-              height:'20%',
+          tabBarStyle: {
+              backgroundColor: '#151723',
+              height:'11%',
+              
           },
-      }}>
+      }}
+     >
       <Tab.Screen name="Browser" component={Home} 
       options={{ tabBarLabel:('Home'), headerShown: false , tabBarIcon: ({color}) => 
-      <MaterialIcons name="library-music" size={24} color="black" /> }} />
-      <Tab.Screen name="Artists" component={Home} 
+      <MaterialIcons name="library-music" size={30} color="white" /> }} />
+      <Tab.Screen name="Artists" component={artists} 
       options={{ tabBarLabel:('Artists'), headerShown: false , tabBarIcon: ({color}) => 
-      <MaterialCommunityIcons name="account-music-outline" size={24} color="black" /> }}/>
+      <MaterialCommunityIcons name="account-music-outline" size={30} color="white" /> }}/>
       <Tab.Screen name="Home" component={Home} 
       options={{ tabBarLabel:() => {return null}, headerShown: false , tabBarIcon: ({color}) => 
-      <View>
-      <MaterialCommunityIcons name="home-circle" size={54} color="black" />
+      <View style={{backgroundColor: "#151723", marginTop:10,}}>
+        <TouchableOpacity style={{height:70, width:70, backgroundColor:'#343547', borderRadius:100,}}>
+        <Foundation name="home" size={34} color="white" style={{ paddingTop:17,paddingLeft:23,}} />
+        </TouchableOpacity>
+     
       </View>
     }}/>
       <Tab.Screen name="Genres" component={Home} 
       options={{ tabBarLabel:('Genres'), headerShown: false , tabBarIcon: ({color}) => 
-      <Feather name="music" size={24} color="black" /> }}/>
-      <Tab.Screen name="My Music" component={Home} 
+      <Feather name="music" size={30} color="white" /> }}/>
+      <Tab.Screen name="My Music" component={MyMusic} 
       options={{ tabBarLabel:('My Music'), headerShown: false , tabBarIcon: ({color}) => 
-      <Ionicons name="headset-outline" size={24} color="black" /> }} />
+      <Ionicons name="headset-outline" size={30} color="white" /> }} />
     </Tab.Navigator>
   );
 }
