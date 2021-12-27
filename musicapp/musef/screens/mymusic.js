@@ -13,6 +13,7 @@ export default function MyMusic({ navigation }) {
                 <Text style={styles.headerText}>My Music</Text>
             </View>
             
+
             <View style={{marginLeft: "34%", display: "flex", flexDirection: "row", alignItems: "center"}}>
                 <TouchableOpacity style={{borderColor: "#343547", borderWidth: 1, alignContent: "center", justifyContent: "center", padding: 8, borderRadius: 20}}>
                     <Feather name="search" size={21} color="white" />
@@ -24,13 +25,14 @@ export default function MyMusic({ navigation }) {
         <View style={{marginLeft: "5%", marginTop: "10%"}}>
           <Text style={{color: "#3f3f4f"}}>Your downloads</Text>
             <View style={{marginTop: 30, flexDirection: "row"}}>
+
+
                 <TouchableOpacity style={styles.downloadsContent}>
                   <View style={{backgroundColor: "#151723", padding: "7%", borderRadius: 20}}>
                     <SimpleLineIcons name="playlist" size={24} color="white" />
                   </View>
                   <Text style={{color: "white"}}>Playlists</Text>
                   <Text  style={{color: "white"}}>23 songs</Text>
-               
                 </TouchableOpacity>
 
                 
@@ -97,6 +99,41 @@ export default function MyMusic({ navigation }) {
           <TouchableOpacity  style={{display: "flex", flexDirection: "row", marginTop: 20 }}>
           <SimpleLineIcons name="user-following" size={30} color="#343547" />
           <Text style={{color: "white", fontWeight: "100", fontSize: 17, marginLeft: "5%", marginRight: "42%"}}>Followed Artistes</Text>
+          <MaterialIcons name="navigate-next" size={30} color="#343547" />
+          </TouchableOpacity>
+        </View>
+
+        <View  style={{marginLeft: "5%", marginTop: "7%"}}>
+          <Text style={{color: "#3f3f4f", marginBottom: 10}}>Your activities</Text>
+          <TouchableOpacity  style={{display: "flex", flexDirection: "row", marginTop: 20 }}>
+          <MaterialIcons name="playlist-add" size={30} color="#343547" />
+          <Text style={{color: "white", fontWeight: "100", fontSize: 17, marginLeft: "5%", marginRight: "43%"}}>Your playlists</Text>
+          <MaterialIcons name="navigate-next" size={30} color="#343547" />
+          </TouchableOpacity>
+          <View style={{
+      backgroundColor: "#343547",
+       width: "95%",
+        height: 1, 
+        marginLeft: "5%",
+       marginTop: 9
+    }}></View>
+
+          <TouchableOpacity  style={{display: "flex", flexDirection: "row", marginTop: 20 }}>
+          <MaterialCommunityIcons name="heart-plus-outline" size={30} color="#343547" />
+          <Text style={{color: "white", fontWeight: "100", fontSize: 17, marginLeft: "5%", marginRight: "45%"}}>Liked songs</Text>
+          <MaterialIcons name="navigate-next" size={30} color="#343547" />
+          </TouchableOpacity>
+          <View style={{
+      backgroundColor: "#343547",
+       width: "95%",
+        height: 1,
+        marginLeft: "5%",
+       marginTop: 9
+    }}  ></View>
+
+          <TouchableOpacity  style={{display: "flex", flexDirection: "row", marginTop: 20 }}>
+          <SimpleLineIcons name="user-following" size={30} color="#343547" />
+          <Text style={{color: "white", fontWeight: "100", fontSize: 17, marginLeft: "5%", marginRight: "34%"}}>Followed Artistes</Text>
           <MaterialIcons name="navigate-next" size={30} color="#343547" />
           </TouchableOpacity>
         </View>
