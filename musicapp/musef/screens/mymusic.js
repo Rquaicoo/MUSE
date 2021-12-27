@@ -24,15 +24,16 @@ export default function MyMusic({ navigation }) {
         <View style={{marginLeft: "5%", marginTop: "10%"}}>
           <Text style={{color: "#3f3f4f"}}>Your downloads</Text>
             <View style={{marginTop: 30, flexDirection: "row"}}>
+         
+                
                 <TouchableOpacity style={styles.downloadsContent}>
                   <View style={{backgroundColor: "#151723", padding: "7%", borderRadius: 20}}>
                     <SimpleLineIcons name="playlist" size={24} color="white" />
                   </View>
                   <Text style={{color: "white"}}>Playlists</Text>
                   <Text  style={{color: "white"}}>23 songs</Text>
-               
                 </TouchableOpacity>
-
+                
                 
                 <TouchableOpacity style={styles.downloadsContent} >
                 <View style={{backgroundColor: "#151723", padding: "7%", borderRadius: 20}}>
@@ -130,6 +131,18 @@ const styles = StyleSheet.create({
       color: "#fff"
     },
     downloadsContent: {
+      borderRadius: 20 ,
+      borderColor: "#343547", 
+      borderWidth: 1, 
+      width: "40%", 
+      height: 130, 
+      alignItems: "center", 
+      justifyContent: "center",
+      backgroundColor: "#343547",
+      marginRight: "10%",
+      
+    },
+    downloadsContentBackground: {
       borderRadius: 20,
       borderColor: "#343547", 
       borderWidth: 1, 
@@ -138,7 +151,7 @@ const styles = StyleSheet.create({
       alignItems: "center", 
       justifyContent: "center",
       backgroundColor: "#343547",
-      marginRight: "10%"
+      marginRight: "10%",
       
     },
     line: {
