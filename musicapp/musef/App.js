@@ -6,10 +6,8 @@ import {  createNativeStackNavigator } from '@react-navigation/native-stack';
 import Intro1 from './screens/intro1';
 import Intro2 from './screens/intro2';
 import Intro3 from './screens/intro3';
-import Tabs from './screens/Tabs';
 
-import MyMusic from './screens/mymusic';
-import artists from './screens/artists';
+import Tabs from './screens/Tabs';
 
 
 const Stack = createNativeStackNavigator();
@@ -27,13 +25,11 @@ export default function App() {
       <Stack.Screen name="Intro3" component={Intro3} options={{
         headerShown: false
       }} />
+
       <Stack.Screen name="Tabs" component={Tabs} options={{
         headerShown: false
       }} />
 
-      <Stack.Screen name="Artists" component={artists} options={{
-        headerShown: false
-      }} />
       </Stack.Navigator>
     </NavigationContainer>
   );
