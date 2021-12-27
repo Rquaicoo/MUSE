@@ -39,7 +39,6 @@ function Tabs() {
         <TouchableOpacity style={{height:70, width:70, backgroundColor:'#343547', borderRadius:100,}}>
         <Foundation name="home" size={34} color="white" style={{ paddingTop:17,paddingLeft:23,}} />
         </TouchableOpacity>
-     
       </View>
     }}/>
       <Tab.Screen name="Genres" component={Home} 
