@@ -9,6 +9,9 @@ import Intro3 from './screens/intro3';
 
 import Tabs from './screens/Tabs';
 
+import MyMusic from './screens/mymusic';
+import artists from './screens/artists';
+
 
 const Stack = createNativeStackNavigator();
 
@@ -30,6 +33,9 @@ export default function App() {
         headerShown: false
       }} />
 
+      <Stack.Screen name="Artists" component={artists} options={{
+        headerShown: false
+      }} />
       </Stack.Navigator>
     </NavigationContainer>
   );

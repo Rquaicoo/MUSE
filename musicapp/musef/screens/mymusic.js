@@ -107,14 +107,46 @@ export default function MyMusic({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#ffffff",
+    backgroundColor: "#151723",
     height: "100%"
   },
   image: {
-      height: "20%",
-      width: "20%",
+      height: 35,
+      width: 35,
       resizeMode: "contain",
-    
-  }
+      borderRadius: 500,
+      marginLeft: "20%",
+      marginTop: -2,
+    },
+    headerContainer: {
+      display: "flex",
+      flexDirection: "row",
+      marginTop: "10%",
+      marginLeft: "5%"
+    },
+    headerText: {
+      fontSize: 30,
+      fontWeight: "bold",
+      color: "#fff"
+    },
+    downloadsContent: {
+      borderRadius: 20,
+      borderColor: "#343547", 
+      borderWidth: 1, 
+      width: "40%", 
+      height: 130, 
+      alignItems: "center", 
+      justifyContent: "center",
+      backgroundColor: "#343547",
+      marginRight: "10%"
+      
+    },
+    line: {
+      backgroundColor: "white",
+       width: "95%",
+        height: 0.6, 
+        marginLeft: "5%",
+       marginTop: 9
+    }
   
 });
