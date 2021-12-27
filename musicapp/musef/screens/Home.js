@@ -19,7 +19,7 @@ export default function Home ({navigation}) {
    
             <ScrollView>
                 <View style={styles.container}>
-                        <Text style={{fontWeight:'bold', fontSize:35, alignSelf:'center',color:'white',}}> muse.</Text>
+                        <Text style={{fontWeight:'bold', fontSize:35, alignSelf:'center',color:'white',marginTop:35,}}> muse.</Text>
                     <TouchableOpacity style={styles.header}>
                     <View style={{flexDirection:'row', justifyContent:'center'}}>
                     <TouchableOpacity style={styles.headercontent} onPress={() => {(navigation.navigate("Tabs"))}}>
@@ -93,7 +93,7 @@ export default function Home ({navigation}) {
                 
                 <View>
                 <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-                    <View style={{flexDirection:'row', marginBottom:100,}}>
+                    <View style={{flexDirection:'row', marginBottom:200,}}>
                     <TouchableOpacity style={styles.albums}>
                     <Image source={arthur} style={styles.albumimage}/>
                     </TouchableOpacity>
@@ -127,8 +127,9 @@ export default function Home ({navigation}) {
 
 
 const styles = StyleSheet.create({
-    container: { backgroundColor: '#151723',
-    marginTop: 20,
+
+    container: {
+    backgroundColor: '#151723',
     height: "100%"
 },
 
