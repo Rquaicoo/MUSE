@@ -13,6 +13,8 @@ import MyMusic from './screens/mymusic';
 
 import artists from './screens/artists';
 
+import Genre from './screens/Genre';
+
 
 const Stack = createNativeStackNavigator();
 
