@@ -1,9 +1,10 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView} from 'react-native';
 
-import Home from './Home';
+import Browser from './Browser';
 import MyMusic from './mymusic';
 import Genre from './Genre';
+import Home from './Home';
 
 import { MaterialIcons } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -11,7 +12,6 @@ import { Foundation } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 import artists from './artists';
-
 const Tab = createBottomTabNavigator();
 
 function Tabs({navigation}) {
@@ -29,8 +29,8 @@ function Tabs({navigation}) {
           },
       }}
      >
-      <Tab.Screen name="Browser" component={Home} 
-      options={{ tabBarLabel:('Home'), headerShown: false , tabBarIcon: ({color}) => 
+      <Tab.Screen name="Browser" component={Browser} 
+      options={{ tabBarLabel:('Browser'), headerShown: false , tabBarIcon: ({color}) => 
       <MaterialIcons name="library-music" size={30} color="white" /> }} />
       <Tab.Screen name="Artists" component={artists} 
       options={{ tabBarLabel:('Artists'), headerShown: false , tabBarIcon: ({color}) => 
