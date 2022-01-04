@@ -9,9 +9,9 @@ import Intro3 from './screens/intro3';
 
 import Tabs from './screens/Tabs';
 
-import MyMusic from './screens/mymusic';
+import SignUp from './screens/SignUp';
+import SignIn from './screens/SignIn';
 
-import artists from './screens/artists';
 
 
 const Stack = createNativeStackNavigator();
@@ -29,12 +29,13 @@ export default function App() {
       <Stack.Screen name="Intro3" component={Intro3} options={{
         headerShown: false
       }} />
-
-      <Stack.Screen name="Tabs" component={Tabs} options={{
+       <Stack.Screen name="SignIn" component={SignIn} options={{
         headerShown: false
       }} />
-
-      <Stack.Screen name="Artists" component={artists} options={{
+       <Stack.Screen name="SignUp" component={SignUp} options={{
+        headerShown: false
+      }} />
+      <Stack.Screen name="Tabs" component={Tabs} options={{
         headerShown: false
       }} />
       </Stack.Navigator>
