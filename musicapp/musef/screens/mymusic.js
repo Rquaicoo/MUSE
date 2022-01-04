@@ -22,7 +22,7 @@ export default function MyMusic({ navigation }) {
             </View>
         </View>
 
-        <View style={{marginLeft: "5%", marginTop: "10%"}}>
+        <View style={{marginLeft: "6%", marginTop: "10%"}}>
           <Text style={{color: "#3f3f4f"}}>Your downloads</Text>
             <View style={{marginTop: 30, flexDirection: "row"}}>
 
@@ -68,7 +68,7 @@ export default function MyMusic({ navigation }) {
             </View>
         </View>
 
-        <View  style={{marginLeft: "5%", marginTop: "7%"}}>
+        <View  style={{marginLeft: "5%", marginTop: "15%"}}>
           <Text style={{color: "#3f3f4f", marginBottom: 10}}>Your activities</Text>
           <TouchableOpacity  style={{display: "flex", flexDirection: "row", marginTop: 20 }}>
           <MaterialIcons name="playlist-add" size={30} color="#343547" />
@@ -77,9 +77,9 @@ export default function MyMusic({ navigation }) {
           </TouchableOpacity>
           <View style={{
       backgroundColor: "#343547",
-       width: "95%",
+       width: "90%",
         height: 1, 
-        marginLeft: "5%",
+        marginLeft: "1%",
        marginTop: 9
     }}></View>
 
@@ -90,9 +90,9 @@ export default function MyMusic({ navigation }) {
           </TouchableOpacity>
           <View style={{
       backgroundColor: "#343547",
-       width: "95%",
+       width: "90%",
         height: 1,
-        marginLeft: "5%",
+        marginLeft: "1%",
        marginTop: 9
     }}  ></View>
 
@@ -110,7 +110,8 @@ export default function MyMusic({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#151723",
-    height: "100%"
+    height: "100%",
+
   },
   image: {
       height: 35,

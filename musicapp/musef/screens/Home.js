@@ -17,19 +17,19 @@ export default function Home ({navigation}) {
    return (
        
    
-            <ScrollView>
-                <View style={styles.container}>
+            <ScrollView style={styles.container}  showsVerticalScrollIndicator={false} > 
+                <View >
                         <Text style={{fontWeight:'bold', fontSize:35, alignSelf:'center',color:'white',marginTop:35,}}> muse.</Text>
                     <TouchableOpacity style={styles.header}>
                     <View style={{flexDirection:'row', justifyContent:'center'}}>
                     <TouchableOpacity style={styles.headercontent} onPress={() => {(navigation.navigate("Tabs"))}}>
-                        <Text style={{color:'white', fontSize:22,textAlign:'center',fontWeight: 'bold', paddingTop:15,}}> All</Text>
+                        <Text style={{color:'white', fontSize:20,fontWeight: 'bold', paddingTop:13, paddingLeft:37,}}> All</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.headercontent}>
-                    <Text style={{color:'white', fontSize:22,textAlign:'center',fontWeight: 'bold', paddingTop:15,}}> New</Text>
+                    <Text style={{color:'white', fontSize:20,fontWeight: 'bold', paddingTop:13, paddingLeft:30,}}> New</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.headercontent}>
-                    <Text style={{color:'white', fontSize:22,textAlign:'center',fontWeight: 'bold', paddingTop:15,}}> Trending</Text>
+                    <Text style={{color:'white', fontSize:20,fontWeight: 'bold', paddingTop:13, paddingLeft:10,}}> Trending</Text>
                     </TouchableOpacity>
                 </View>
                     
@@ -130,13 +130,13 @@ const styles = StyleSheet.create({
 
     container: {
     backgroundColor: '#151723',
-    height: "100%"
+    height: "100%",
 },
 
     header: {
         flexDirection: 'row',
         backgroundColor: '#1e202c',
-        height: "9%",
+        height: "7%",
         width: "90%",
         borderRadius:15,
         marginTop: "2%",
@@ -151,15 +151,15 @@ const styles = StyleSheet.create({
         alignSelf: "center",
     },
     mainimage: {
-        height:250,
-        width:250,
+        height:280,
+        width:280,
         borderRadius: 25,
     },
 
     smallimage: {
-        height:115,
-        width:115,
-        borderRadius: 10,
+        height:125,
+        width:125,
+        borderRadius: 20,
     },
 
     music: {
@@ -167,8 +167,8 @@ const styles = StyleSheet.create({
     },
 
     musiccontent: {
-        height:250,
-        width:250,
+        height:280,
+        width:280,
         backgroundColor: '#1e202c',
         marginLeft: 20,
         marginTop: 20,
@@ -214,11 +214,12 @@ const styles = StyleSheet.create({
        borderWidth: 5,
     },
     musiccontentsmall:{
-        height:115,
-        width:115,
-        borderRadius: 10,
+        height:125,
+        width:125,
+        borderRadius: 20,
         marginLeft: 20,
         marginTop: 20,
+        marginBottom: 5,
         backgroundColor: '#1e202c',
        
     },
