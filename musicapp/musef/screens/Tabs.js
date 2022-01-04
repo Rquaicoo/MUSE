@@ -3,6 +3,8 @@ import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView} from 'reac
 
 import Home from './Home';
 import MyMusic from './mymusic';
+import Genre from './Genre';
+
 import { MaterialIcons } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Foundation } from '@expo/vector-icons';
@@ -12,12 +14,12 @@ import artists from './artists';
 
 const Tab = createBottomTabNavigator();
 
-function Tabs() {
+function Tabs({navigation}) {
   return (
     <Tab.Navigator 
     
     screenOptions={{
-        activeTintColor: '#ffc107',
+        activeTintColor: '#343547',
         inactiveTintColor: '#bdbdbd',
         showLabel: false,
           tabBarStyle: {
@@ -39,7 +41,7 @@ function Tabs() {
         <Foundation name="home" size={34} color="white" style={{ paddingTop:17,paddingLeft:23,}} />
         </TouchableOpacity>
     }}/>
-      <Tab.Screen name="Genres" component={Home} 
+      <Tab.Screen name="Genres" component={Genre} 
       options={{ tabBarLabel:('Genres'), headerShown: false , tabBarIcon: ({color}) => 
       <Feather name="music" size={30} color="white" /> }}/>
       <Tab.Screen name="My Music" component={MyMusic} 

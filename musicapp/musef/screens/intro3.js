@@ -28,7 +28,7 @@ export default function Intro3({ navigation }) {
 
         <AntDesign name="right" size={24} color="white" />
 
-        <TouchableOpacity style={styles.next} onPress={() => {(navigation.navigate("Tabs"))}}>
+        <TouchableOpacity style={styles.next} onPress={() => {(navigation.navigate("SignIn"))}}>
         <Text style={{color: "#ffffff", fontWeight: "bold"}}>Get Started</Text>
         </TouchableOpacity>
       </View>
