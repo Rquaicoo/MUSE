@@ -131,9 +131,9 @@ export default function artists({ navigation }) {
     <Text style={{fontSize:18, color:'white', paddingLeft:10, }}> Doja Cat</Text>
     </View>
    
-    <Ionicons name="ios-play-skip-back-outline" size={30} color="white" style={{ paddingTop:15,paddingLeft:40}}/>
-    <FontAwesome name="play-circle" size={50} color="white"  style={{paddingTop:5,paddingLeft:20}} />
-    <Ionicons name="ios-play-skip-forward-outline" size={30} color="white" style={{ paddingTop:15,paddingLeft:20}}/>
+    <Ionicons name="ios-play-skip-back-outline" size={30} color="white" style={{ paddingTop:10,paddingLeft:40}}/>
+    <FontAwesome name="play-circle" size={50} color="white"  style={{paddingTop:1,paddingLeft:20}} />
+    <Ionicons name="ios-play-skip-forward-outline" size={30} color="white" style={{ paddingTop:10,paddingLeft:20}}/>
     </View>
     </TouchableWithoutFeedback>
     
@@ -172,17 +172,18 @@ const styles = StyleSheet.create({
     bottom: 0,
     right: 0,
     left: 0,
-    height: "10%",
+    height: "9%",
     backgroundColor:'#313341',
     opacity:0.9,
-    borderRadius:30,
+   borderTopLeftRadius:30,
+   borderTopRightRadius:30,
     marginBottom:'24%',
+    
   },
   modaltext: {
      fontSize:23,
      fontWeight: 'bold', 
      color:'white',
-     paddingTop:5,
      paddingLeft:9,
   },
 
@@ -224,13 +225,13 @@ const styles = StyleSheet.create({
   },
 
   mainimage: {
-    height:480,
+    height:450,
     width:390,
     borderRadius: 40,
     overflow: 'hidden',
 },
 musiccontent: {
-    height:480,
+    height:450,
     width:390,
     backgroundColor: '#1e202c',
     marginLeft: 20,
