@@ -1,5 +1,5 @@
 import {React, useState } from 'react';
-import { StyleSheet, Text, View,Image, TouchableOpacity, StatusBar, TextInput } from 'react-native';
+import { StyleSheet, Text, View,Image, TouchableOpacity, StatusBar, TextInput, ScrollView } from 'react-native';
 import {LinearGradient} from 'expo-linear-gradient';
 import { AntDesign, Ionicons, MaterialIcons } from '@expo/vector-icons';
 
@@ -7,73 +7,105 @@ import { AntDesign, Ionicons, MaterialIcons } from '@expo/vector-icons';
 
 export default function SignUp ({navigation}) {
 
-    const [name, setText] = useState('')
+    const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
    return (
-            <View style={{  backgroundColor: '#151723', height: "100%", justifyContent: "center", }}>
-                <View style={styles.container}>
-                        <Text style={{fontWeight:'bold', fontSize:35, alignSelf:'center',color:'white', marginBottom: 50,marginTop: "60%"}}> muse.</Text>
-                </View>
+        <ScrollView style={{  backgroundColor: '#151723', height: "100%", }}>
+        <View style={styles.container}>
+            <TouchableOpacity style={{borderColor: "#ffffff", borderWidth: 1, padding: "4%", borderRadius: 10, marginRight: 20}} onPress={() => navigation.navigate("SignIn")}>
+                <Ionicons name="chevron-back-sharp" size={24} color="white" />
+            </TouchableOpacity>
+                <Text style={{fontWeight:'bold', fontSize:30, color: "#fdfdfd", marginTop: "2%"}}>Sign Up</Text>
+        </View>
 
+        <View style={{marginLeft: "5%", marginTop: "20%"}}>
+            <Text style={{color: "white", }}>
+                Sign up with one of the following options
+            </Text>
 
-                <View>
-                <View style={{flexDirection: "row",alignItems: "center", justifyContent: "center",}}>
-                    <Ionicons name="person-outline" size={24} color="white" style={{position: "absolute", left: "13%", bottom: "25%"}}/>
-                        <TextInput style={{height: 50, borderColor: "#ffffff", borderWidth: 1,borderRadius: 15, paddingLeft: 10, marginTop: 10, color: "#ffffff", width: "80%",textAlign: "center"}}
+            <View style={{display: "flex", flexDirection: "row"}}>
+                <TouchableOpacity style={styles.iconContainer}>
+                <AntDesign name="google" size={24} color="white" />
+                </TouchableOpacity>
+
+                <TouchableOpacity style={styles.iconContainer}>
+                <AntDesign name="apple-o" size={24} color="white" />
+                </TouchableOpacity>
+            </View>
+        </View>
+        
+        
+        <View style={{marginLeft: "5%", marginTop: "6%"}}>
+                <Text  style={{fontWeight:'bold', fontSize:15, color: "#fdfdfd", }}>Name</Text>
+                <View style={{flexDirection: "row",}}>
+                        <TextInput style={{height: 60, borderColor: "#ffffff", borderWidth: 1,borderRadius: 15, paddingLeft: 10, marginTop: 8, color: "#ffffff", width: "95%",textAlign: "center", fontSize: 17}}
                         placeholder="Enter your name" 
-                        onChangeText={name => setText(name)}
+                        onChangeText={name => setName(name)}
                         placeholderTextColor="#ffffff"
-                        maxLength={30}
                         defaultValue={name}
                         />
-                        
                 </View>
+            <Text  style={{fontWeight:'bold', fontSize:15, color: "#fdfdfd", marginTop: "6%" }}>Email</Text>
+            <View style={{flexDirection: "row",}}>
+                    <TextInput style={{height: 60, borderColor: "#ffffff", borderWidth: 1,borderRadius: 15, paddingLeft: 10, marginTop: 8, color: "#ffffff", width: "95%",textAlign: "center", fontSize: 17}}
+                    placeholder="Enter your email" 
+                    onChangeText={email => setEmail(email)}
+                    placeholderTextColor="#ffffff"
+                    defaultValue={email}
+                    />
+            </View>
+            
+            <Text  style={{fontWeight:'bold', fontSize:15, color: "#fdfdfd",  marginTop: "6%"}}>Password</Text>
+            <View style={{flexDirection: "row", }}>
+                    <TextInput style={{height: 60, borderColor: "#ffffff", borderWidth: 1,borderRadius: 15, paddingLeft: 10, marginTop: 8, color: "#ffffff", width: "95%",textAlign: "center", fontSize: 17 }}
+                    placeholder="Enter your password" 
+                    onChangeText={password => setPassword(password)}
+                    placeholderTextColor="#ffffff"
+                    secureTextEntry={true}
+                    defaultValue={password}
+                    />
+                    <AntDesign name="eyeo" size={24} color="white" style={{right: "60%", top: "6%"}} onPress={() => this.passwordState=false} />
+            </View>
+        </View>
 
-                <View style={{flexDirection: "row",alignItems: "center", justifyContent: "center",}}>
-                <MaterialIcons name="email" size={24} color="white" style={{position: "absolute", left: "13%", bottom: "25%"}}/>
-                        <TextInput style={{height: 50, borderColor: "#ffffff", borderWidth: 1,borderRadius: 15, paddingLeft: 10, marginTop: 20, color: "#ffffff", width: "80%",textAlign: "center"}}
-                        placeholder="Enter your email" 
-                        onChangeText={email => setEmail(email)}
-                        placeholderTextColor="#ffffff"
-                        defaultValue={email}
-                        />
-                        
-                </View>
+        <TouchableOpacity style={{ marginTop: "8%",  width: "90%", alignSelf: "center", }} onPress={() => navigation.navigate("Tabs")}>
+        <LinearGradient
+        colors={['#8a3f82', '#bb4575', '#f65e69', '#f96e69']}
+        start={{x: 0, y: 0.5}}
+        end={{x: 1, y: 1}}
+        style={{borderRadius: 15}}> 
+            <Text style={{fontWeight:'bold', fontSize:20, alignSelf:'center',color:'white', padding: "4%",}} >Sign Up</Text>
+           
+            </LinearGradient>
+            </TouchableOpacity>
 
-                <View style={{flexDirection: "row",alignItems: "center", justifyContent: "center", alignContent: "center"}}>
-                <AntDesign name="lock1" size={24} color="white" style={{position: "absolute", left: "13%", bottom: "25%"}}/>
-                        <TextInput style={{height: 50, borderColor: "#ffffff", borderWidth: 1,borderRadius: 15, paddingLeft: 10, marginTop: 20, color: "#ffffff", width: "80%",textAlign: "center", marginLeft: "7%"}}
-                        placeholder="Set password" 
-                        onChangeText={password => setPassword(password)}
-                        placeholderTextColor="#ffffff"
-                        secureTextEntry={true}
-                        defaultValue={password}
-                        />
-                        <AntDesign name="eyeo" size={24} color="white" style={{right: "60%", top: "2%"}} />
-                </View>
-                </View>
-
-                <TouchableOpacity style={{ marginTop: "30%",  width: "75%", alignSelf: "center", }} onPress={() => navigation.navigate("Tabs")}>
-                <LinearGradient
-                colors={['#8a3f82', '#bb4575', '#f65e69', '#f96e69']}
-                start={{x: 0, y: 0.5}}
-                end={{x: 1, y: 1}}
-                style={{borderRadius: 5}}> 
-                    <Text style={{fontWeight:'bold', fontSize:20, alignSelf:'center',color:'white', padding: "3%",}} >Sign Up</Text>
-                   
-                    </LinearGradient>
-                    </TouchableOpacity>
-            </View>       
-   );
+            <Text style={{fontWeight:'bold', fontSize:15, alignSelf:'center',color:'white', marginTop: 13}} onPress={() => navigation.navigate("SignIn")}> Already have an account? Sign in</Text>
+    </ScrollView>       
+);
 }
 
 
 const styles = StyleSheet.create({
 
-    container: {
-    alignContent: "center",
-    marginTop: -40,
+container: {
+display: "flex",
+flexDirection: "row",
+marginTop: "20%",
+marginLeft: "5%"
 },
+
+iconContainer: {
+borderColor: "#1f1f1f",
+borderWidth: 2,
+borderRadius: 10,
+paddingLeft: "20%",
+paddingRight: "20%",
+paddingTop: "4%",
+paddingBottom: "4%",
+marginTop: "5%",
+marginRight: "3%",
+backgroundColor: "#151723",
+}
 });

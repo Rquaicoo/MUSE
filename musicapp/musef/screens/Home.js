@@ -9,7 +9,7 @@ import arthur from '../assets/arthur.jpg';
 import kanye from '../assets/kanye.jpeg';
 import adele from '../assets/adele.jpg';
 
-export default function artists({ navigation }) {
+export default function Home({ navigation }) {
   return (
     <ScrollView style={styles.container}>
     <View >
@@ -118,7 +118,7 @@ export default function artists({ navigation }) {
         </View>
 
 
-    <Modal transparent={true}  >
+    
     <View style={styles.modal}>
     <TouchableWithoutFeedback>
     <View style={{flexDirection:'row',padding:20,}}>
@@ -138,7 +138,7 @@ export default function artists({ navigation }) {
     </TouchableWithoutFeedback>
     
     </View>
-    </Modal>
+    
     
     </View>
     </ScrollView>
