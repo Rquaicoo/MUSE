@@ -1,5 +1,5 @@
 import {React, useState } from 'react';
-import { StyleSheet, Text, View,Image, TouchableOpacity, StatusBar, TextInput } from 'react-native';
+import { StyleSheet, Text, View,Image, TouchableOpacity, StatusBar, TextInput, ScrollView } from 'react-native';
 import {LinearGradient} from 'expo-linear-gradient';
 import { AntDesign, Ionicons, MaterialIcons } from '@expo/vector-icons';
 
@@ -22,50 +22,66 @@ export default function SignIn ({navigation}) {
     }
 
    return (
-            <View style={{  backgroundColor: '#151723', height: "100%", justifyContent: "center",}}>
+            <ScrollView style={{  backgroundColor: '#151723', height: "100%", }}>
                 <View style={styles.container}>
-                        <Text style={{fontWeight:'bold', fontSize:40, alignSelf:'center',color:'white', marginBottom: 50,  marginTop: "60%"}}> muse.</Text>
+                    <TouchableOpacity style={{borderColor: "#ffffff", borderWidth: 1, padding: "4%", borderRadius: 10, marginRight: 20}} onPress={() => navigation.navigate("Intro3")}>
+                        <Ionicons name="chevron-back-sharp" size={24} color="white" />
+                    </TouchableOpacity>
+                        <Text style={{fontWeight:'bold', fontSize:30, color: "#fdfdfd", marginTop: "2%"}}>Log In</Text>
                 </View>
 
+                <View style={{marginLeft: "5%", marginTop: "20%"}}>
+                    <Text style={{color: "white", }}>
+                        Login with one of the following options
+                    </Text>
 
-                <View>
-                <View style={{flexDirection: "row",alignItems: "center", justifyContent: "center",}}>
-                <MaterialIcons name="email" size={24} color="white" style={{position: "absolute", left: "13%", bottom: "25%"}}/>
-                        <TextInput style={{height: 50, borderColor: "#ffffff", borderWidth: 1,borderRadius: 15, paddingLeft: 10, marginTop: 20, color: "#ffffff", width: "80%",textAlign: "center"}}
-                        placeholder="Enter your email" 
-                        onChangeText={email => setEmail(email)}
-                        placeholderTextColor="#ffffff"
-                        defaultValue={email}
-                        />
-                        
+                    <View style={{display: "flex", flexDirection: "row"}}>
+                        <TouchableOpacity style={styles.iconContainer}>
+                        <AntDesign name="google" size={24} color="white" />
+                        </TouchableOpacity>
+
+                        <TouchableOpacity style={styles.iconContainer}>
+                        <AntDesign name="apple-o" size={24} color="white" />
+                        </TouchableOpacity>
+                    </View>
+                </View>
+                <View style={{marginLeft: "5%", marginTop: "6%"}}>
+                    <Text  style={{fontWeight:'bold', fontSize:15, color: "#fdfdfd", }}>Email</Text>
+                    <View style={{flexDirection: "row",}}>
+                            <TextInput style={{height: 60, borderColor: "#ffffff", borderWidth: 1,borderRadius: 15, paddingLeft: 10, marginTop: 8, color: "#ffffff", width: "95%",textAlign: "center", fontSize: 17}}
+                            placeholder="Enter your email" 
+                            onChangeText={email => setEmail(email)}
+                            placeholderTextColor="#ffffff"
+                            defaultValue={email}
+                            />
+                    </View>
+                    
+                    <Text  style={{fontWeight:'bold', fontSize:15, color: "#fdfdfd",  marginTop: "6%"}}>Password</Text>
+                    <View style={{flexDirection: "row", }}>
+                            <TextInput style={{height: 60, borderColor: "#ffffff", borderWidth: 1,borderRadius: 15, paddingLeft: 10, marginTop: 8, color: "#ffffff", width: "95%",textAlign: "center", fontSize: 17 }}
+                            placeholder="Enter your password" 
+                            onChangeText={password => setPassword(password)}
+                            placeholderTextColor="#ffffff"
+                            secureTextEntry={true}
+                            defaultValue={password}
+                            />
+                            <AntDesign name="eyeo" size={24} color="white" style={{right: "60%", top: "6%"}} onPress={() => this.passwordState=false} />
+                    </View>
                 </View>
 
-                <View style={{flexDirection: "row",alignItems: "center", justifyContent: "center", alignContent: "center"}}>
-                <AntDesign name="lock1" size={24} color="white" style={{position: "absolute", left: "13%", bottom: "25%"}}/>
-                        <TextInput style={{height: 50, borderColor: "#ffffff", borderWidth: 1,borderRadius: 15, paddingLeft: 10, marginTop: 20, color: "#ffffff", width: "80%",textAlign: "center", marginLeft: "7%"}}
-                        placeholder="Enter your password" 
-                        onChangeText={password => setPassword(password)}
-                        placeholderTextColor="#ffffff"
-                        secureTextEntry={true}
-                        defaultValue={password}
-                        />
-                        <AntDesign name="eyeo" size={24} color="white" style={{right: "60%", top: "2%"}} onPress={() => this.passwordState=false} />
-                </View>
-                </View>
-
-                <TouchableOpacity style={{ marginTop: "23%",  width: "75%", alignSelf: "center", }} onPress={() => navigation.navigate("Tabs")}>
+                <TouchableOpacity style={{ marginTop: "8%",  width: "90%", alignSelf: "center", }} onPress={() => navigation.navigate("Tabs")}>
                 <LinearGradient
                 colors={['#8a3f82', '#bb4575', '#f65e69', '#f96e69']}
                 start={{x: 0, y: 0.5}}
                 end={{x: 1, y: 1}}
-                style={{borderRadius: 5}}> 
-                    <Text style={{fontWeight:'bold', fontSize:20, alignSelf:'center',color:'white', padding: "3%",}} >Sign In</Text>
+                style={{borderRadius: 15}}> 
+                    <Text style={{fontWeight:'bold', fontSize:20, alignSelf:'center',color:'white', padding: "4%",}} >Sign In</Text>
                    
                     </LinearGradient>
                     </TouchableOpacity>
 
-                    <Text style={{fontWeight:'bold', fontSize:15, alignSelf:'center',color:'white', marginTop: 50}} onPress={() => navigation.navigate("SignUp")}> Don't have an account? Tap here</Text>
-            </View>       
+                    <Text style={{fontWeight:'bold', fontSize:15, alignSelf:'center',color:'white', marginTop: 13}} onPress={() => navigation.navigate("SignUp")}> Don't have an account? Sign up</Text>
+            </ScrollView>       
    );
 }
 
@@ -73,7 +89,22 @@ export default function SignIn ({navigation}) {
 const styles = StyleSheet.create({
 
     container: {
-    alignContent: "center",
-    marginTop: -40
+    display: "flex",
+    flexDirection: "row",
+    marginTop: "20%",
+    marginLeft: "5%"
 },
+
+iconContainer: {
+    borderColor: "#1f1f1f",
+    borderWidth: 2,
+    borderRadius: 10,
+    paddingLeft: "20%",
+    paddingRight: "20%",
+    paddingTop: "4%",
+    paddingBottom: "4%",
+    marginTop: "5%",
+    marginRight: "3%",
+    backgroundColor: "#151723",
+}
 });
