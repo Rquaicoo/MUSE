@@ -5,7 +5,7 @@ import { AntDesign, Feather } from '@expo/vector-icons';
 
 export default function Genre({navigation}) {
    return (
-            <ScrollView style={styles.container}>
+            <ScrollView style={styles.container} showsVerticalScrollIndicator={false} >
                     <View >
                         <View  style={styles.headerContainer}>
                             <View>
@@ -46,14 +46,14 @@ export default function Genre({navigation}) {
                                 <TouchableOpacity style={styles.tags}>
                                     <Text style={styles.tagText}>Sad</Text>
                                 </TouchableOpacity>
-                                <TouchableOpacity style={styles.tags}>
+                                <TouchableOpacity style={styles.tagslong}>
                                     <Text style={styles.tagText}>Love</Text>
                                 </TouchableOpacity>
                             </View>
 
-                            <View style={{marginLeft: -10, flexDirection: "row", marginTop: "2%"}}>
-                                <TouchableOpacity style={styles.tags}>
-                                    <Text style={styles.tagText}>Cool</Text>
+                            <View style={{marginLeft: -10, flexDirection: "row", marginTop: "3%"}}>
+                                <TouchableOpacity style={styles.tagslong}>
+                                    <Text style={styles.tagText}>Film Movie</Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity style={styles.tags}>
                                     <Text style={styles.tagText}>Relax</Text>
@@ -62,9 +62,12 @@ export default function Genre({navigation}) {
                                     <Text style={styles.tagText}>Dance</Text>
                                 </TouchableOpacity>
                             </View>
-                            <View style={{marginLeft: "32%", flexDirection: "row", marginTop: "2%"}}>
+                            <View style={{flexDirection: "row", marginTop: "3%"}}>
                                 <TouchableOpacity style={styles.tags}>
-                                    <Text style={styles.tagText}>Film Movie</Text>
+                                    <Text style={styles.tagText}>Cool</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={styles.tagslong}>
+                                    <Text style={styles.tagText}>Orchestra</Text>
                                 </TouchableOpacity>
                             </View>
                         </View>
@@ -142,7 +145,8 @@ export default function Genre({navigation}) {
 
 const styles = StyleSheet.create({
     container: { backgroundColor: '#151723',
-    height: "100%"
+    height: "100%",
+    paddingLeft: "1%",
     },
   image: {
       height: 35,
@@ -166,7 +170,7 @@ const styles = StyleSheet.create({
     contentImages: {
         display: "flex",
         height: 100,
-        width: "95%",
+        width: "97%",
         resizeMode: "cover",
         alignSelf: "center",
         marginTop: 20,
@@ -196,7 +200,7 @@ const styles = StyleSheet.create({
         backgroundColor: "rgba(0,0,0,0.5)", 
         height: "35%", 
         width: "10%", 
-        marginLeft: "50%", 
+        marginLeft: "60%", 
         marginTop: "10%", 
         alignItems: "center", 
         justifyContent: "center", 
@@ -206,19 +210,31 @@ const styles = StyleSheet.create({
     },
     tags: {
         backgroundColor: "#343547", 
-        height: 20, 
-        width: 80, 
+        height: 45, 
+        width: 100, 
         borderRadius: 20, 
         justifyContent: "center", 
         alignContent: "center", 
-        marginLeft: "10%"
+        marginLeft: "5%",
+
     },
+    tagslong: {
+        backgroundColor: "#343547", 
+        height: 45, 
+        width: 145, 
+        borderRadius: 20, 
+        justifyContent: "center", 
+        alignContent: "center", 
+        marginLeft: "5%",
+    },
+
     tagText: {
-        fontSize:15,
+        fontSize:20,
         color:'white', 
-        fontWeight: "100", 
-        fontSize: 13, 
+        fontWeight: "bold", 
+        fontSize: 17, 
         alignSelf: "center" 
+
     },
 
 });
