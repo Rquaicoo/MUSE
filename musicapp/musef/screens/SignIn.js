@@ -10,12 +10,21 @@ export default function SignIn ({navigation}) {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
-    let passwordState = true
+    function showPassword() {
+        let passwordState = true
+        if (passwordState==true) {
+            passwordState = false
+        } else {
+            passwordState = true
+        }
+
+        return passwordState
+    }
 
    return (
             <View style={{  backgroundColor: '#151723', height: "100%", justifyContent: "center",}}>
                 <View style={styles.container}>
-                        <Text style={{fontWeight:'bold', fontSize:35, alignSelf:'center',color:'white', marginBottom: 50}}> muse.</Text>
+                        <Text style={{fontWeight:'bold', fontSize:40, alignSelf:'center',color:'white', marginBottom: 50,  marginTop: "60%"}}> muse.</Text>
                 </View>
 
 
@@ -37,14 +46,14 @@ export default function SignIn ({navigation}) {
                         placeholder="Enter your password" 
                         onChangeText={password => setPassword(password)}
                         placeholderTextColor="#ffffff"
-                        secureTextEntry={passwordState}
+                        secureTextEntry={true}
                         defaultValue={password}
                         />
                         <AntDesign name="eyeo" size={24} color="white" style={{right: "60%", top: "2%"}} onPress={() => this.passwordState=false} />
                 </View>
                 </View>
 
-                <TouchableOpacity style={{ marginTop: 150,  width: "75%", alignSelf: "center", }} onPress={() => navigation.navigate("Tabs")}>
+                <TouchableOpacity style={{ marginTop: "23%",  width: "75%", alignSelf: "center", }} onPress={() => navigation.navigate("Tabs")}>
                 <LinearGradient
                 colors={['#8a3f82', '#bb4575', '#f65e69', '#f96e69']}
                 start={{x: 0, y: 0.5}}
@@ -65,5 +74,6 @@ const styles = StyleSheet.create({
 
     container: {
     alignContent: "center",
+    marginTop: -40
 },
 });

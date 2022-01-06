@@ -12,9 +12,9 @@ export default function SignUp ({navigation}) {
     const [password, setPassword] = useState('')
 
    return (
-            <View style={{  backgroundColor: '#151723', height: "100%", justifyContent: "center",}}>
+            <View style={{  backgroundColor: '#151723', height: "100%", justifyContent: "center", }}>
                 <View style={styles.container}>
-                        <Text style={{fontWeight:'bold', fontSize:35, alignSelf:'center',color:'white', marginBottom: 50}}> muse.</Text>
+                        <Text style={{fontWeight:'bold', fontSize:35, alignSelf:'center',color:'white', marginBottom: 50,marginTop: "60%"}}> muse.</Text>
                 </View>
 
 
@@ -55,7 +55,7 @@ export default function SignUp ({navigation}) {
                 </View>
                 </View>
 
-                <TouchableOpacity style={{ marginTop: 150,  width: "75%", alignSelf: "center", }} onPress={() => navigation.navigate("Tabs")}>
+                <TouchableOpacity style={{ marginTop: "30%",  width: "75%", alignSelf: "center", }} onPress={() => navigation.navigate("Tabs")}>
                 <LinearGradient
                 colors={['#8a3f82', '#bb4575', '#f65e69', '#f96e69']}
                 start={{x: 0, y: 0.5}}
@@ -74,5 +74,6 @@ const styles = StyleSheet.create({
 
     container: {
     alignContent: "center",
+    marginTop: -40,
 },
 });
