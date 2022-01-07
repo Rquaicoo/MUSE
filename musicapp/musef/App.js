@@ -11,6 +11,7 @@ import Tabs from './screens/Tabs';
 
 import SignUp from './screens/SignUp';
 import SignIn from './screens/SignIn';
+import Musicplayer from './screens/Musicplayer';
 
 
 
@@ -36,6 +37,9 @@ export default function App() {
         headerShown: false
       }} />
       <Stack.Screen name="Tabs" component={Tabs} options={{
+        headerShown: false
+      }} />
+      <Stack.Screen name="Musicplayer" component={Musicplayer} options={{
         headerShown: false
       }} />
       </Stack.Navigator>

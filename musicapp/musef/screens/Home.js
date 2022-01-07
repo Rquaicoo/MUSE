@@ -13,14 +13,13 @@ export default function Home({ navigation }) {
   return (
     <View style={styles.container}>
     <View style={{flex: 1}}>
-      
+      {/* Title */}
         <View  style={styles.headerContainer}>
             <View>
-                
                 <Text style={styles.headerText}>muse.</Text>
             </View>
             
-            
+            {/* Profile */}
             <View style={{marginLeft: "42%", display: "flex", flexDirection: "row", alignItems: "center"}}>
                 <TouchableOpacity style={{borderColor: "#343547", borderWidth: 1, alignContent: "center", justifyContent: "center", padding: 8, borderRadius: 20}}>
                     <Octicons name="radio-tower" size={25} color="white" />
@@ -40,7 +39,7 @@ export default function Home({ navigation }) {
                     />  
                     <Octicons name="settings" size={26} color="white" style={{paddingTop:17, paddingLeft:10,}}/>
                    </View>  
-                   </TouchableOpacity>
+             </TouchableOpacity>
 
         <ScrollView style={{marginBottom: "20%"}}>
         {/* Artist Image */}
@@ -120,9 +119,9 @@ export default function Home({ navigation }) {
         </View>
     </ScrollView>
       
-    
+    {/* Music Player */}
     <View style={styles.modal}>
-    <TouchableWithoutFeedback>
+    <TouchableWithoutFeedback  onPress={() => navigation.navigate("Musicplayer")} >
     <View style={{flexDirection:'row',padding:20,}}>
     <Feather name="x" size={24} color="white"  style={{ paddingTop:15,}}/>
             <View>
@@ -172,13 +171,12 @@ const styles = StyleSheet.create({
 
   modal: {
     position: "absolute",
-    height: "14%",
-    backgroundColor:'#313341',
-    opacity:0.9,
+    height: "11%",
+    backgroundColor:'#fd62ab',
    borderTopLeftRadius:30,
    borderTopRightRadius:30,
-    marginBottom:'24%',
-    top: "86%",
+    marginBottom:'5%',
+    top: "90%",
     width: "100%",
     
   },
