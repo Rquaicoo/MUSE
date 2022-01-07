@@ -11,6 +11,8 @@ export default function SignUp ({navigation}) {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
+    const [secure, setSecure] = useState(true)
+
    return (
         <ScrollView style={{  backgroundColor: '#151723', height: "100%", }}>
         <View style={styles.container}>
@@ -63,10 +65,10 @@ export default function SignUp ({navigation}) {
                     placeholder="Enter your password" 
                     onChangeText={password => setPassword(password)}
                     placeholderTextColor="#ffffff"
-                    secureTextEntry={true}
+                    secureTextEntry={secure}
                     defaultValue={password}
                     />
-                    <AntDesign name="eyeo" size={24} color="white" style={{right: "60%", top: "6%"}} onPress={() => this.passwordState=false} />
+                    <AntDesign name="eyeo" size={24} color="white" style={{right: "60%", top: "6%"}} onPress ={() => setSecure(!secure)} />
             </View>
         </View>
 
@@ -92,7 +94,7 @@ const styles = StyleSheet.create({
 container: {
 display: "flex",
 flexDirection: "row",
-marginTop: "20%",
+marginTop: "12%",
 marginLeft: "5%"
 },
 

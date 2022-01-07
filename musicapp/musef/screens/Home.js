@@ -11,13 +11,15 @@ import adele from '../assets/adele.jpg';
 
 export default function Home({ navigation }) {
   return (
-    <ScrollView style={styles.container}>
-    <View >
+    <View style={styles.container}>
+    <View style={{flex: 1}}>
+      
         <View  style={styles.headerContainer}>
             <View>
                 
                 <Text style={styles.headerText}>muse.</Text>
             </View>
+            
             
             <View style={{marginLeft: "42%", display: "flex", flexDirection: "row", alignItems: "center"}}>
                 <TouchableOpacity style={{borderColor: "#343547", borderWidth: 1, alignContent: "center", justifyContent: "center", padding: 8, borderRadius: 20}}>
@@ -40,7 +42,7 @@ export default function Home({ navigation }) {
                    </View>  
                    </TouchableOpacity>
 
-
+        <ScrollView style={{marginBottom: "20%"}}>
         {/* Artist Image */}
         <View style={{flexDirection:'row'}}>
             <TouchableOpacity style={styles.musiccontent}>
@@ -116,8 +118,8 @@ export default function Home({ navigation }) {
 
 
         </View>
-
-
+    </ScrollView>
+      
     
     <View style={styles.modal}>
     <TouchableWithoutFeedback>
@@ -141,7 +143,7 @@ export default function Home({ navigation }) {
     
     
     </View>
-    </ScrollView>
+    </View>
   );
 }
 
@@ -149,6 +151,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "#151723",
     height: "100%",
+    flex: 1.
 
   },
   image: {
@@ -169,15 +172,14 @@ const styles = StyleSheet.create({
 
   modal: {
     position: "absolute",
-    bottom: 0,
-    right: 0,
-    left: 0,
-    height: "9%",
+    height: "14%",
     backgroundColor:'#313341',
     opacity:0.9,
    borderTopLeftRadius:30,
    borderTopRightRadius:30,
     marginBottom:'24%',
+    top: "86%",
+    width: "100%",
     
   },
   modaltext: {
