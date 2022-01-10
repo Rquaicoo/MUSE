@@ -43,14 +43,14 @@ export default function Browser ({navigation}) {
                 <View>
                 <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
                     <View style={{flexDirection:'row'}}>
-                    <TouchableOpacity style={styles.musiccontent} onPress={() => navigation.navigate("Home")} >
+                    <TouchableOpacity style={styles.musiccontent}>
                     <Image source={sark} style={styles.mainimage}/>
                     </TouchableOpacity>
                     <View>
                     <TouchableOpacity style={styles.musiccontentsmall}>
                     <Image source={adele} style={styles.smallimage}/>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.musiccontentsmall}>
+                    <TouchableOpacity  onPress={() => navigation.navigate("Musicplayer")} style={styles.musiccontentsmall}>
                     <Image source={doja} style={styles.smallimage}/>
                     </TouchableOpacity>
                     </View>

@@ -32,18 +32,22 @@ function Tabs({navigation}) {
       <Tab.Screen name="Browser" component={Browser} 
       options={{ tabBarLabel:('Browser'), headerShown: false , tabBarIcon: ({color}) => 
       <MaterialIcons name="library-music" size={30} color="white" /> }} />
+
       <Tab.Screen name="Artists" component={artists} 
       options={{ tabBarLabel:('Artists'), headerShown: false , tabBarIcon: ({color}) => 
       <MaterialCommunityIcons name="account-music-outline" size={30} color="white" /> }}/>
+
       <Tab.Screen name="Home" component={Home} 
       options={{ tabBarLabel:() => {return null}, headerShown: false , tabBarIcon: ({color}) => 
         <TouchableOpacity  component={Home} style={{height:70, width:70, backgroundColor:'#343547', borderRadius:100, marginTop:10,}} onPress={() => navigation.navigate("Home")}>
         <Foundation name="home" size={34} color="white" style={{ paddingTop:17,paddingLeft:23,}} />
         </TouchableOpacity>
     }}/>
+
       <Tab.Screen name="Genres" component={Genre} 
       options={{ tabBarLabel:('Genres'), headerShown: false , tabBarIcon: ({color}) => 
       <Feather name="music" size={30} color="white" /> }}/>
+      
       <Tab.Screen name="My Music" component={MyMusic} 
       options={{ tabBarLabel:('My Music'), headerShown: false , tabBarIcon: ({color}) => 
       <Ionicons name="headset-outline" size={30} color="white" /> }} />
