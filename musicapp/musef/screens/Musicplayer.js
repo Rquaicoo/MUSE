@@ -1,4 +1,4 @@
-import {React} from 'react';
+import {React, useState} from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, TextInput, View, Image,Modal, TouchableOpacity, TouchableWithoutFeedback, ImageBackground,ScrollView} from 'react-native';
 import { Feather, Octicons, Ionicons,FontAwesome5, FontAwesome, MaterialCommunityIcons,MaterialIcons,  } from '@expo/vector-icons';
@@ -12,12 +12,14 @@ export default function Musicplayer ({navigation}) {
 
     return(
 
-        <View style={styles.container}>
+        <View 
+        style={styles.container}>
             <LinearGradient
         colors={['#ffafd4', '#fd62ab', '#c34e85']}
         start={{x: 1, y: 0}}
         end={{x: 1, y: 0.5}}
       >
+          <ScrollView showsVerticalScrollIndicator={false} >
                     <TouchableOpacity style={styles.albums}>
                     <Image source={doja} style={styles.albumimage3}/>
                     </TouchableOpacity>
@@ -26,7 +28,7 @@ export default function Musicplayer ({navigation}) {
          {/* Header */}
          <View style={styles.main}>
          <Ionicons name="play" size={20} color="white" style={{ paddingLeft:19,}}/>
-         <Text style={{fontSize:17,color:'white' , paddingTop:1, opacity:0.8}}>  12384 Plays</Text>
+         <Text style={{fontSize:17,color:'white' , paddingTop:1, opacity:0.8}}>  123,84 Plays</Text>
          </View>
         
         <View style={styles.main}>
@@ -43,8 +45,8 @@ export default function Musicplayer ({navigation}) {
         
         <Image source={require('../assets/wave.png')} style={{width:390, height:50, marginLeft:10, marginTop:15, opacity:0.8}} />
         <View style={styles.main}>
-        <Text style={{fontSize:20,color:'white' ,paddingLeft:10, paddingTop:10, fontWeight:'bold', opacity:0.7}}> 0:00</Text>
-        <Text style={{fontSize:20,color:'white' ,paddingLeft:'67%', paddingTop:10, fontWeight:'bold', opacity:0.7}}> 3:45</Text>
+        <Text style={{fontSize:15,color:'white' ,paddingLeft:10, paddingTop:10, fontWeight:'bold', opacity:0.7}}> 0:00</Text>
+        <Text style={{fontSize:15,color:'white' ,paddingLeft:'73%', paddingTop:10, fontWeight:'bold', opacity:0.7}}> 3:45</Text>
         </View>
 
         {/* PLay */}
@@ -62,7 +64,7 @@ export default function Musicplayer ({navigation}) {
         </View>
 
         <View style={styles.main1}>
-        <TouchableOpacity onPress={() => navigation.navigate("Home")}  style={{height:80, width:50, backgroundColor:'#8f1145', borderRadius:15,}}>
+        <TouchableOpacity onPress={() => navigation.navigate("Home")}  style={{height:50, width:50, backgroundColor:'#8f1145', borderRadius:15, marginBottom: 10,}}>
         <Feather name="chevrons-up" size={40} color="white"  style={{ paddingLeft:5, paddingTop:5}}/>
         </TouchableOpacity>
        
@@ -72,7 +74,7 @@ export default function Musicplayer ({navigation}) {
 
 
 
-
+        </ScrollView>
       </LinearGradient>             
         </View>
     );
