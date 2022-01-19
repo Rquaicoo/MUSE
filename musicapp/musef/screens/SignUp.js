@@ -1,13 +1,37 @@
 import {React, useState } from 'react';
-import { StyleSheet, Text, View,Image, TouchableOpacity, StatusBar, TextInput, ScrollView } from 'react-native';
+import { StyleSheet, Text, View,Image, TouchableOpacity, StatusBar, TextInput, ScrollView, ActionSheetIOS } from 'react-native';
 import {LinearGradient} from 'expo-linear-gradient';
 import { AntDesign, Ionicons, MaterialIcons } from '@expo/vector-icons';
+import axios from 'axios';
 
 
 
 export default function SignUp ({navigation}) {
 
-    const [name, setName] = useState('')
+    function handleRequest() {
+        const payload = {
+            name: {name},
+            email: {email},
+            password: {password}
+        }
+        console.log(payload)
+
+        axios
+            .post('http://127.0.0.1:8000/museb/auth/register/', payload)
+            .then(response => {
+                const { token, user} = response.data;
+                
+                console.log(token);
+                //set returned token as default authorization header
+                axios.defaults.headers.common.Authorization = 'Token ${token}';
+
+                //navigate to home screen
+                navigation.navigate("Tabs");
+            })
+            .catch(error => console.log(error));
+    }
+
+    const [username, setUsername] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
@@ -44,9 +68,9 @@ export default function SignUp ({navigation}) {
                 <View style={{flexDirection: "row",}}>
                         <TextInput style={{height: 60, borderColor: "#ffffff", borderWidth: 1,borderRadius: 15, paddingLeft: 10, marginTop: 8, color: "#ffffff", width: "95%",textAlign: "center", fontSize: 17}}
                         placeholder="Enter your name" 
-                        onChangeText={name => setName(name)}
+                        onChangeText={username => setUsername(username)}
                         placeholderTextColor="#ffffff"
-                        defaultValue={name}
+                        defaultValue={username}
                         />
                 </View>
             <Text  style={{fontWeight:'bold', fontSize:15, color: "#fdfdfd", marginTop: "6%" }}>Email</Text>
