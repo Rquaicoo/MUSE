@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class MuseConfig(AppConfig):
+class MusebConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'muse'
+    name = 'museb'
