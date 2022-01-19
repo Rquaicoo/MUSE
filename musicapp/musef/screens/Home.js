@@ -120,7 +120,8 @@ export default function Home({ navigation }) {
     </ScrollView>
       
     {/* Music Player */}
-    <View style={styles.modal}>
+    <View 
+    style={styles.modal}>
     <TouchableWithoutFeedback  onPress={() => navigation.navigate("Musicplayer")} >
     <View style={{flexDirection:'row',padding:20,}}>
     <Feather name="x" size={24} color="white"  style={{ paddingTop:15,}}/>
