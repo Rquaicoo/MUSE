@@ -12,12 +12,15 @@ from .serializers import *
 from allauth.socialaccount.providers.facebook.views import FacebookOAuth2Adapter
 from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
 from dj_rest_auth.registration.views import SocialLoginView
+
+from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
 
 class CreateUserView(CreateAPIView):
     serializer_class = CreateUserSerializer
     permission_classes = [AllowAny]
 
+    @csrf_exempt
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_seception= True)
