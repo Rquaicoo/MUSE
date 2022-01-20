@@ -1,6 +1,7 @@
 from asyncore import read
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
+from .models import *
 
 class CreateUserSerializer(serializers.ModelSerializer):
     username = serializers.CharField(required=True)
@@ -19,3 +20,28 @@ class CreateUserSerializer(serializers.ModelSerializer):
         user.set_password(validated_data['password'])
         user.save()
         return user
+
+class MusicSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Music
+        fields = ('id', 'title', 'main_artiste', 'collaborators', 'music_file', 'streams')
+
+class AlbumSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Album
+        fields = ('id', 'title', 'image', 'artiste')
+
+class ArtistSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Artiste
+        fields = ('id', 'name', 'cover_image', 'popular')
+
+class PlaylistSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Playlist
+        fields = ('id', 'title', 'image', 'songs')
+
+class GenreSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Genre
+        fields = ('id', 'title')
