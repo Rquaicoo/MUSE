@@ -5,6 +5,7 @@ npm-debug.*
 Include/
 Lib/
 Scripts/
+musev/
 *.jks
 *.p8
 *.p12
