@@ -13,8 +13,11 @@ import Tabs from './screens/Tabs';
 import SignUp from './screens/SignUp';
 import SignIn from './screens/SignIn';
 import Musicplayer from './screens/Musicplayer';
+import myprofile from './screens/myprofile';
+
 import { AudioProvider } from './screens/AudioProvider';
 import { LocalAudio } from './screens/LocalAudio';
+
 
 
 
@@ -45,6 +48,11 @@ export default function App() {
       }} />
       <Stack.Screen name="Musicplayer" component={Musicplayer} options={{
         headerShown: false
+      }} />
+
+      <Stack.Screen name="myprofile" component={myprofile} options={{
+        headerShown: false
+      }} />
       }}
       sharedElements={(route) => {
         return ['shared'];
