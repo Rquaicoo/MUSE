@@ -48,11 +48,6 @@ export default function App() {
       <Stack.Screen name="myprofile" component={myprofile} options={{
         headerShown: false
       }} />
-      }}
-      sharedElements={(route) => {
-        return ['shared'];
-      }}
-      />
       </Stack.Navigator>
     </NavigationContainer>
   );
