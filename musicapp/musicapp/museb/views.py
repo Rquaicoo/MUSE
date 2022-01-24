@@ -50,3 +50,35 @@ class FacebookLogin(SocialLoginView):
     adapter_class = FacebookOAuth2Adapter
 class GoogleLogin(SocialLoginView):
     adapter_class = GoogleOAuth2Adapter
+
+
+class MusicView(APIView):
+    def get(self,  *args, **kwargs):
+        musics = Music.objects.all()
+        serializer = MusicSerializer(musics, many=True)
+        return Response(serializer.data)
+    
+
+class AlbumView(APIView):
+    def get(self, *args, **kwargs):
+        albums = Album.objects.all()
+        serializer = AlbumSerializer(albums, many=True)
+        return Response(serializer.data)
+
+class ArtistView(APIView):
+    def get(self, *args, **kwargs):
+        artistes = Artiste.objects.all()
+        serializer = ArtistSerializer(artistes, many=True)
+        return Response(serializer.data)
+
+class PlaylistView(APIView):
+    def get(self, *args, **kwargs):
+        playlists = Playlist.objects.all()
+        serializer = PlaylistSerializer(playlists, many=True)
+        return Response(serializer.data)
+
+class GenreView(APIView):
+    def get(self, *args, **kwargs):
+        genres = Genre.objects.all()
+        serializer = GenreSerializer(genres, many=True)
+        return Response(serializer.data)
