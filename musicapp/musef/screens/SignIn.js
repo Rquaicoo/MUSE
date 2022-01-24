@@ -2,12 +2,32 @@ import {React, useState } from 'react';
 import { StyleSheet, Text, View,Image, TouchableOpacity, StatusBar, TextInput, ScrollView } from 'react-native';
 import {LinearGradient} from 'expo-linear-gradient';
 import { AntDesign, Ionicons, MaterialIcons } from '@expo/vector-icons';
+import axios from 'axios';
+
 
 
 
 export default function SignIn ({navigation}) {
 
-    const [email, setEmail] = useState('')
+    function handleRequest() {
+        const payload = {
+            username: {name},
+            password: {password},
+        }
+
+        axios 
+            .post('/museb/auth/login/', payload)
+            .then(response => {
+                const { token, user } = response.data;
+                console.log(token);
+                axios.defaults.headers.common.Authorization = "Token ${token}"
+
+                navigation.navigate("Tabs");
+            }).
+            catch(error => console.log(error));
+    }
+
+    const [name, setName] = useState('')
     const [password, setPassword] = useState('')
     const [secure, setSecure] = useState(true)
 
@@ -36,13 +56,13 @@ export default function SignIn ({navigation}) {
                     </View>
                 </View>
                 <View style={{marginLeft: "5%", marginTop: "6%"}}>
-                    <Text  style={{fontWeight:'bold', fontSize:15, color: "#fdfdfd", }}>Email</Text>
+                    <Text  style={{fontWeight:'bold', fontSize:15, color: "#fdfdfd", }}>Username</Text>
                     <View style={{flexDirection: "row",}}>
                             <TextInput style={{height: 60, borderColor: "#ffffff", borderWidth: 1,borderRadius: 15, paddingLeft: 10, marginTop: 8, color: "#ffffff", width: "95%",textAlign: "center", fontSize: 17}}
-                            placeholder="Enter your email" 
-                            onChangeText={email => setEmail(email)}
+                            placeholder="Enter your username" 
+                            onChangeText={name => setName(name)}
                             placeholderTextColor="#ffffff"
-                            defaultValue={email}
+                            defaultValue={name}
                             />
                     </View>
                     
