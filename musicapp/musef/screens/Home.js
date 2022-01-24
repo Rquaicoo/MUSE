@@ -23,8 +23,10 @@ export default function Home({ navigation }) {
             <View style={{marginLeft: "42%", display: "flex", flexDirection: "row", alignItems: "center"}}>
                 <TouchableOpacity style={{borderColor: "#343547", borderWidth: 1, alignContent: "center", justifyContent: "center", padding: 8, borderRadius: 20}}>
                     <Octicons name="radio-tower" size={25} color="white" />
-                  </TouchableOpacity>
-                    <Image source={require('../assets/doja.jpg')} style={styles.image} />
+                  </TouchableOpacity >
+                  <TouchableOpacity onPress={() => navigation.navigate("myprofile")} >
+                    <Image source={require('../assets/memoji.png')} style={styles.image} />
+                    </TouchableOpacity>
             </View>
         </View>
 
@@ -155,11 +157,11 @@ const styles = StyleSheet.create({
 
   },
   image: {
-    height: 35,
-    width: 35,
+    height: 60,
+    width: 60,
     resizeMode: "contain",
     borderRadius: 500,
-    marginLeft: "20%",
+    marginLeft: "5%",
     marginTop: -2,
   },
   
