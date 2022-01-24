@@ -166,14 +166,14 @@ export default function Home({ navigation }) {
     
     </View>
     </View>
-  );
-}
+    </View>
+  )};
 
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#151723",
     height: "100%",
-    flex: 1.
+    flex: 1,
 
   },
   image: {
