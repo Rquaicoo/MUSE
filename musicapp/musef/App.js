@@ -15,12 +15,17 @@ import SignIn from './screens/SignIn';
 import Musicplayer from './screens/Musicplayer';
 import myprofile from './screens/myprofile';
 
+import { AudioProvider } from './screens/AudioProvider';
+import { LocalAudio } from './screens/LocalAudio';
+
+
 
 
 const Stack = createSharedElementStackNavigator();
 
 export default function App() {
   return (
+    <AudioProvider>
     <NavigationContainer>
       <Stack.Navigator>
       <Stack.Screen name="Intro1" component={Intro1} options={{
@@ -53,9 +58,12 @@ export default function App() {
         return ['shared'];
       }}
       />
+      <Stack.Screen name="LocalAudio" component={LocalAudio} options={{
+        headerShown: false
+      }} />
       </Stack.Navigator>
     </NavigationContainer>
+    </AudioProvider>
   );
 }
-
 
