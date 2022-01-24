@@ -4,6 +4,7 @@ import { StyleSheet, Text, TextInput, View, Image,Modal, TouchableOpacity, Touch
 import { Feather, Octicons, Ionicons,FontAwesome5, FontAwesome, MaterialCommunityIcons,MaterialIcons,  } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import doja from '../assets/doja.jpg';
+import { SharedElement } from 'react-navigation-shared-element';
 
 
 
@@ -69,11 +70,6 @@ export default function Musicplayer ({navigation}) {
         </TouchableOpacity>
        
         </View>
-       
-        
-
-
-
         </ScrollView>
       </LinearGradient>             
         </View>
