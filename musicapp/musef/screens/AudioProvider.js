@@ -83,8 +83,7 @@ export class AudioProvider extends Component {
                 </Text>
             </View>
         }
-        return <AudioContext.Provider value={{audioFiles: this.state.audioFiles,
-        dataProvider}}>
+        return <AudioContext.Provider value={{audioFiles: this.state.audioFiles,}}>
             {this.props.children}
         </AudioContext.Provider>
     }
