@@ -11,7 +11,7 @@ export class LocalAudio extends React.Component {
         return (
         <ScrollView>
             {this.context.audioFiles.map(item => 
-                <Text style={{padding: 10, borderBottomColor: "black", borderBottomWidth: 2}} key={item.id}>{item.filename}</Text>)}
+                <Text style={{padding: 10, borderBottomColor: "black", borderBottomWidth: 2}} key={item.id}> {item.filename}</Text>)}
         </ScrollView>
     );
 }

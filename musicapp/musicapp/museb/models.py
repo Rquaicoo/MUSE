@@ -27,7 +27,7 @@ class Album(models.Model):
     trending = models.BooleanField(blank=False)
 
     @property
-    def fileURL(self):
+    def imageURL(self):
         try:
             url = self.image.url
         except:
