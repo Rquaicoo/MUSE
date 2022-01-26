@@ -22,13 +22,14 @@ class CreateUserView(CreateAPIView):
 
     @csrf_exempt
     def create(self, request, *args, **kwargs):
+        print(request.data)
         serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_seception= True)
+        serializer.is_valid(raise_exception= True)
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
 
         #generate token for future authentication
-        token = Token.objects.create(user=serializer.instance)
+        token = Token.objects.create(user=serializer.instance)[1]
         token_data = {"token": token}
         return Response(
             {**serializer.data, **token_data},

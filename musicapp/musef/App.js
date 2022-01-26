@@ -48,16 +48,15 @@ export default function App() {
       }} />
       <Stack.Screen name="Musicplayer" component={Musicplayer} options={{
         headerShown: false
-      }} />
+      }} 
+      sharedElements={(route) => {
+        return ['shared'];
+      }}/>
 
       <Stack.Screen name="myprofile" component={myprofile} options={{
         headerShown: false
       }} />
-      }}
-      sharedElements={(route) => {
-        return ['shared'];
-      }}
-      />
+      
       <Stack.Screen name="LocalAudio" component={LocalAudio} options={{
         headerShown: false
       }} />
