@@ -2,7 +2,7 @@ import * as React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Image } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-//import {  createNativeStackNavigator } from '@react-navigation/native-stack';
+import {  createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createSharedElementStackNavigator } from 'react-navigation-shared-element';
 import Intro1 from './screens/intro1';
 import Intro2 from './screens/intro2';
@@ -21,7 +21,7 @@ import { LocalAudio } from './screens/LocalAudio';
 
 
 
-const Stack = createSharedElementStackNavigator();
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
@@ -37,6 +37,7 @@ export default function App() {
       <Stack.Screen name="Intro3" component={Intro3} options={{
         headerShown: false
       }} />
+      
        <Stack.Screen name="SignIn" component={SignIn} options={{
         headerShown: false
       }} />
@@ -46,12 +47,11 @@ export default function App() {
       <Stack.Screen name="Tabs" component={Tabs} options={{
         headerShown: false
       }} />
+      
       <Stack.Screen name="Musicplayer" component={Musicplayer} options={{
         headerShown: false
       }} 
-      sharedElements={(route) => {
-        return ['shared'];
-      }}/>
+      />
 
       <Stack.Screen name="myprofile" component={myprofile} options={{
         headerShown: false
