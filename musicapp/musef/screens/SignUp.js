@@ -50,7 +50,7 @@ class SignUp extends Component{
                 axios.defaults.headers.common.Authorization = 'Token ${token}';
 
                 //navigate to home screen
-                navigation.navigate("Tabs");
+                //navigation.navigate("Tabs");
             })
             .catch(error => console.log(error));
     };
@@ -126,7 +126,7 @@ render () {
                     </LinearGradient>
                     </TouchableOpacity>
 
-                    <Text style={{fontWeight:'bold', fontSize:15, alignSelf:'center',color:'white', marginTop: 13}} onPress={() => navigation.navigate("SignIn")}> Already have an account? Sign in</Text>
+                    <Text style={{fontWeight:'bold', fontSize:15, alignSelf:'center',color:'white', marginTop: 13}} onPress={this.props.navigation.navigate("SignIn")}> Already have an account? Sign in</Text>
             </ScrollView>       
         );
     }

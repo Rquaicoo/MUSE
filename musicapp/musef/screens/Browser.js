@@ -15,9 +15,8 @@ import Home from './Home';
 
 
 export default function Browser ({navigation}) {
-   return (
-       
-   
+
+        return (
             <ScrollView style={styles.container}  showsVerticalScrollIndicator={false} > 
                 <View >
                         <Text style={{fontWeight:'bold', fontSize:35, alignSelf:'center',color:'white',marginTop:35,}}> muse.</Text>

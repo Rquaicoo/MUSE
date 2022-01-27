@@ -1,13 +1,14 @@
-import {React, useState } from 'react';
+import React ,{ Component, useState } from 'react';
 import { StyleSheet, Text, View,Image, TouchableOpacity, StatusBar, TextInput, ScrollView } from 'react-native';
 import {LinearGradient} from 'expo-linear-gradient';
 import { AntDesign, Ionicons, MaterialIcons } from '@expo/vector-icons';
 import axios from 'axios';
+import { ComponentCompat } from 'recyclerlistview';
 
 
 
 
-class  SignIn extends Component {
+class SignIn extends Component {
 
     state = {
         username: '',
@@ -35,11 +36,14 @@ class  SignIn extends Component {
                 console.log(token);
                 axios.defaults.headers.common.Authorization = "Token ${token}"
 
-                navigation.navigate("Tabs");
+                //navigation.navigate("Tabs");
             }).
             catch(error => console.log(error));
     };
 
+    redirectToSignUp = () => {
+        this.props.navigation.navigate('SignUp');
+    };
     render () {
 
         return (
@@ -90,7 +94,7 @@ class  SignIn extends Component {
                             </View>
                         </View>
 
-                        <TouchableOpacity style={{ marginTop: "8%",  width: "90%", alignSelf: "center", }} onPress={handleRequest()}>
+                        <TouchableOpacity style={{ marginTop: "8%",  width: "90%", alignSelf: "center", }} onPress={this.handleRequest.bind(this)}>
                         <LinearGradient
                         colors={['#8a3f82', '#bb4575', '#f65e69', '#f96e69']}
                         start={{x: 0, y: 0.5}}
@@ -101,12 +105,13 @@ class  SignIn extends Component {
                             </LinearGradient>
                             </TouchableOpacity>
 
-                            <Text style={{fontWeight:'bold', fontSize:15, alignSelf:'center',color:'white', marginTop: 13}} onPress={() => navigation.navigate("SignUp")}> Don't have an account? Sign up</Text>
+                            <Text style={{fontWeight:'bold', fontSize:15, alignSelf:'center',color:'white', marginTop: 13}} onPress={() => this.props.navigation.navigate("SignUp")} > Don't have an account? Sign up</Text>
                     </ScrollView>       
         );
     }
   
 }
+
 
 
 const styles = StyleSheet.create({
@@ -131,3 +136,5 @@ iconContainer: {
     backgroundColor: "#151723",
 }
 });
+
+export default SignIn;
