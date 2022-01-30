@@ -1,0 +1,99 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sign Up Form by Colorlib</title>
+
+    <!-- Font Icon -->
+    <link rel="stylesheet" href="{% static 'fonts/material-icon/css/material-design-iconic-font.min.css' %}">
+
+    <!-- Main css -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        .table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        tr, td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+    </style>
+</head>
+<body style="height: 100%;">
+
+    <div class="main">
+
+        <section class="signup">
+            <div class="container">
+                <div class="signup-content">
+                   
+                        <h2 class="form-title">Users signed up for our beta</h2>
+                        
+                        <!--create table with columns name and email-->
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Email</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for user in users %}
+                                <tr>
+                                    <td>{{ user.name }}</td>
+                                    <td>{{ user.email }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+
+                    <button type="button" onclick="tableToCSV()" style="height: 40px; width: 20%; background-color: #151723; color: #fff; margin-top: 20px; border-radius: 5px">
+                        Download
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        function tableToCSV(){
+            var csv_data = [];
+            var rows = document.getElementsByTagName("tr");
+
+            for(var row = 0; row < rows.length; row++){
+                var row_data = [];
+                var columns = rows[row].querySelectorAll("td", "th");
+
+                for(var column = 0; column < columns.length; column++){
+                    row_data.push(columns[column].innerHTML);
+                }
+
+                csv_data.push(row_data.join(","));
+            }
+            csv_data = csv_data.join("\n");
+
+            downloadCSVFile(csv_data);
+        }
+
+        function downloadCSVFile(csv_data){
+            var csv_file_name = "users_list.csv";
+            var csv_file = new Blob([csv_data], {type: "text/csv"});
+            var download_link = document.createElement("a");
+
+            download_link.download = "beta_users.csv";
+            download_link.href = window.URL.createObjectURL(csv_file);
+            download_link.style.display = "none";
+            document.body.appendChild(download_link);
+            download_link.click();
+        }
+    </script>
+
+    
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+</html>
