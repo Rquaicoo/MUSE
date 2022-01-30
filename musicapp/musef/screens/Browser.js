@@ -1,4 +1,4 @@
-import {React} from 'react';
+import {React, useEffect, useState} from 'react';
 import { StyleSheet, Text, View,Image, ImageBackground, TouchableOpacity, ScrollView, StatusBar} from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -11,10 +11,30 @@ import doja from '../assets/doja.jpg';
 import { Octicons } from '@expo/vector-icons';
 import { Foundation } from '@expo/vector-icons';
 import Home from './Home';
+import axios from 'axios';
+
 
 
 
 export default function Browser ({navigation}) {
+
+    const [isLoading, setLoading] = useState(true);
+    const [data, setData] = useState([]);
+    console.log(data);
+
+    useEffect(() => {
+        //get request to get all the songs
+        fetch('http://localhost:8000/museb/music',{
+            method: 'GET',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+            }})
+        .then(response => response.json())
+        .then(json => console.log(json))
+        .catch(error => console.log(error))
+        .finally(setLoading(false));
+    }, [])
 
         return (
             <ScrollView style={styles.container}  showsVerticalScrollIndicator={false} > 
@@ -40,7 +60,8 @@ export default function Browser ({navigation}) {
             <Text style={{color:'white',fontWeight:'bold'}} >
                 Trending</Text> Music </Text>
                 <View>
-                <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+                {isLoading ? <Text>Loading...</Text> :
+                (<ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
                     <View style={{flexDirection:'row'}}>
                     <TouchableOpacity style={styles.musiccontent}>
                     <Image source={sark} style={styles.mainimage}/>
@@ -63,7 +84,7 @@ export default function Browser ({navigation}) {
                     </View>
                     
                     </View>
-                </ScrollView>
+                </ScrollView>)}
                 </View>
 
                 {/* Live Radio */}
@@ -108,13 +129,7 @@ export default function Browser ({navigation}) {
                     </TouchableOpacity>
                     </View>
                 </ScrollView>
-                </View>
-
-
-
-
-
-                
+                </View>                
             </View>
             </ScrollView>
             

@@ -8,6 +8,7 @@ from rest_framework import status
 from rest_framework.views import APIView
 from .serializers import *
 
+from django.utils.decorators import method_decorator
 
 from allauth.socialaccount.providers.facebook.views import FacebookOAuth2Adapter
 from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
@@ -29,8 +30,9 @@ class CreateUserView(CreateAPIView):
         headers = self.get_success_headers(serializer.data)
 
         #generate token for future authentication
-        token = Token.objects.create(user=serializer.instance)[1]
+        token = Token.objects.create(user=serializer.instance).key
         token_data = {"token": token}
+        print(token_data)
         return Response(
             {**serializer.data, **token_data},
             status = status.HTTP_201_CREATED,
@@ -52,13 +54,16 @@ class FacebookLogin(SocialLoginView):
 class GoogleLogin(SocialLoginView):
     adapter_class = GoogleOAuth2Adapter
 
-
+@method_decorator(csrf_exempt, name='dispatch')
 class MusicView(APIView):
-    def get(self,  *args, **kwargs):
-        musics = Music.objects.all()
-        serializer = MusicSerializer(musics, many=True)
+    def get(self, request, *args, **kwargs):
+        music = Music.objects.all()
+        print("hello")
+        serializer = MusicSerializer(music, many=True)
         return Response(serializer.data)
     
+    def post(self, ):
+        pass
 
 class AlbumView(APIView):
     def get(self, *args, **kwargs):

@@ -1,5 +1,5 @@
 import React, {useState, Component } from 'react';
-import { StyleSheet, Text, View,Image, TouchableOpacity, StatusBar, TextInput, ScrollView, ActionSheetIOS } from 'react-native';
+import { StyleSheet, Text, View,Image, TouchableOpacity, StatusBar, TextInput, ScrollView } from 'react-native';
 import {LinearGradient} from 'expo-linear-gradient';
 import { AntDesign, Ionicons, MaterialIcons } from '@expo/vector-icons';
 import axios from 'axios';
@@ -28,7 +28,7 @@ class SignUp extends Component{
         this.setState({password: text})
     }
 
-    handleRequest = () => {
+    handleRequest = (props) => {
         console.log(payload)
         const payload = {
             username: this.state.username,
@@ -50,12 +50,13 @@ class SignUp extends Component{
                 axios.defaults.headers.common.Authorization = 'Token ${token}';
 
                 //navigate to home screen
-                //navigation.navigate("Tabs");
+                this.props.navigation.navigate("Tabs");
             })
             .catch(error => console.log(error));
     };
 
 render () {
+    const { navigation } = this.props;
         return (
                 <ScrollView style={{  backgroundColor: '#151723', height: "100%", }}>
                 <View style={styles.container}>
@@ -126,7 +127,7 @@ render () {
                     </LinearGradient>
                     </TouchableOpacity>
 
-                    <Text style={{fontWeight:'bold', fontSize:15, alignSelf:'center',color:'white', marginTop: 13}} onPress={this.props.navigation.navigate("SignIn")}> Already have an account? Sign in</Text>
+                    <Text style={{fontWeight:'bold', fontSize:15, alignSelf:'center',color:'white', marginTop: 13}} onPress={() => navigation.navigate("SignIn")} > Already have an account? Sign in</Text>
             </ScrollView>       
         );
     }
@@ -156,4 +157,9 @@ backgroundColor: "#151723",
 }
 });
 
-export default SignUp;
+// Wrap and export
+export default function(props) {
+    const navigation = useNavigation();
+  
+    return <SignUp {...props} navigation={navigation} />;
+  }
