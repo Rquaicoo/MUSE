@@ -19,4 +19,5 @@ from django.urls import path, include, re_path
 urlpatterns = [
     path('admin/', admin.site.urls),
     re_path(r'museb/', include('museb.url')),
+    re_path(r'musebpublic/', include('musebpublic.url')),
 ]
