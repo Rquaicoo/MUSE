@@ -3,8 +3,7 @@ import { StyleSheet, Text, View,Image, TouchableOpacity, StatusBar, TextInput, S
 import {LinearGradient} from 'expo-linear-gradient';
 import { AntDesign, Ionicons, MaterialIcons } from '@expo/vector-icons';
 import axios from 'axios';
-import { ComponentCompat } from 'recyclerlistview';
-
+import { useNavigation } from '@react-navigation/native';
 
 
 
@@ -23,7 +22,7 @@ class SignIn extends Component {
         this.setState({password: text})
     }
 
-    handleRequest = () => {
+    handleRequest = (props) => {
         const payload = {
             username: this.state.username,
             password: this.state.password,
@@ -34,9 +33,10 @@ class SignIn extends Component {
             .then(response => {
                 const { token, user } = response.data;
                 console.log(token);
+                
                 axios.defaults.headers.common.Authorization = "Token ${token}"
 
-                //navigation.navigate("Tabs");
+                this.props.navigation.navigate("Tabs");
             }).
             catch(error => console.log(error));
     };
@@ -45,7 +45,7 @@ class SignIn extends Component {
         this.props.navigation.navigate('SignUp');
     };
     render () {
-
+        const { navigation } = this.props;
         return (
                     <ScrollView style={{  backgroundColor: '#151723', height: "100%", }}>
                         <View style={styles.container}>
@@ -105,7 +105,7 @@ class SignIn extends Component {
                             </LinearGradient>
                             </TouchableOpacity>
 
-                            <Text style={{fontWeight:'bold', fontSize:15, alignSelf:'center',color:'white', marginTop: 13}} onPress={() => this.props.navigation.navigate("SignUp")} > Don't have an account? Sign up</Text>
+                            <Text style={{fontWeight:'bold', fontSize:15, alignSelf:'center',color:'white', marginTop: 13}}  onPress={() => navigation.navigate("SignUp")}> Don't have an account? Sign up</Text>
                     </ScrollView>       
         );
     }
@@ -137,4 +137,9 @@ iconContainer: {
 }
 });
 
-export default SignIn;
+// Wrap and export
+export default function(props) {
+    const navigation = useNavigation();
+  
+    return <SignIn {...props} navigation={navigation} />;
+  }
