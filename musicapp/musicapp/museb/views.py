@@ -1,3 +1,5 @@
+import json
+from urllib import request
 from django.shortcuts import render
 from django.contrib.auth import get_user_model
 from rest_framework.generics import CreateAPIView
@@ -8,6 +10,7 @@ from rest_framework import status
 from rest_framework.views import APIView
 from .serializers import *
 
+from rest_framework.parsers import JSONParser
 from django.utils.decorators import method_decorator
 
 from allauth.socialaccount.providers.facebook.views import FacebookOAuth2Adapter
@@ -58,8 +61,15 @@ class GoogleLogin(SocialLoginView):
 class MusicView(APIView):
     def get(self, request, *args, **kwargs):
         music = Music.objects.all()
-        print("hello")
         serializer = MusicSerializer(music, many=True)
+        return Response(serializer.data)
+    
+    def post(self, ):
+        pass
+class CoverArtisteView(APIView):
+    def get(self, request, *args, **kwargs):
+        cover = CoverArtiste.objects.all()
+        serializer = CoverArtiseSerilizer(cover, many=True)
         return Response(serializer.data)
     
     def post(self, ):
@@ -71,12 +81,44 @@ class AlbumView(APIView):
         serializer = AlbumSerializer(albums, many=True)
         return Response(serializer.data)
 
+    def post(self, request):
+        if request.method == "POST":
+            serializer = AlbumSerializer(data=request.data)
+            album_id = dict(serializer.initial_data)["id"]
+
+            album = Album.objects.get(id=album_id)
+            music = Music.objects.filter(album=album)
+            
+            music_serializer = MusicSerializer(music, many=True)
+            print(music_serializer.data)
+            if serializer.is_valid():
+                print("yes")
+                return Response(music_serializer.data, status=status.HTTP_201_CREATED)
+            return Response(music_serializer.data,status=status.HTTP_302_FOUND)
+
 class ArtistView(APIView):
     def get(self, *args, **kwargs):
         artistes = Artiste.objects.all()
         serializer = ArtistSerializer(artistes, many=True)
         return Response(serializer.data)
+    
+    def post(self, request):
+        if request.method == 'POST':
+            serializer = ArtistSerializer(data=request.data)
+            try:
+                song_id = dict(serializer.initial_data)["main_artiste"]
+            except:
+                song_id = int(serializer.initial_data)
 
+            artiste_name = str(Artiste.objects.get(id=song_id))
+            
+            artiste_name = dict({"artiste": artiste_name})
+            print(artiste_name)
+            if serializer.is_valid():
+                print(serializer.initial_data)
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response(artiste_name, status=status.HTTP_302_FOUND)
+            
 class PlaylistView(APIView):
     def get(self, *args, **kwargs):
         playlists = Playlist.objects.all()
