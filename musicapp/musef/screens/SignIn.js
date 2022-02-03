@@ -12,6 +12,7 @@ class SignIn extends Component {
     state = {
         username: '',
         password: '',
+        denied: false,
     }
 
     onUnsernameChange = (text) => {
@@ -38,7 +39,8 @@ class SignIn extends Component {
 
                 this.props.navigation.navigate("Tabs");
             }).
-            catch(error => console.log(error));
+            catch(
+            this.state.denied=true);
     };
 
     redirectToSignUp = () => {
@@ -55,6 +57,16 @@ class SignIn extends Component {
                                 <Text style={{fontWeight:'bold', fontSize:30, color: "#fdfdfd", marginTop: "2%"}}>Log In</Text>
                         </View>
 
+                   {this.state.denied  ? (
+                        <LinearGradient
+                        colors={['#8a3f82', '#bb4575', '#f65e69', '#f96e69']}
+                        start={{x: 0, y: 0.5}}
+                        end={{x: 1, y: 1}}
+                        style={{borderRadius: 15, width: "90%", alignSelf: "center", marginTop: 10}}> 
+                            <Text style={{fontWeight:'bold', fontSize:13, alignSelf:'center',color:'white', padding: "3%",}} >Username or password is incorrect</Text>
+                        
+                            </LinearGradient>
+                   ) : <View></View>}
                         <View style={{marginLeft: "5%", marginTop: "20%"}}>
                             <Text style={{color: "white", }}>
                                 Login with one of the following options

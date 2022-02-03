@@ -53,13 +53,6 @@ export default function myprofile ({navigation}) {
             <View style={{backgroundColor: "#343547",width: "85%", height: 1, marginLeft: "7%", marginTop: 9, marginBottom:25,}}/>
 
             <TouchableOpacity style={styles.details}>
-            <Ionicons name="videocam-outline"size={28} color="white"  style={{paddingRight:'5%'}} />
-            <Text style={{color:'white', fontSize:25, fontWeight:'bold', paddingRight:'37%'}}> Watch Later</Text>
-            <Entypo name="chevron-right" size={30} color="white" />
-            </TouchableOpacity>
-            <View style={{backgroundColor: "#343547",width: "85%", height: 1, marginLeft: "7%", marginTop: 9, marginBottom:25,}}/>
-
-            <TouchableOpacity style={styles.details}>
             <MaterialIcons name="history" size={30} color="white"  style={{paddingRight:'5%'}} />
             <Text style={{color:'white', fontSize:25, fontWeight:'bold', paddingRight:'50%'}}> History</Text>
             <Entypo name="chevron-right" size={30} color="white" />
@@ -73,6 +66,15 @@ export default function myprofile ({navigation}) {
             <Entypo name="chevron-right" size={30} color="white" />
             </TouchableOpacity>
             <View style={{backgroundColor: "#343547",width: "85%", height: 1, marginLeft: "7%", marginTop: 9, marginBottom:25,}}/>
+
+            
+            <TouchableOpacity style={styles.details}>
+            <SimpleLineIcons name="logout"size={28} color="white"  style={{paddingRight:'5%'}} />
+            <Text style={{color:'white', fontSize:25, fontWeight:'bold', paddingRight:'49%'}}> Logout</Text>
+            <Entypo name="chevron-right" size={30} color="white" />
+            </TouchableOpacity>
+            <View style={{backgroundColor: "#343547",width: "85%", height: 1, marginLeft: "7%", marginTop: 9, marginBottom:25,}}/>
+
         </View>
 
 
