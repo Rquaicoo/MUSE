@@ -13,6 +13,9 @@ import SignUp from './screens/SignUp';
 import SignIn from './screens/SignIn';
 import Musicplayer from './screens/Musicplayer';
 import myprofile from './screens/myprofile';
+import Album from './screens/Album';
+
+import MusicList from './screens/MusicList';
 
 import { AudioProvider } from './screens/AudioProvider';
 import { LocalAudio } from './screens/LocalAudio';
@@ -27,6 +30,16 @@ export default function App() {
     <AudioProvider>
     <NavigationContainer>
       <Stack.Navigator>
+      <Stack.Screen name="SignIn" component={SignIn} options={{
+        headerShown: false
+      }} />
+      <Stack.Screen name="Tabs" component={Tabs} options={{
+        headerShown: false
+      }} />
+      <Stack.Screen name="MusicList" component={MusicList} options={{
+           headerShown: false }} />  
+      <Stack.Screen name="Album" component={Album} options={{
+           headerShown: false }} />
       
       <Stack.Screen name="Intro1" component={Intro1} options={{
         headerShown: false
@@ -37,15 +50,11 @@ export default function App() {
       <Stack.Screen name="Intro3" component={Intro3} options={{
         headerShown: false
       }} />
-      <Stack.Screen name="SignIn" component={SignIn} options={{
-        headerShown: false
-      }} />
+      
       <Stack.Screen name="SignUp" component={SignUp} options={{
         headerShown: false
       }} />
-      <Stack.Screen name="Tabs" component={Tabs} options={{
-        headerShown: false
-      }} />
+      
       <Stack.Screen name="Musicplayer" component={Musicplayer} options={{
         headerShown: false
       }} 
