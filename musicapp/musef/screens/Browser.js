@@ -1,5 +1,5 @@
 import {React, useEffect, useState} from 'react';
-import { StyleSheet, Text, View,Image, ImageBackground, TouchableOpacity, ScrollView, StatusBar} from 'react-native';
+import { StyleSheet, Text, View,Image, ImageBackground, TouchableOpacity, ScrollView, StatusBar, FlatList} from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import rad from '../assets/rad.jpg';
@@ -10,7 +10,7 @@ import adele from '../assets/adele.jpg';
 import doja from '../assets/doja.jpg';
 import { Octicons } from '@expo/vector-icons';
 import { Foundation } from '@expo/vector-icons';
-import Home from './Home';
+import Musicplayer from './Musicplayer';
 import axios from 'axios';
 
 
@@ -19,23 +19,57 @@ import axios from 'axios';
 export default function Browser ({navigation}) {
 
     const [isLoading, setLoading] = useState(true);
-    const [data, setData] = useState([]);
-    console.log(data);
+    const [albums, setAlbum] = useState(null);
+
+    const [music, setMusic] = useState(null);
+    const [cover, setCover] = useState(null);
+    
 
     useEffect(() => {
         //get request to get all the songs
-        fetch('http://localhost:8000/museb/music',{
+        fetch('http://localhost:8000/museb/album/',{
             method: 'GET',
             headers: {
               Accept: 'application/json',
               'Content-Type': 'application/json',
             }})
         .then(response => response.json())
-        .then(json => console.log(json))
+        .then(jsonResponse => 
+            setAlbum(jsonResponse)
+        )
         .catch(error => console.log(error))
         .finally(setLoading(false));
-    }, [])
 
+
+        fetch('http://localhost:8000/museb/music/',{
+            method: 'GET',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+            }})
+        .then(response => response.json())
+        .then(jsonResponse => 
+            setMusic(jsonResponse)
+        )
+        .catch(error => console.log(error))
+        .finally(setLoading(false));
+
+        fetch('http://localhost:8000/museb/cover/',{
+            method: 'GET',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+            }})
+        .then(response => response.json())
+        .then(jsonResponse => 
+            setCover(jsonResponse)
+        )
+        .catch(error => console.log(error))
+        .finally(setLoading(false));
+        
+    }, [])
+    
+    console.log(music)
         return (
             <ScrollView style={styles.container}  showsVerticalScrollIndicator={false} > 
                 <View >
@@ -62,27 +96,23 @@ export default function Browser ({navigation}) {
                 <View>
                 {isLoading ? <Text>Loading...</Text> :
                 (<ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-                    <View style={{flexDirection:'row'}}>
-                    <TouchableOpacity style={styles.musiccontent}>
-                    <Image source={sark} style={styles.mainimage}/>
-                    </TouchableOpacity>
+                    <View style={{flexDirection:'row', flexWrap: "wrap"}}>
+                    {cover &&(
                     <View>
-                    <TouchableOpacity style={styles.musiccontentsmall}>
-                    <Image source={adele} style={styles.smallimage}/>
-                    </TouchableOpacity>
-                    <TouchableOpacity  onPress={() => navigation.navigate("Musicplayer")} style={styles.musiccontentsmall}>
-                    <Image source={doja} style={styles.smallimage}/>
-                    </TouchableOpacity>
+                         {cover.map((artiste, index) => (
+                        <TouchableOpacity style={styles.musiccontent} key={index} onPress={() => navigation.navigate("Musicplayer", {artiste: artiste})}>
+                        <Image source={{uri: "http://localhost:8000"+artiste.image}} style={styles.mainimage}/>
+                        </TouchableOpacity>))}
                     </View>
-                    <View>
-                    <TouchableOpacity style={styles.musiccontentsmall}>
-                    <Image source={arthur} style={styles.smallimage}/>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.musiccontentsmall}>
-                    <Image source={kanye} style={styles.smallimage}/>
-                    </TouchableOpacity>
+                    )}
+                    {music &&(
+                    <View style={{flexDirection: "row", flexWrap: "wrap"}}>
+                        {music.map((artiste, index) => (
+                    <TouchableOpacity key={index} onPress={() => navigation.navigate("Musicplayer", {artiste: artiste})}  style={styles.musiccontentsmall}>
+                    <Image source={{uri: "http://localhost:8000"+artiste.image}} style={styles.smallimage}/>
+                    </TouchableOpacity>))}
                     </View>
-                    
+                    )}            
                     </View>
                 </ScrollView>)}
                 </View>
@@ -114,20 +144,16 @@ export default function Browser ({navigation}) {
                 
                 <View>
                 <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+                {albums && (
                     <View style={{flexDirection:'row', marginBottom:200,}}>
-                    <TouchableOpacity style={styles.albums}>
-                    <Image source={arthur} style={styles.albumimage}/>
+                        
+                        {albums.map((album, index) => (
+                    <TouchableOpacity style={styles.albums} key={index} onPress={() => navigation.navigate("Album", {album: album})}>
+                    <Image source={{uri: "http://localhost:8000"+album.image}} style={styles.albumimage}/>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.albums}>
-                    <Image source={doja} style={styles.albumimage3}/>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.albums}>
-                    <Image source={adele} style={styles.albumimage2}/>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.albums}>
-                    <Image source={kanye} style={styles.albumimage1}/>
-                    </TouchableOpacity>
+                        ))}
                     </View>
+                )}
                 </ScrollView>
                 </View>                
             </View>

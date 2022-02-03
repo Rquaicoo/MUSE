@@ -37,7 +37,8 @@ export class AudioProvider extends Component {
              mediaType: 'audio',
              first: media.totalCount,
          })
-         this.setState({...this.state, dataProvider: dataProvider.cloneWithRows([...audioFiles, media.assets]),audioFiles: [...audioFiles, media.assets]})
+         console.log(media)
+         this.setState({...this.state, audioFiles:media.assets})
     }
 
     getPermission = async () => {
@@ -83,7 +84,7 @@ export class AudioProvider extends Component {
                 </Text>
             </View>
         }
-        return <AudioContext.Provider value={{audioFiles: this.state.audioFiles,}}>
+        return <AudioContext.Provider value={{audioFiles: this.state.audioFiles}}>
             {this.props.children}
         </AudioContext.Provider>
     }
