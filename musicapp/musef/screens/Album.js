@@ -14,9 +14,13 @@ class Album extends Component {
         super(props);
     
         const album = this.props.route.params.album;
-        console.log(album)
+        console.log("album",album)
     }
-    
+
+    state = {
+        albumDetail: null,
+        artiste: null,
+    }
 
     componentDidMount() {
         this.getArtiste()
@@ -25,7 +29,7 @@ class Album extends Component {
 
     getArtiste (){
         const artiste_id = this.props.route.params.album.artiste;
-        fetch('http://localhost:8000/museb/artist/',{
+        fetch('https://musebeta.herokuapp.com/museb/artist/',{
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -34,14 +38,13 @@ class Album extends Component {
         })
         .then(response => response.json())
         .then(responseJson => {
-            console.log(responseJson)}
-    )
+            this.setState({artiste: responseJson["artiste"]}, () => {console.log(this.state)})})
         .catch(error => console.log(error))
     }
 
     getAlbum (){
         const album = this.props.route.params.album;
-        fetch('http://localhost:8000/museb/album/',{
+        fetch('https://musebeta.herokuapp.com/museb/album/',{
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -49,13 +52,14 @@ class Album extends Component {
             body: JSON.stringify(album)
         })
         .then(response => response.json())
-        .then(responseJson => {
-            console.log(responseJson)}
-    )
+        .then((responseJson) => 
+            this.setState({albumDetail: responseJson}, () => {console.log(this.state)})
+        )
         .catch(error => console.log(error))
-    }
+        }
 
     render () {
+        const { navigation } = this.props;
         return (
             <View style={{display: "flex", backgroundColor: "#151723"}}>
                 <LinearGradient
@@ -77,15 +81,43 @@ class Album extends Component {
 
                 <View>
                     <View style={{height: "60%", width: "80%", marginLeft: "10%", marginTop: "5%"}}>
-                        <Image source={require("../assets/doja.jpg")} style={{resizeMode: "cover", height: "80%", width: "90%", alignSelf: "center"}} />
+                        <Image source={{
+                            uri: "https://musebeta.herokuapp.com" + this.props.route.params.album.image
+                        }} style={{resizeMode: "cover", height: "80%", width: "90%", alignSelf: "center"}} />
                     </View>
                     <View style={{marginLeft: "5%", marginTop: -40}}>
-                        <Text style={{fontSize:19,color:'#fff', fontWeight:'bold',}}>Doja Cat : Album name</Text>
+                        <Text style={{fontSize:19,color:'#fff', fontWeight:'bold',}}>{this.state.artiste} - {this.props.route.params.album.title}</Text>
                         <Text style={{fontSize:12,color:'#fff', fontWeight:'bold',}}>Album . 2022</Text>
                     </View>
                 </View>
                 {/* container for songs */}
                 <ScrollView style={{marginLeft: "4%", marginTop: -150}}>
+                    {this.state.albumDetail &&(
+                        <View>
+                        {this.state.albumDetail.map((song, index) => (
+                    <TouchableOpacity style={{display: "flex", flexDirection: "row", borderColor: "#343547", borderBottomWidth:1, paddingBottom: "5%", marginBottom: "5%"}} key={index} onPress={() => navigation.navigate("Musicplayer", {artiste: song})}>
+                        <Image source={{
+                            uri: "https://musebeta.herokuapp.com" + song.image
+                        }} style={{resizeMode: "cover", height: 55, width: 45}}/>
+                        <View style={{marginLeft: "5%"}}>
+                            <Text style={{fontSize:16,color:'#fff', fontWeight:'bold',}}>{song.title}</Text>
+                            <Text style={{fontSize:14,color:'#fff', fontWeight:'200',}}>{song.collaborators}</Text>
+                            <View style={{display: "flex", flexDirection: "row",}} >
+                                <MaterialCommunityIcons name="play-box-multiple-outline" size={11} color="white" />
+                                <Text style={{fontSize:11,color:'#fff', fontWeight:'200',marginLeft: "4%"}}>{song.streams} streams</Text>
+                                <Ionicons name="ios-timer-outline" size={11} color="white" style={{marginLeft: "15%"}}/>
+                                <Text style={{fontSize:11,color:'#fff', fontWeight:'200',marginLeft: "4%"}}>3.14</Text>
+                            </View>
+                        </View>
+                        <View style={{justifyContent: "center", marginLeft: "18%"}}>
+                            <Feather name="play" size={24} color="white" />
+                        </View>
+                    </TouchableOpacity>
+                        ))}
+                    </View>
+                    )}
+
+                    {/*
                     <TouchableOpacity style={{display: "flex", flexDirection: "row", borderColor: "#343547", borderBottomWidth:1, paddingBottom: "5%", marginBottom: "5%"}}>
                         <Image source={require("../assets/doja.jpg")} style={{resizeMode: "cover", height: 55, width: 45}}/>
                         <View style={{marginLeft: "5%"}}>
@@ -186,24 +218,7 @@ class Album extends Component {
                         <View style={{justifyContent: "center", marginLeft: "18%"}}>
                             <Feather name="play" size={24} color="white" />
                         </View>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity style={{display: "flex", flexDirection: "row", borderColor: "#343547", borderBottomWidth:1, paddingBottom: "5%", marginBottom: "5%"}}>
-                        <Image source={require("../assets/doja.jpg")} style={{resizeMode: "cover", height: 55, width: 45}}/>
-                        <View style={{marginLeft: "5%"}}>
-                            <Text style={{fontSize:16,color:'#fff', fontWeight:'bold',}}>Strenth of a woman</Text>
-                            <Text style={{fontSize:14,color:'#fff', fontWeight:'200',}}>Katy Perry</Text>
-                            <View style={{display: "flex", flexDirection: "row",}} >
-                                <MaterialCommunityIcons name="play-box-multiple-outline" size={11} color="white" />
-                                <Text style={{fontSize:11,color:'#fff', fontWeight:'200',marginLeft: "4%"}}>50 streams</Text>
-                                <Ionicons name="ios-timer-outline" size={11} color="white" style={{marginLeft: "15%"}} />
-                                <Text style={{fontSize:11,color:'#fff', fontWeight:'200',marginLeft: "4%"}}>3.14</Text>
-                            </View>
-                        </View>
-                        <View style={{justifyContent: "center", marginLeft: "18%"}}>
-                            <Feather name="play" size={24} color="white" />
-                        </View>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                 </ScrollView>
                 </LinearGradient>
                 

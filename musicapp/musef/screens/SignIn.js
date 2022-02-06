@@ -30,7 +30,7 @@ class SignIn extends Component {
         }
 
         axios 
-            .post('http://127.0.0.1:8000/museb/auth/login/', payload)
+            .post('https://musebeta.herokuapp.com/museb/auth/login/', payload)
             .then(response => {
                 const { token, user } = response.data;
                 console.log(token);
