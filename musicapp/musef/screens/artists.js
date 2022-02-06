@@ -1,4 +1,4 @@
-import {React} from 'react';
+import React, {useEffect, useState} from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Image, TouchableOpacity, ImageBackground,ScrollView} from 'react-native';
 import { Feather, SimpleLineIcons, Ionicons, MaterialIcons, MaterialCommunityIcons,  } from '@expo/vector-icons';
@@ -8,9 +8,30 @@ import sark from '../assets/sark.jpg';
 import arthur from '../assets/arthur.jpg';
 import kanye from '../assets/kanye.jpeg';
 import adele from '../assets/adele.jpg';
-import { Button } from 'react-native-web';
 
 export default function artists({ navigation }) {
+
+  const [isLoading, setLoading] = useState(true);
+  const [artistes, setArtiste] = useState(null);
+
+
+  useEffect(() => {
+    //get request to get all the songs
+    fetch('https://musebeta.herokuapp.com/museb/artist/',{
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        }})
+    .then(response => response.json())
+    .then(jsonResponse => 
+        setArtiste(jsonResponse)
+    )
+    .catch(error => console.log(error))
+    .finally(setLoading(false));
+    
+  }, [])
+
   return (
     <ScrollView style={styles.container}>
     <View >
@@ -47,20 +68,17 @@ export default function artists({ navigation }) {
             </ImageBackground>
             </TouchableOpacity>
                         {/* Small Music Disks */}
-                     <View>
-                    <TouchableOpacity style={styles.albums}>
-                    <Image source={arthur} style={styles.albumimage}/>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.albums}>
-                    <Image source={doja} style={styles.albumimage3}/>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.albums}>
-                    <Image source={adele} style={styles.albumimage2}/>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.albums}>
-                    <Image source={kanye} style={styles.albumimage1}/>
-                    </TouchableOpacity>
-                    </View>
+                        {artistes &&(
+                     <View style={{height: 460}}>
+                       <ScrollView>
+                       {artistes.map((artist, index) => (
+                    <TouchableOpacity style={styles.albums} key={index}>
+                    <Image source={{
+                      uri: "https://musebeta.herokuapp.com" + artist.image
+                    }} style={styles.albumimage}/>
+                    </TouchableOpacity>))}
+                    </ScrollView>
+                    </View>)}
         </View>
     {/* Popular Artists */}
         <View >

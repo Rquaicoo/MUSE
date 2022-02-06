@@ -25,7 +25,7 @@ export default function Genre({navigation}) {
                             </View>
                         </View>
                         
-                        <TouchableOpacity style={{ marginBottom: "3%"}}>
+                        <TouchableOpacity style={{ marginBottom: "3%"}} onPress={() => navigation.navigate("MusicList", {genre: "pop", image: "../assets/pop.png"})}>
                             <ImageBackground source={require('../assets/pop.png')} style={styles.contentImages} imageStyle={{ borderRadius: 20}}>
                                 <View style={{}}>
                                     <Text style={styles.insideImageText}>Pop</Text>
@@ -66,13 +66,13 @@ export default function Genre({navigation}) {
                                 <TouchableOpacity style={styles.tags}>
                                     <Text style={styles.tagText}>Cool</Text>
                                 </TouchableOpacity>
-                                <TouchableOpacity style={styles.tagslong}>
+                                <TouchableOpacity style={styles.tagslong} onPress={() => navigation.navigate("MusicList", {genre: "orchestra"})}>
                                     <Text style={styles.tagText}>Orchestra</Text>
                                 </TouchableOpacity>
                             </View>
                         </View>
 
-                        <TouchableOpacity style={{ marginBottom: "3%"}}>
+                        <TouchableOpacity style={{ marginBottom: "3%"}} onPress={() => navigation.navigate("MusicList", {genre: "afro"})}>
                             <ImageBackground source={require('../assets/afro.jpg')} style={styles.contentImages} imageStyle={{ borderRadius: 20}}>
                                 <View style={{}}>
                                     <Text style={styles.insideImageText}>Afro</Text>
@@ -85,7 +85,7 @@ export default function Genre({navigation}) {
                             </ImageBackground>
                         </TouchableOpacity>
 
-                        <TouchableOpacity style={{ marginBottom: "3%",}}>
+                        <TouchableOpacity style={{ marginBottom: "3%",}} onPress={() => navigation.navigate("MusicList", {genre: "hits"})}>
                             <ImageBackground source={require('../assets/activate.jpg')} style={styles.contentImages} imageStyle={{ borderRadius: 20}} >
                                 <View style={{}}>
                                     <Text style={styles.insideImageText}>Hits</Text>
@@ -99,7 +99,7 @@ export default function Genre({navigation}) {
                         </TouchableOpacity>
 
                         <TouchableOpacity style={{ marginBottom: "3%",}}>
-                            <ImageBackground source={require('../assets/blackpink.png')} style={styles.contentImages} imageStyle={{ borderRadius: 20}} >
+                            <ImageBackground source={require('../assets/blackpink.png')} style={styles.contentImages} imageStyle={{ borderRadius: 20}} onPress={() => navigation.navigate("MusicList", {genre: "kpop"})} >
                                 <View style={{}}>
                                     <Text style={styles.insideImageText}>KPop</Text>
                                     <Text style={styles.insideImageText2}>300 Music</Text>
@@ -112,7 +112,7 @@ export default function Genre({navigation}) {
                         </TouchableOpacity>
 
                         <TouchableOpacity style={{ marginBottom: "3%",}}>
-                            <ImageBackground source={require('../assets/adele.jpg')} style={styles.contentImages} imageStyle={{ borderRadius: 20}} >
+                            <ImageBackground source={require('../assets/adele.jpg')} style={styles.contentImages} imageStyle={{ borderRadius: 20}} onPress={() => navigation.navigate("MusicList", {genre: "R&B"})}>
                                 <View style={{}}>
                                     <Text style={styles.insideImageText}>R&B</Text>
                                     <Text style={styles.insideImageText2}>300 Music</Text>
@@ -126,9 +126,9 @@ export default function Genre({navigation}) {
 
 
                         <TouchableOpacity style={{ marginBottom: "3%",}}>
-                            <ImageBackground source={require('../assets/ochestra.jpeg')} style={styles.contentImages} imageStyle={{ borderRadius: 20}} >
+                            <ImageBackground source={require('../assets/ochestra.jpeg')} style={styles.contentImages} imageStyle={{ borderRadius: 20}} onPress={() => navigation.navigate("MusicList", {genre: "orchestra"})}>
                                 <View style={{}}>
-                                    <Text style={styles.insideImageText}>Och-{"\n"}estra</Text>
+                                    <Text style={styles.insideImageText}>Orc-{"\n"}hestra</Text>
                                     <Text style={styles.insideImageText2}>300 Music</Text>
                                 </View>
                                 

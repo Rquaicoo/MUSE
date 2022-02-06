@@ -1,3 +1,4 @@
+from email.mime import audio
 import json
 from urllib import request
 from django.shortcuts import render
@@ -12,6 +13,7 @@ from .serializers import *
 
 from rest_framework.parsers import JSONParser
 from django.utils.decorators import method_decorator
+from mutagen.mp3 import MP3
 
 from allauth.socialaccount.providers.facebook.views import FacebookOAuth2Adapter
 from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
@@ -61,6 +63,9 @@ class GoogleLogin(SocialLoginView):
 class MusicView(APIView):
     def get(self, request, *args, **kwargs):
         music = Music.objects.all()
+        for song in music:
+                print(MP3(song.music_file).info.length)
+            
         serializer = MusicSerializer(music, many=True)
         return Response(serializer.data)
     
@@ -88,6 +93,7 @@ class AlbumView(APIView):
 
             album = Album.objects.get(id=album_id)
             music = Music.objects.filter(album=album)
+
             
             music_serializer = MusicSerializer(music, many=True)
             print(music_serializer.data)
@@ -130,3 +136,11 @@ class GenreView(APIView):
         genres = Genre.objects.all()
         serializer = GenreSerializer(genres, many=True)
         return Response(serializer.data)
+
+    def post(self, request,):
+        genre = str(dict(request.data)["genre"])
+
+        music = Music.objects.filter(genre=genre)
+        music_serializer = MusicSerializer(music, many=True)
+
+        return Response(music_serializer, status=status.HTTP_302_FOUND)
