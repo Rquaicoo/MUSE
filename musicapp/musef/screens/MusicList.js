@@ -1,10 +1,32 @@
-import React, {Component} from 'react';
+import React, {Component, useEffect, useState} from 'react';
 import {Text, View, StyleSheet, Image, TouchableOpacity, ScrollView, ImageBackground} from 'react-native';
 import {LinearGradient} from 'expo-linear-gradient';
 import memoji from '../assets/memoji.png';
 import { Feather, AntDesign,Entypo, Ionicons,FontAwesome5, SimpleLineIcons,FontAwesome, MaterialCommunityIcons,MaterialIcons,  } from '@expo/vector-icons';
 
 export default function MusicList ({navigation}) {
+
+    genre = navigation.props
+    const [music, setMusic] = useState(null);
+
+    useEffect(() => {
+        fetch('https://musebeta.herokuapp.com/museb/album/',{
+            method: 'POST',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({genre: genre})
+        })
+        .then(response => response.json())
+        .then(jsonResponse => 
+            setAlbum(jsonResponse)
+        )
+        .catch(error => console.log(error))
+        .finally();
+    }, [])
+
+
     return (
         <ScrollView style={{display: "flex", backgroundColor: "#151723"}}>
             
