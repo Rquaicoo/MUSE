@@ -39,7 +39,7 @@ class SignUp extends Component{
 
         axios({
             method: 'post',
-            url: 'http://127.0.0.1:8000/museb/auth/register/',
+            url: 'https://musebeta.herokuapp.com/museb/auth/register/',
             data: payload
         })
             .then(response => {
