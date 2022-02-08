@@ -59,7 +59,7 @@ export default function MusicList ({route, navigation}) {
                 {music.map((song, index) => (
                 <TouchableOpacity style={{display: "flex", flexDirection: "row", borderColor: "#343547", borderBottomWidth:1, paddingBottom: "5%", marginBottom: "5%"}} key={index}>
                     <Image source={{
-                            uri: "http://localhost:8000" + song.image
+                            uri: "https://musebeta.herokuapp.com" + song.image
                         }} style={{resizeMode: "cover", height: 55, width: 45}}/>
                     <View style={{marginLeft: "5%"}}>
                         <Text style={{fontSize:16,color:'#fff', fontWeight:'bold',}}>{song.title}</Text>
