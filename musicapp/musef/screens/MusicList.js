@@ -10,7 +10,7 @@ export default function MusicList ({route, navigation}) {
     const [music, setMusic] = useState(null);
 
     useEffect(() => {
-        fetch('http://localhost:8000/museb/genre/',{
+        fetch('https://musebeta.herokuapp.com/museb/genre/',{
             method: 'POST',
             headers: {
               Accept: 'application/json',
@@ -45,7 +45,7 @@ export default function MusicList ({route, navigation}) {
 
             <View>
                 <View style={{marginLeft: "5%", marginTop: "40%"}}>
-                    <Text style={{fontSize:60,color:'#fff', fontWeight:'bold',}}>Pop</Text>
+                    <Text style={{fontSize:60,color:'#fff', fontWeight:'bold',}}>{genre}</Text>
                     <Text style={{fontSize:12,color:'#fff', fontWeight:'bold',}}>120 songs</Text>
                 </View>
              </View>
@@ -57,7 +57,7 @@ export default function MusicList ({route, navigation}) {
             {music &&(
             <View style={{marginLeft: "4%", marginTop: 40}}>
                 {music.map((song, index) => (
-                <TouchableOpacity style={{display: "flex", flexDirection: "row", borderColor: "#343547", borderBottomWidth:1, paddingBottom: "5%", marginBottom: "5%"}} key={index}>
+                <TouchableOpacity style={{display: "flex", flexDirection: "row", borderColor: "#343547", borderBottomWidth:1, paddingBottom: "5%", marginBottom: "5%"}} key={index} onPress={() => navigation.navigate("Musicplayer", {artiste: song})}>
                     <Image source={{
                             uri: "https://musebeta.herokuapp.com" + song.image
                         }} style={{resizeMode: "cover", height: 55, width: 45}}/>

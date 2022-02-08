@@ -1,6 +1,5 @@
 from email.mime import audio
 import json
-from turtle import title
 from urllib import request
 from django.shortcuts import render
 from django.contrib.auth import get_user_model
@@ -14,7 +13,7 @@ from .serializers import *
 
 from rest_framework.parsers import JSONParser
 from django.utils.decorators import method_decorator
-from mutagen.mp3 import MP3
+#from mutagen.mp3 import MP3
 
 from allauth.socialaccount.providers.facebook.views import FacebookOAuth2Adapter
 from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
@@ -64,8 +63,8 @@ class GoogleLogin(SocialLoginView):
 class MusicView(APIView):
     def get(self, request, *args, **kwargs):
         music = Music.objects.all()
-        for song in music:
-                print(MP3(song.music_file).info.length)
+        #for song in music:
+        #print(MP3(song.music_file).info.length)
             
         serializer = MusicSerializer(music, many=True)
         return Response(serializer.data)
