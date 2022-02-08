@@ -6,7 +6,8 @@ import { Feather, AntDesign,Entypo, Ionicons,FontAwesome5, SimpleLineIcons,FontA
 
 export default function MusicList ({navigation}) {
 
-    genre = navigation.props
+    const genre = navigation.props.genre
+    const image = navigation.props.image
     const [music, setMusic] = useState(null);
 
     useEffect(() => {
@@ -20,7 +21,7 @@ export default function MusicList ({navigation}) {
         })
         .then(response => response.json())
         .then(jsonResponse => 
-            setAlbum(jsonResponse)
+            setMusic(jsonResponse)
         )
         .catch(error => console.log(error))
         .finally();
