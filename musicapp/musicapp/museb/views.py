@@ -1,5 +1,6 @@
 from email.mime import audio
 import json
+from turtle import title
 from urllib import request
 from django.shortcuts import render
 from django.contrib.auth import get_user_model
@@ -138,9 +139,11 @@ class GenreView(APIView):
         return Response(serializer.data)
 
     def post(self, request,):
-        genre = str(dict(request.data)["genre"])
+        genre = list(json.dumps(request.data).split(":")[1])
+        genre = "".join([x for x in genre if x.isalpha()])
+        genre_id = Genre.objects.get(title=genre).id
+        music = Music.objects.filter(genre=genre_id)
 
-        music = Music.objects.filter(genre=genre)
-        music_serializer = MusicSerializer(music, many=True)
+        serialized_music = MusicSerializer(music, many=True)
 
-        return Response(music_serializer, status=status.HTTP_302_FOUND)
+        return Response(serialized_music.data, status=status.HTTP_302_FOUND)
