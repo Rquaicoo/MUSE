@@ -36,7 +36,9 @@ export default function App() {
       <Stack.Screen name="SignIn" component={SignIn} options={{
         headerShown: false
       }} />
-      
+      <Stack.Screen name="MusicList" component={MusicList} options={{
+        headerShown: false
+      }} />
        
       <Stack.Screen name="Album" component={Album} options={{
            headerShown: false }} />
