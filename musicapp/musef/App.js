@@ -17,6 +17,7 @@ import Album from './screens/Album';
 
 import AllPopularArtists from './screens/AllArtists';
 import MusicList from './screens/MusicList';
+import ArtistPage from './screens/ArtistPage';
 
 import { AudioProvider } from './screens/AudioProvider';
 import { LocalAudio } from './screens/LocalAudio';
@@ -36,6 +37,9 @@ export default function App() {
         headerShown: false
       }} />
       <Stack.Screen name="AllArtists" component={AllPopularArtists} options={{
+        headerShown: false
+      }} />
+      <Stack.Screen name="ArtistPage" component={ArtistPage} options={{
         headerShown: false
       }} />
       <Stack.Screen name="MusicList" component={MusicList} options={{
