@@ -25,7 +25,7 @@ export default function artists({ navigation }) {
         }})
     .then(response => response.json())
     .then(jsonResponse => 
-        setArtiste(jsonResponse)
+        setArtiste(jsonResponse.slice(0,4))
     )
     .catch(error => console.log(error))
     .finally(setLoading(false));
@@ -194,13 +194,13 @@ const styles = StyleSheet.create({
 
   mainimage: {
     height:460,
-    width:270,
+    width:265,
     borderRadius: 40,
     overflow: 'hidden',
 },
 musiccontent: {
     height:460,
-    width:270,
+    width:265,
     backgroundColor: '#1e202c',
     marginLeft: 20,
     marginTop: 20,

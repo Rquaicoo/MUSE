@@ -27,7 +27,7 @@ export default function Genre({navigation}) {
                                 <TouchableOpacity style={{borderColor: "#343547", borderWidth: 1, alignContent: "center", justifyContent: "center", padding: 8, borderRadius: 20}}>
                                     <Feather name="search" size={21} color="white" />
                                 </TouchableOpacity>
-                                <Image source={require('../assets/doja.jpg')} style={styles.image} />
+                                <Image source={require('../assets/memoji.png')} style={styles.image} />
                             </View>
                         </View>
                         
@@ -104,8 +104,8 @@ export default function Genre({navigation}) {
                             </ImageBackground>
                         </TouchableOpacity>
 
-                        <TouchableOpacity style={{ marginBottom: "3%",}}>
-                            <ImageBackground source={kpop} style={styles.contentImages} imageStyle={{ borderRadius: 20}} onPress={() => navigation.navigate("MusicList", {genre: "Kpop", image: kpop})} >
+                        <TouchableOpacity style={{ marginBottom: "3%",}} onPress={() => navigation.navigate("MusicList", {genre: "Kpop", image: kpop})}>
+                            <ImageBackground source={kpop} style={styles.contentImages} imageStyle={{ borderRadius: 20}}  >
                                 <View style={{}}>
                                     <Text style={styles.insideImageText}>KPop</Text>
                                     <Text style={styles.insideImageText2}>300 Music</Text>
@@ -117,28 +117,28 @@ export default function Genre({navigation}) {
                             </ImageBackground>
                         </TouchableOpacity>
 
-                        <TouchableOpacity style={{ marginBottom: "3%",}}>
-                            <ImageBackground source={randb} style={styles.contentImages} imageStyle={{ borderRadius: 20}} onPress={() => navigation.navigate("MusicList", {genre: "Rhythm", image: randb})}>
+                        <TouchableOpacity style={{ marginBottom: "3%",}} onPress={() => navigation.navigate("MusicList", {genre: "Rhythm", image: randb})}>
+                            <ImageBackground source={randb} style={styles.contentImages} imageStyle={{ borderRadius: 20}} >
                                 <View style={{}}>
                                     <Text style={styles.insideImageText}>Rhythm</Text>
                                     <Text style={styles.insideImageText2}>300 Music</Text>
                                 </View>
                                 
-                                <TouchableOpacity style={styles.insideImageCircle} >
-                                    <AntDesign name="down" size={24} color="white" style={{padding: "10%"}} />
+                                <TouchableOpacity style={{backgroundColor: "rgba(0,0,0,0.5)", height: "35%", width: "10%", marginLeft: "49%", marginTop: "10%", alignItems: "center", justifyContent: "center", borderRadius: 100,}} >
+                                    <AntDesign name="down" size={24} color="white" style={{padding: "10%",}} />
                                 </TouchableOpacity> 
                             </ImageBackground>
                         </TouchableOpacity>
 
 
-                        <TouchableOpacity style={{ marginBottom: "3%",}}>
-                            <ImageBackground source={orchestra} style={styles.contentImages} imageStyle={{ borderRadius: 20}} onPress={() => navigation.navigate("MusicList", {genre: "Orchestra", image: orchestra})}>
+                        <TouchableOpacity style={{ marginBottom: "3%",}} onPress={() => navigation.navigate("MusicList", {genre: "Orchestra", image: orchestra})}>
+                            <ImageBackground source={orchestra} style={styles.contentImages} imageStyle={{ borderRadius: 20}}>
                                 <View style={{}}>
                                     <Text style={styles.insideImageText}>Orc-{"\n"}hestra</Text>
                                     <Text style={styles.insideImageText2}>300 Music</Text>
                                 </View>
                                 
-                                <TouchableOpacity style={styles.insideImageCircle} >
+                                <TouchableOpacity style={{backgroundColor: "rgba(0,0,0,0.5)", height: "35%", width: "10%", marginLeft: "53%", marginTop: "10%", alignItems: "center", justifyContent: "center", borderRadius: 100,}} >
                                     <AntDesign name="down" size={24} color="white" style={{padding: "10%"}} />
                                 </TouchableOpacity> 
                             </ImageBackground>

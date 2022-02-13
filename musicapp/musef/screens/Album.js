@@ -5,6 +5,8 @@ import memoji from '../assets/memoji.png';
 import { Feather, AntDesign,Entypo, Ionicons,FontAwesome5, SimpleLineIcons,FontAwesome, MaterialCommunityIcons,MaterialIcons,  } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 
+import updateStreams from './Browser'
+
 
 
 
@@ -29,7 +31,7 @@ class Album extends Component {
 
     getArtiste (){
         const artiste_id = this.props.route.params.album.artiste;
-        fetch('https://musebeta.herokuapp.com/museb/artist/',{
+        fetch('http://localhost:8000/museb/artist/',{
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -44,7 +46,7 @@ class Album extends Component {
 
     getAlbum (){
         const album = this.props.route.params.album;
-        fetch('https://musebeta.herokuapp.com/museb/album/',{
+        fetch('http://localhost:8000/museb/album/',{
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -95,130 +97,29 @@ class Album extends Component {
                     {this.state.albumDetail &&(
                         <View>
                         {this.state.albumDetail.map((song, index) => (
-                    <TouchableOpacity style={{display: "flex", flexDirection: "row", borderColor: "#343547", borderBottomWidth:1, paddingBottom: "5%", marginBottom: "5%"}} key={index} onPress={() => navigation.navigate("Musicplayer", {artiste: song})}>
+                    <TouchableOpacity style={{display: "flex", flexDirection: "row", borderColor: "#343547", borderBottomWidth:1, paddingBottom: "5%", marginBottom: "5%"}} key={index} onPress={() =>{this.updateStreams;navigation.navigate("Musicplayer", {artiste: song})}}>
                         <Image source={{
                             uri: "https://musebeta.herokuapp.com" + song.image
                         }} style={{resizeMode: "cover", height: 55, width: 45}}/>
-                        <View style={{marginLeft: "5%"}}>
-                            <Text style={{fontSize:16,color:'#fff', fontWeight:'bold',}}>{song.title}</Text>
-                            <Text style={{fontSize:14,color:'#fff', fontWeight:'200',}}>{song.collaborators}</Text>
-                            <View style={{display: "flex", flexDirection: "row",}} >
-                                <MaterialCommunityIcons name="play-box-multiple-outline" size={11} color="white" />
-                                <Text style={{fontSize:11,color:'#fff', fontWeight:'200',marginLeft: "4%"}}>{song.streams} streams</Text>
-                                <Ionicons name="ios-timer-outline" size={11} color="white" style={{marginLeft: "15%"}}/>
-                                <Text style={{fontSize:11,color:'#fff', fontWeight:'200',marginLeft: "4%"}}>3.14</Text>
+                        <View style={{display: "flex", flex:5, flexDirection: "row"}}>
+                            <View style={{marginLeft: "5%", flex:4 }}>
+                                <Text style={{fontSize:16,color:'#fff', fontWeight:'bold',}}>{song.title}</Text>
+                                <Text style={{fontSize:14,color:'#fff', fontWeight:'200',}}>{song.collaborators}</Text>
+                                <View style={{display: "flex", flexDirection: "row",}} >
+                                    <MaterialCommunityIcons name="play-box-multiple-outline" size={11} color="white" />
+                                    <Text style={{fontSize:11,color:'#fff', fontWeight:'200',marginLeft: "4%"}}>{song.streams} streams</Text>
+                                    <Ionicons name="ios-timer-outline" size={11} color="white" style={{marginLeft: "15%"}}/>
+                                    <Text style={{fontSize:11,color:'#fff', fontWeight:'200',marginLeft: "4%"}}>3.14</Text>
+                                </View>
                             </View>
-                        </View>
-                        <View style={{justifyContent: "center", marginLeft: "18%"}}>
-                            <Feather name="play" size={24} color="white" />
+                            <View style={{justifyContent: "center", flex:1}}>
+                                <Feather name="play" size={24} color="white" />
+                            </View>
                         </View>
                     </TouchableOpacity>
                         ))}
                     </View>
                     )}
-
-                    {/*
-                    <TouchableOpacity style={{display: "flex", flexDirection: "row", borderColor: "#343547", borderBottomWidth:1, paddingBottom: "5%", marginBottom: "5%"}}>
-                        <Image source={require("../assets/doja.jpg")} style={{resizeMode: "cover", height: 55, width: 45}}/>
-                        <View style={{marginLeft: "5%"}}>
-                            <Text style={{fontSize:16,color:'#fff', fontWeight:'bold',}}>Strenth of a woman</Text>
-                            <Text style={{fontSize:14,color:'#fff', fontWeight:'200',}}>Katy Perry</Text>
-                            <View style={{display: "flex", flexDirection: "row",}} >
-                                <MaterialCommunityIcons name="play-box-multiple-outline" size={11} color="white" />
-                                <Text style={{fontSize:11,color:'#fff', fontWeight:'200',marginLeft: "4%"}}>50 streams</Text>
-                                <Ionicons name="ios-timer-outline" size={11} color="white" style={{marginLeft: "15%"}} />
-                                <Text style={{fontSize:11,color:'#fff', fontWeight:'200',marginLeft: "4%"}}>3.14</Text>
-                            </View>
-                        </View>
-                        <View style={{justifyContent: "center", marginLeft: "18%"}}>
-                            <Feather name="play" size={24} color="white" />
-                        </View>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity style={{display: "flex", flexDirection: "row", borderColor: "#343547", borderBottomWidth:1, paddingBottom: "5%", marginBottom: "5%"}}>
-                        <Image source={require("../assets/doja.jpg")} style={{resizeMode: "cover", height: 55, width: 45}}/>
-                        <View style={{marginLeft: "5%"}}>
-                            <Text style={{fontSize:16,color:'#fff', fontWeight:'bold',}}>Strenth of a woman</Text>
-                            <Text style={{fontSize:14,color:'#fff', fontWeight:'200',}}>Katy Perry</Text>
-                            <View style={{display: "flex", flexDirection: "row",}} >
-                                <MaterialCommunityIcons name="play-box-multiple-outline" size={11} color="white" />
-                                <Text style={{fontSize:11,color:'#fff', fontWeight:'200',marginLeft: "4%"}}>50 streams</Text>
-                                <Ionicons name="ios-timer-outline" size={11} color="white" style={{marginLeft: "15%"}} />
-                                <Text style={{fontSize:11,color:'#fff', fontWeight:'200',marginLeft: "4%"}}>3.14</Text>
-                            </View>
-                        </View>
-                        <View style={{justifyContent: "center", marginLeft: "18%"}}>
-                            <Feather name="play" size={24} color="white" />
-                        </View>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity style={{display: "flex", flexDirection: "row", borderColor: "#343547", borderBottomWidth:1, paddingBottom: "5%", marginBottom: "5%"}}>
-                        <Image source={require("../assets/doja.jpg")} style={{resizeMode: "cover", height: 55, width: 45}}/>
-                        <View style={{marginLeft: "5%"}}>
-                            <Text style={{fontSize:16,color:'#fff', fontWeight:'bold',}}>Strenth of a woman</Text>
-                            <Text style={{fontSize:14,color:'#fff', fontWeight:'200',}}>Katy Perry</Text>
-                            <View style={{display: "flex", flexDirection: "row",}} >
-                                <MaterialCommunityIcons name="play-box-multiple-outline" size={11} color="white" />
-                                <Text style={{fontSize:11,color:'#fff', fontWeight:'200',marginLeft: "4%"}}>50 streams</Text>
-                                <Ionicons name="ios-timer-outline" size={11} color="white" style={{marginLeft: "15%"}} />
-                                <Text style={{fontSize:11,color:'#fff', fontWeight:'200',marginLeft: "4%"}}>3.14</Text>
-                            </View>
-                        </View>
-                        <View style={{justifyContent: "center", marginLeft: "18%"}}>
-                            <Feather name="play" size={24} color="white" />
-                        </View>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity style={{display: "flex", flexDirection: "row", borderColor: "#343547", borderBottomWidth:1, paddingBottom: "5%", marginBottom: "5%"}}>
-                        <Image source={require("../assets/doja.jpg")} style={{resizeMode: "cover", height: 55, width: 45}}/>
-                        <View style={{marginLeft: "5%"}}>
-                            <Text style={{fontSize:16,color:'#fff', fontWeight:'bold',}}>Strenth of a woman</Text>
-                            <Text style={{fontSize:14,color:'#fff', fontWeight:'200',}}>Katy Perry</Text>
-                            <View style={{display: "flex", flexDirection: "row",}} >
-                                <MaterialCommunityIcons name="play-box-multiple-outline" size={11} color="white" />
-                                <Text style={{fontSize:11,color:'#fff', fontWeight:'200',marginLeft: "4%"}}>50 streams</Text>
-                                <Ionicons name="ios-timer-outline" size={11} color="white" style={{marginLeft: "15%"}} />
-                                <Text style={{fontSize:11,color:'#fff', fontWeight:'200',marginLeft: "4%"}}>3.14</Text>
-                            </View>
-                        </View>
-                        <View style={{justifyContent: "center", marginLeft: "18%"}}>
-                            <Feather name="play" size={24} color="white" />
-                        </View>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity style={{display: "flex", flexDirection: "row", borderColor: "#343547", borderBottomWidth:1, paddingBottom: "5%", marginBottom: "5%"}}>
-                        <Image source={require("../assets/doja.jpg")} style={{resizeMode: "cover", height: 55, width: 45}}/>
-                        <View style={{marginLeft: "5%"}}>
-                            <Text style={{fontSize:16,color:'#fff', fontWeight:'bold',}}>Strenth of a woman</Text>
-                            <Text style={{fontSize:14,color:'#fff', fontWeight:'200',}}>Katy Perry</Text>
-                            <View style={{display: "flex", flexDirection: "row",}} >
-                                <MaterialCommunityIcons name="play-box-multiple-outline" size={11} color="white" />
-                                <Text style={{fontSize:11,color:'#fff', fontWeight:'200',marginLeft: "4%"}}>50 streams</Text>
-                                <Ionicons name="ios-timer-outline" size={11} color="white" style={{marginLeft: "15%"}} />
-                                <Text style={{fontSize:11,color:'#fff', fontWeight:'200',marginLeft: "4%"}}>3.14</Text>
-                            </View>
-                        </View>
-                        <View style={{justifyContent: "center", marginLeft: "18%"}}>
-                            <Feather name="play" size={24} color="white" />
-                        </View>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity style={{display: "flex", flexDirection: "row", borderColor: "#343547", borderBottomWidth:1, paddingBottom: "5%", marginBottom: "5%"}}>
-                        <Image source={require("../assets/doja.jpg")} style={{resizeMode: "cover", height: 55, width: 45}}/>
-                        <View style={{marginLeft: "5%"}}>
-                            <Text style={{fontSize:16,color:'#fff', fontWeight:'bold',}}>Strenth of a woman</Text>
-                            <Text style={{fontSize:14,color:'#fff', fontWeight:'200',}}>Katy Perry</Text>
-                            <View style={{display: "flex", flexDirection: "row",}} >
-                                <MaterialCommunityIcons name="play-box-multiple-outline" size={11} color="white" />
-                                <Text style={{fontSize:11,color:'#fff', fontWeight:'200',marginLeft: "4%"}}>50 streams</Text>
-                                <Ionicons name="ios-timer-outline" size={11} color="white" style={{marginLeft: "15%"}} />
-                                <Text style={{fontSize:11,color:'#fff', fontWeight:'200',marginLeft: "4%"}}>3.14</Text>
-                            </View>
-                        </View>
-                        <View style={{justifyContent: "center", marginLeft: "18%"}}>
-                            <Feather name="play" size={24} color="white" />
-                        </View>
-                    </TouchableOpacity> */}
                 </ScrollView>
                 </LinearGradient>
                 

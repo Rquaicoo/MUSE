@@ -33,7 +33,7 @@ export default function MusicList ({route, navigation}) {
             <ImageBackground source={image} style={{height:400,width:"100%",borderRadius: 40,}}>
             <View  style={styles.headerContainer}>
                 <View>
-                    <Ionicons name="arrow-back-outline" size={30} color="white"  onPress={() => navigation.navigate("Home")} style={{paddingTop:6,}}/>
+                    <Ionicons name="arrow-back-outline" size={30} color="white"  onPress={() => navigation.goBack()} style={{paddingTop:6,}}/>
                 </View>
                 
                 <View style={{marginLeft: "67%", display: "flex", }}>
