@@ -30,7 +30,7 @@ class SignIn extends Component {
         }
 
         axios 
-            .post('https://musebeta.herokuapp.com/museb/auth/login/', payload)
+            .post('http://localhost:8000/museb/auth/login/', payload)
             .then(response => {
                 const { token, user } = response.data;
                 console.log(token);
@@ -40,7 +40,7 @@ class SignIn extends Component {
                 this.props.navigation.navigate("Tabs");
             }).
             catch(
-            this.state.denied=true);
+            this.setState({denied: true}));
     };
 
     redirectToSignUp = () => {
@@ -62,8 +62,8 @@ class SignIn extends Component {
                         colors={['#8a3f82', '#bb4575', '#f65e69', '#f96e69']}
                         start={{x: 0, y: 0.5}}
                         end={{x: 1, y: 1}}
-                        style={{borderRadius: 15, width: "90%", alignSelf: "center", marginTop: 10}}> 
-                            <Text style={{fontWeight:'bold', fontSize:13, alignSelf:'center',color:'white', padding: "3%",}} >Username or password is incorrect</Text>
+                        style={{borderRadius: 15, width: "90%", alignSelf: "center", marginTop: 20}}> 
+                            <Text style={{fontWeight:'bold', fontSize:13, alignSelf:'center',color:'white', padding: "1%",}} >Username or password is incorrect</Text>
                         
                             </LinearGradient>
                    ) : <View></View>}

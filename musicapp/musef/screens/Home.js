@@ -145,7 +145,6 @@ export default function Home({ navigation }) {
     
       <View style={styles.modal}>
         <TouchableWithoutFeedback  onPress={() => navigation.navigate("Musicplayer")} >
-        <SharedElement id="1">
           <View style={{flexDirection:'row',padding:20,}}>
             <Feather name="x" size={24} color="white"  style={{ paddingTop:15,}}/>
               <View>
@@ -155,12 +154,11 @@ export default function Home({ navigation }) {
           <Text style={styles.modaltext}> Woman </Text>
           <Text style={{fontSize:18, color:'white', paddingLeft:10, }}> Doja Cat</Text>
           </View>
-        
           <Ionicons name="ios-play-skip-back-outline" size={30} color="white" style={{ paddingTop:10,paddingLeft:40}}/>
           <FontAwesome name="play-circle" size={50} color="white"  style={{paddingTop:1,paddingLeft:20}} />
           <Ionicons name="ios-play-skip-forward-outline" size={30} color="white" style={{ paddingTop:10,paddingLeft:20}}/>
           </View>
-          </SharedElement>
+          
         </TouchableWithoutFeedback>
       </View>
 

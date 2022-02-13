@@ -15,6 +15,7 @@ import Musicplayer from './screens/Musicplayer';
 import myprofile from './screens/myprofile';
 import Album from './screens/Album';
 
+import AllPopularArtists from './screens/AllArtists';
 import MusicList from './screens/MusicList';
 
 import { AudioProvider } from './screens/AudioProvider';
@@ -30,16 +31,19 @@ export default function App() {
     <AudioProvider>
     <NavigationContainer>
       <Stack.Navigator>
+      
       <Stack.Screen name="Tabs" component={Tabs} options={{
         headerShown: false
       }} />
-      <Stack.Screen name="SignIn" component={SignIn} options={{
+      <Stack.Screen name="AllArtists" component={AllPopularArtists} options={{
         headerShown: false
       }} />
       <Stack.Screen name="MusicList" component={MusicList} options={{
         headerShown: false
       }} />
-       
+       <Stack.Screen name="SignIn" component={SignIn} options={{
+        headerShown: false
+      }} />
       <Stack.Screen name="Album" component={Album} options={{
            headerShown: false }} />
       
