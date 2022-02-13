@@ -1,5 +1,5 @@
 import {React, useEffect, useState} from 'react';
-import { StyleSheet, Text, View,Image, ImageBackground, TouchableOpacity, ScrollView, StatusBar, FlatList} from 'react-native';
+import { StyleSheet, Text, View,Image, ImageBackground, TouchableOpacity, ScrollView, StatusBar, ActivityIndicator} from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import rad from '../assets/rad.jpg';
@@ -18,7 +18,9 @@ import axios from 'axios';
 
 export default function Browser ({navigation}) {
 
-    const [isLoading, setLoading] = useState(true);
+    const [isMusicLoading, setMusicLoading] = useState(true);
+    const [isAlbumLoading, setAlbumLoading] = useState(true);
+
     const [albums, setAlbum] = useState(null);
 
     const [music, setMusic] = useState(null);
@@ -27,6 +29,7 @@ export default function Browser ({navigation}) {
 
     useEffect(() => {
         //get request to get all the songs
+        
         fetch('https://musebeta.herokuapp.com/museb/album/',{
             method: 'GET',
             headers: {
@@ -35,11 +38,10 @@ export default function Browser ({navigation}) {
             }})
         .then(response => response.json())
         .then(jsonResponse => 
-            setAlbum(jsonResponse)
-        )
+            setAlbum(jsonResponse))
+        .then(setAlbumLoading(false))
         .catch(error => console.log(error))
-        .finally(setLoading(false));
-
+       
 
         fetch('https://musebeta.herokuapp.com/museb/music/',{
             method: 'GET',
@@ -49,10 +51,9 @@ export default function Browser ({navigation}) {
             }})
         .then(response => response.json())
         .then(jsonResponse => 
-            setMusic(jsonResponse)
-        )
+            setMusic(jsonResponse))
+        .then(setMusicLoading(false))
         .catch(error => console.log(error))
-        .finally(setLoading(false));
 
         fetch('https://musebeta.herokuapp.com/museb/cover/',{
             method: 'GET',
@@ -65,9 +66,22 @@ export default function Browser ({navigation}) {
             setCover(jsonResponse)
         )
         .catch(error => console.log(error))
-        .finally(setLoading(false));
         
     }, [])
+
+    const updateStreams = (music) => {
+        fetch('http://localhost:8000/museb/music/',{
+            method: 'PUT',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+            },
+        body: json.stringify(music)})
+        .then(response => response.json())
+        .then(jsonResponse => 
+            console.log(jsonResponse))
+        .catch(error => console.log(error))
+    }
     
     console.log(albums)
         return (
@@ -94,13 +108,13 @@ export default function Browser ({navigation}) {
             <Text style={{color:'white',fontWeight:'bold'}} >
                 Trending</Text> Music </Text>
                 <View>
-                {isLoading ? <Text>Loading...</Text> :
+                {isMusicLoading ? (<ActivityIndicator color="#fff" size="large" />) :
                 (<ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
                     <View style={{flexDirection:'row', flexWrap: "wrap"}}>
                     {cover &&(
                     <View>
                          {cover.map((artiste, index) => (
-                        <TouchableOpacity style={styles.musiccontent} key={index} onPress={() => navigation.navigate("Musicplayer", {artiste: artiste})}>
+                        <TouchableOpacity style={styles.musiccontent} key={index} onPress={() => {this.updateStreams(artiste);navigation.navigate("Musicplayer", {artiste: artiste})}}>
                         <Image source={{uri: "https://musebeta.herokuapp.com"+artiste.image}} style={styles.mainimage}/>
                         </TouchableOpacity>))}
                     </View>
@@ -143,6 +157,8 @@ export default function Browser ({navigation}) {
                 Latest </Text> Albums </Text>
                 
                 <View>
+                    { isAlbumLoading ? (<ActivityIndicator color="#fff" size="large" style={{marginBottom: 100}} />) :
+                    (
                 <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
                 {albums && (
                     <View style={{flexDirection:'row', marginBottom:200,}}>
@@ -155,6 +171,7 @@ export default function Browser ({navigation}) {
                     </View>
                 )}
                 </ScrollView>
+                    )}
                 </View>                
             </View>
             </ScrollView>

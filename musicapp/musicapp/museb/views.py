@@ -1,6 +1,5 @@
 from email.mime import audio
 import json
-from turtle import title
 from urllib import request
 from django.shortcuts import render
 from django.contrib.auth import get_user_model
@@ -14,7 +13,7 @@ from .serializers import *
 
 from rest_framework.parsers import JSONParser
 from django.utils.decorators import method_decorator
-from mutagen.mp3 import MP3
+#from mutagen.mp3 import MP3
 
 from allauth.socialaccount.providers.facebook.views import FacebookOAuth2Adapter
 from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
@@ -59,19 +58,30 @@ class FacebookLogin(SocialLoginView):
     adapter_class = FacebookOAuth2Adapter
 class GoogleLogin(SocialLoginView):
     adapter_class = GoogleOAuth2Adapter
+    
 
-@method_decorator(csrf_exempt, name='dispatch')
 class MusicView(APIView):
     def get(self, request, *args, **kwargs):
         music = Music.objects.all()
-        for song in music:
-                print(MP3(song.music_file).info.length)
+        #for song in music:
+        #print(MP3(song.music_file).info.length)
             
         serializer = MusicSerializer(music, many=True)
         return Response(serializer.data)
     
     def post(self, ):
         pass
+
+    def put(self, request):
+        serializer = MusicSerializer(request.data)
+        if serializer.is_valid():
+            music = Music.objects.filter(id=dict(serializer)["id"])
+            music.streams += 1
+            music.save()
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 class CoverArtisteView(APIView):
     def get(self, request, *args, **kwargs):
         cover = CoverArtiste.objects.all()
@@ -80,6 +90,14 @@ class CoverArtisteView(APIView):
     
     def post(self, ):
         pass
+
+class PopularArtistView(APIView):
+    def get(self, request, *args, **kwargs):
+        music = Artiste.objects.filter(popular=True)
+        #for song in music:
+        #print(MP3(song.music_file).info.length)
+        serializer = ArtistSerializer(music, many=True)
+        return Response(serializer.data)
 
 class AlbumView(APIView):
     def get(self, *args, **kwargs):

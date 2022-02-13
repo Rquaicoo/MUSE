@@ -106,7 +106,7 @@ render () {
                     <Text  style={{fontWeight:'bold', fontSize:15, color: "#fdfdfd",  marginTop: "6%"}}>Password</Text>
                     <View style={{flexDirection: "row", }}>
                             <TextInput style={{height: 60, borderColor: "#ffffff", borderWidth: 1,borderRadius: 15, paddingLeft: 10, marginTop: 8, color: "#ffffff", width: "95%",textAlign: "center", fontSize: 17 }}
-                            placeholder="Enter your password" 
+                            placeholder="Enter your strong password" 
                             onChangeText={this.onPasswordChange.bind(this)}
                             placeholderTextColor="#ffffff"
                             secureTextEntry={true}
