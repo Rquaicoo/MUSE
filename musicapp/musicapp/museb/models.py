@@ -20,7 +20,7 @@ class Artiste(models.Model):
 class Album(models.Model):
     image = models.ImageField(blank=False, null=False)
     title = models.CharField(max_length=100, blank=False, null=False)
-    artiste = models.OneToOneField(Artiste, on_delete=models.CASCADE)
+    artiste = models.ForeignKey(Artiste, on_delete=models.CASCADE)
     trending = models.BooleanField(blank=False)
 
     @property
