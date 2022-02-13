@@ -84,7 +84,7 @@ export default function artists({ navigation }) {
                      <View style={{height: 500}}>
                        <ScrollView>
                        {artistes.map((artist, index) => (
-                    <TouchableOpacity style={styles.albums} key={index}>
+                    <TouchableOpacity style={styles.albums} key={index} onPress={() => navigation.navigate("ArtistPage", {artiste: artist})}>
                     <Image source={{
                       uri: "https://musebeta.herokuapp.com" + artist.image
                     }} style={styles.albumimage}/>
@@ -105,8 +105,8 @@ export default function artists({ navigation }) {
                 {popularArtistes &&(
                  <View style={{flexDirection:'row'}} >
                    {popularArtistes.map((artist, index) => (
-                    <View>
-                    <TouchableOpacity style={styles.popularalbums}>
+                    <View key={index}>
+                    <TouchableOpacity style={styles.popularalbums} onPress={() => navigation.navigate("ArtistPage", {artist: artist})}>
                     <Image source={{
                       uri: "http://localhost:8000" + artist.image
                     }} style={styles.popularimage}/>
