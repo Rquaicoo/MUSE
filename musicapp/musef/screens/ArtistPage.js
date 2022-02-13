@@ -6,31 +6,34 @@ import { Feather, AntDesign,Entypo, Ionicons,FontAwesome5, SimpleLineIcons,FontA
 
 export default function ArtistPage ({route, navigation}) {
 
-    const {genre, image} = route.params;
-    const [music, setMusic] = useState(null);
+    const artiste = route.params.artist;
+    console.log(artiste)
+    const [artisteContent, setArtisteContent] = useState(null);
 
     useEffect(() => {
-        fetch('https://musebeta.herokuapp.com/museb/genre/',{
+        fetch('http://localhost:8000/museb/artist_content/',{
             method: 'POST',
             headers: {
               Accept: 'application/json',
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify({genre:genre})
+            body: JSON.stringify(artiste)
         })
         .then(response => response.json())
         .then(jsonResponse => 
-            setMusic(jsonResponse)
+            console.log(jsonResponse)
         )
         .catch(error => console.log(error))
-        .finally();
+        
     }, [])
 
 
     return (
         <ScrollView style={{display: "flex", backgroundColor: "#151723"}}>
             
-            <ImageBackground source={image} style={{height:400,width:"100%",borderRadius: 40,}}>
+            <ImageBackground source={{
+                      uri: "https://musebeta.herokuapp.com" + artiste.image
+                    }} style={{height:400,width:"100%",borderRadius: 40,}}>
             <View  style={styles.headerContainer}>
                 <View>
                     <Ionicons name="arrow-back-outline" size={30} color="white"  onPress={() => navigation.goBack()} style={{paddingTop:6,}}/>
@@ -45,7 +48,7 @@ export default function ArtistPage ({route, navigation}) {
 
             <View>
                 <View style={{marginLeft: "5%", marginTop: "40%"}}>
-                    <Text style={{fontSize:60,color:'#fff', fontWeight:'bold',}}>{genre}</Text>
+                    <Text style={{fontSize:60,color:'#fff', fontWeight:'bold',}}>{artiste.name}</Text>
                     <Text style={{fontSize:12,color:'#fff', fontWeight:'bold',}}>120 songs</Text>
                 </View>
              </View>
@@ -54,9 +57,9 @@ export default function ArtistPage ({route, navigation}) {
 
 
             {/* container for songs */}
-            {music &&(
+            {artisteContent &&(
             <View style={{marginLeft: "4%", marginTop: 40}}>
-                {music.map((song, index) => (
+                {artisteContent.map((song, index) => (
                 <TouchableOpacity style={{display: "flex", flexDirection: "row", borderColor: "#343547", borderBottomWidth:1, paddingBottom: "5%", marginBottom: "5%"}} key={index} onPress={() => navigation.navigate("Musicplayer", {artiste: song})}>
                     <Image source={{
                             uri: "https://musebeta.herokuapp.com" + song.image
@@ -75,7 +78,7 @@ export default function ArtistPage ({route, navigation}) {
                         <Feather name="play" size={24} color="white" />
                     </View>
                 </TouchableOpacity>))}
-            </View>)}
+                    </View>)}
         </ScrollView>
     )
 }
