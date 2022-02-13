@@ -58,8 +58,8 @@ class FacebookLogin(SocialLoginView):
     adapter_class = FacebookOAuth2Adapter
 class GoogleLogin(SocialLoginView):
     adapter_class = GoogleOAuth2Adapter
+    
 
-@method_decorator(csrf_exempt, name='dispatch')
 class MusicView(APIView):
     def get(self, request, *args, **kwargs):
         music = Music.objects.all()
@@ -90,6 +90,14 @@ class CoverArtisteView(APIView):
     
     def post(self, ):
         pass
+
+class PopularArtistView(APIView):
+    def get(self, request, *args, **kwargs):
+        music = Artiste.objects.filter(popular=True)
+        #for song in music:
+        #print(MP3(song.music_file).info.length)
+        serializer = ArtistSerializer(music, many=True)
+        return Response(serializer.data)
 
 class AlbumView(APIView):
     def get(self, *args, **kwargs):
