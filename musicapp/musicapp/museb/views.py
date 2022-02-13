@@ -71,6 +71,17 @@ class MusicView(APIView):
     
     def post(self, ):
         pass
+
+    def put(self, request):
+        serializer = MusicSerializer(request.data)
+        if serializer.is_valid():
+            music = Music.objects.filter(id=dict(serializer)["id"])
+            music.streams += 1
+            music.save()
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 class CoverArtisteView(APIView):
     def get(self, request, *args, **kwargs):
         cover = CoverArtiste.objects.all()
