@@ -24,22 +24,22 @@ class CreateUserSerializer(serializers.ModelSerializer):
 class MusicSerializer(serializers.ModelSerializer):
     class Meta:
         model = Music
-        fields = ('id', 'title', 'main_artiste', 'collaborators', 'music_file', 'streams')
+        fields = ('id', 'title', 'imageURL', 'image', 'fileURL','main_artiste', 'collaborators', 'music_file', 'streams')
 
 class AlbumSerializer(serializers.ModelSerializer):
     class Meta:
         model = Album
-        fields = ('id', 'title', 'image', 'artiste')
+        fields = ('id', 'title', 'image', 'imageURL', 'artiste')
 
 class ArtistSerializer(serializers.ModelSerializer):
     class Meta:
         model = Artiste
-        fields = ('id', 'name', 'cover_image', 'popular')
+        fields = ('id', 'name', 'image', 'imageURL', 'popular')
 
 class PlaylistSerializer(serializers.ModelSerializer):
     class Meta:
         model = Playlist
-        fields = ('id', 'title', 'image', 'songs')
+        fields = ('id', 'title', 'image', 'imageURL', 'songs')
 
 class GenreSerializer(serializers.ModelSerializer):
     class Meta:

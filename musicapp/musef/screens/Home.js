@@ -167,13 +167,17 @@ export default function Home({ navigation }) {
     
     </View>
     </View>
-  );
-}
+    </View>
+  )};
 
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#151723",
     height: "100%",
+<<<<<<< HEAD
+=======
+    flex: 1,
+>>>>>>> 1028ecacc288dfeaf0e85b84ae87efbf32b2f147
 
   },
   image: {

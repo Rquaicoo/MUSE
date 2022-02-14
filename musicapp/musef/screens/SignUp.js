@@ -10,7 +10,7 @@ export default function SignUp ({navigation}) {
 
     function handleRequest() {
         const payload = {
-            name: {name},
+            username: {username},
             email: {email},
             password: {password}
         }
@@ -96,7 +96,7 @@ export default function SignUp ({navigation}) {
             </View>
         </View>
 
-        <TouchableOpacity style={{ marginTop: "8%",  width: "90%", alignSelf: "center", }} onPress={() => navigation.navigate("Tabs")}>
+        <TouchableOpacity style={{ marginTop: "8%",  width: "90%", alignSelf: "center", }} onPress={this.handleRequest}>
         <LinearGradient
         colors={['#8a3f82', '#bb4575', '#f65e69', '#f96e69']}
         start={{x: 0, y: 0.5}}

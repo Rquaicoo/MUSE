@@ -36,7 +36,7 @@ export default function MyMusic({ navigation }) {
                 </TouchableOpacity>
 
                 
-                <TouchableOpacity style={styles.downloadsContent} >
+                <TouchableOpacity style={styles.downloadsContent} onPress={() => navigation.navigate("LocalAudio")} >
                 <View style={{backgroundColor: "#151723", padding: "7%", borderRadius: 20}}>
                 <Ionicons name="md-musical-note" size={24} color="white" />
                 </View>
