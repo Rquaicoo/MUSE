@@ -1,4 +1,5 @@
 from django.db import models
+from rest_framework.authtoken.models import Token
 
 # Create your models here.
 class Artiste(models.Model):
@@ -121,7 +122,10 @@ class Playlist(models.Model):
         return self.title
 
 class FollowedArtistes(models.Model):
+    user_token = models.OneToOneField(Token, on_delete=models.SET_NULL, null=True)
     artistes = models.ForeignKey(Artiste, on_delete=models.SET_NULL, null=True)
+    
 
 class LikedMusic(models.Model):
+    user_token = models.OneToOneField(Token, on_delete=models.SET_NULL, null=True)
     music = models.ForeignKey(Music, on_delete=models.SET_NULL, null=True)
