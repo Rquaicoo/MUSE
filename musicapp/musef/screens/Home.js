@@ -9,8 +9,15 @@ import arthur from '../assets/arthur.jpg';
 import kanye from '../assets/kanye.jpeg';
 import adele from '../assets/adele.jpg';
 import { SharedElement } from 'react-navigation-shared-element';
+import {
+  SharedElementTransition,
+  nodeFromRef
+} from 'react-native-shared-element';
 
 export default function Home({ navigation }) {
+ 
+
+
   return (
     <View style={styles.container}>
     <View style={{flex: 1}}>
@@ -125,14 +132,22 @@ export default function Home({ navigation }) {
     {/* Music Player */}
     <View 
     style={styles.modal}>
-    <TouchableWithoutFeedback  onPress={() => navigation.navigate("Musicplayer")} >
+    <TouchableWithoutFeedback  >
     <View style={{flexDirection:'row',padding:20,}}>
     <Feather name="x" size={24} color="white"  style={{ paddingTop:15,}}/>
-            <View>
-             <Image source={require('../assets/doja.jpg')} style={styles.modalimage} />
+            <View  >
+              
+              <TouchableOpacity onPress={() => navigation.navigate("Musicplayer")}  >
+             
+              <Image source={require('../assets/doja.jpg')} style={styles.modalimage}  />
+            
+              </TouchableOpacity>
+            
+             
             </View>
     <View>
-    <Text style={styles.modaltext}> Woman </Text>
+    
+     <Text style={styles.modaltext}> Woman </Text>
     <Text style={{fontSize:18, color:'white', paddingLeft:10, }}> Doja Cat</Text>
     </View>
    
@@ -141,26 +156,8 @@ export default function Home({ navigation }) {
     <Ionicons name="ios-play-skip-forward-outline" size={30} color="white" style={{ paddingTop:10,paddingLeft:20}}/>
     </View>
     </TouchableWithoutFeedback>
+    </View>
 
-    
-      <View style={styles.modal}>
-        <TouchableWithoutFeedback  onPress={() => navigation.navigate("Musicplayer")} >
-          <View style={{flexDirection:'row',padding:20,}}>
-            <Feather name="x" size={24} color="white"  style={{ paddingTop:15,}}/>
-              <View>
-                <Image source={require('../assets/doja.jpg')} style={styles.modalimage} />
-              </View>
-          <View>
-          <Text style={styles.modaltext}> Woman </Text>
-          <Text style={{fontSize:18, color:'white', paddingLeft:10, }}> Doja Cat</Text>
-          </View>
-          <Ionicons name="ios-play-skip-back-outline" size={30} color="white" style={{ paddingTop:10,paddingLeft:40}}/>
-          <FontAwesome name="play-circle" size={50} color="white"  style={{paddingTop:1,paddingLeft:20}} />
-          <Ionicons name="ios-play-skip-forward-outline" size={30} color="white" style={{ paddingTop:10,paddingLeft:20}}/>
-          </View>
-          
-        </TouchableWithoutFeedback>
-      </View>
 
     
     
@@ -174,6 +171,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#151723",
     height: "100%",
     flex: 1,
+
 
   },
   image: {
