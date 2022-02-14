@@ -14,15 +14,20 @@ import SignUp from './screens/SignUp';
 import SignIn from './screens/SignIn';
 import Musicplayer from './screens/Musicplayer';
 import myprofile from './screens/myprofile';
+import Startupscreen from './screens/Startupscreen';
 
 
 
 const Stack = createSharedElementStackNavigator();
 
+
 export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+      <Stack.Screen name="Startupscreen" component={Startupscreen} options={{
+        headerShown: false
+      }} />
       <Stack.Screen name="Intro1" component={Intro1} options={{
         headerShown: false
       }} />
@@ -41,13 +46,15 @@ export default function App() {
       <Stack.Screen name="Tabs" component={Tabs} options={{
         headerShown: false
       }} />
-      <Stack.Screen name="Musicplayer" component={Musicplayer} options={{
+      <Stack.Screen name="Musicplayer" component={Musicplayer} 
+      options={{
         headerShown: false
       }} />
 
       <Stack.Screen name="myprofile" component={myprofile} options={{
         headerShown: false
       }} />
+      
       </Stack.Navigator>
     </NavigationContainer>
   );

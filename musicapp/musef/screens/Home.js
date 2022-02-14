@@ -8,8 +8,16 @@ import sark from '../assets/sark.jpg';
 import arthur from '../assets/arthur.jpg';
 import kanye from '../assets/kanye.jpeg';
 import adele from '../assets/adele.jpg';
+import { SharedElement } from 'react-navigation-shared-element';
+import {
+  SharedElementTransition,
+  nodeFromRef
+} from 'react-native-shared-element';
 
 export default function Home({ navigation }) {
+ 
+
+
   return (
     <View style={styles.container}>
     <View style={{flex: 1}}>
@@ -124,14 +132,22 @@ export default function Home({ navigation }) {
     {/* Music Player */}
     <View 
     style={styles.modal}>
-    <TouchableWithoutFeedback  onPress={() => navigation.navigate("Musicplayer")} >
+    <TouchableWithoutFeedback  >
     <View style={{flexDirection:'row',padding:20,}}>
     <Feather name="x" size={24} color="white"  style={{ paddingTop:15,}}/>
-            <View>
-             <Image source={require('../assets/doja.jpg')} style={styles.modalimage} />
+            <View  >
+              
+              <TouchableOpacity onPress={() => navigation.navigate("Musicplayer")}  >
+             
+              <Image source={require('../assets/doja.jpg')} style={styles.modalimage}  />
+            
+              </TouchableOpacity>
+            
+             
             </View>
     <View>
-    <Text style={styles.modaltext}> Woman </Text>
+    
+     <Text style={styles.modaltext}> Woman </Text>
     <Text style={{fontSize:18, color:'white', paddingLeft:10, }}> Doja Cat</Text>
     </View>
    
@@ -142,6 +158,11 @@ export default function Home({ navigation }) {
     </TouchableWithoutFeedback>
     
     </View>
+
+
+
+
+
     
     
     </View>
