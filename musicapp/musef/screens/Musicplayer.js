@@ -5,12 +5,18 @@ import { Feather, Octicons, Ionicons,FontAwesome5, FontAwesome, MaterialCommunit
 import { LinearGradient } from 'expo-linear-gradient';
 import doja from '../assets/doja.jpg';
 import { SharedElement } from 'react-navigation-shared-element';
+import {
+    SharedElementTransition,
+    nodeFromRef
+  } from 'react-native-shared-element';
+  
 
 
 
 
 export default function Musicplayer ({navigation}) {
 
+ 
     return(
 
         <View 
@@ -21,9 +27,15 @@ export default function Musicplayer ({navigation}) {
         end={{x: 1, y: 0.5}}
       >
           <ScrollView showsVerticalScrollIndicator={false} >
-                    <TouchableOpacity style={styles.albums}>
-                    <Image source={doja} style={styles.albumimage3}/>
-                    </TouchableOpacity>
+          
+                 <TouchableOpacity style={styles.albums}>
+                    
+                          <Image source={doja} style={styles.albumimage3}/>
+                   
+                   
+                 </TouchableOpacity>
+        
+                    
 
 
          {/* Header */}
