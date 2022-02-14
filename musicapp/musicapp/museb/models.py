@@ -119,3 +119,9 @@ class Playlist(models.Model):
 
     def __str__(self):
         return self.title
+
+class FollowedArtistes(models.Model):
+    artistes = models.ForeignKey(Artiste, on_delete=models.SET_NULL, null=True)
+
+class LikedMusic(models.Model):
+    music = models.ForeignKey(Music, on_delete=models.SET_NULL, null=True)
