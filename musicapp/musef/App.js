@@ -39,7 +39,7 @@ export default function App() {
       <Stack.Navigator>
       <Stack.Screen name="Startupscreen" component={Startupscreen} options={{
         headerShown: false
-      }} /
+      }} />
       
       <Stack.Screen name="Tabs" component={Tabs} options={{
 
