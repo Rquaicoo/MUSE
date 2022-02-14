@@ -1,7 +1,7 @@
 import React, {Component, useState} from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, TextInput, View, Image,Modal, TouchableOpacity, TouchableWithoutFeedback, ImageBackground,ScrollView} from 'react-native';
-import { Feather, Octicons, Ionicons,FontAwesome5, FontAwesome, MaterialCommunityIcons,MaterialIcons,  } from '@expo/vector-icons';
+import { StyleSheet, Text, TextInput, View, Image,Modal, TouchableOpacity, TouchableWithoutFeedback, Animated,ScrollView} from 'react-native';
+import { Feather, Entypo, Ionicons,FontAwesome5, FontAwesome, MaterialCommunityIcons,MaterialIcons,  } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import doja from '../assets/doja.jpg';
 import { Audio } from 'expo-av'
@@ -27,7 +27,11 @@ class Musicplayer extends Component {
         volume: 1.0,
         isBuffering: false,
         liked: false,
-        artiste: ""
+        artiste: "",
+        rotateValueHolder: new Animated.Value(0)
+    }
+    like() {
+        this.state.liked = !this.state.liked
     }
 
     async componentDidMount() {
@@ -40,9 +44,10 @@ class Musicplayer extends Component {
                 playsInSilentModeIOS: true,
                 shouldDuckAndroid: true,
                 staysActiveInBackground: true,
-                playThroughEarpieceAndroid: true
+                playThroughEarpieceAndroid: false
             })
             this.loadAudio()
+            this.startImageRotateFunction();
         }
         catch(error) {
             console.log(error)
@@ -144,8 +149,19 @@ class Musicplayer extends Component {
             this.loadAudio()
         }
     }
+    
+    startImageRotateFunction = () => {
+        Animated.loop(Animated.timing(this.state.rotateValueHolder, {
+          toValue: 1,
+          duration: 3000,
+          easing: Easing.linear,
+          useNativeDriver: false,
+        })).start();
+      };
+    
     render() {
         const { navigation } = this.props;
+        
             return(
 
                 <View 
@@ -157,7 +173,7 @@ class Musicplayer extends Component {
             >
                 <ScrollView showsVerticalScrollIndicator={false} >
                             <TouchableOpacity style={styles.albums}>
-                            <Image source={{
+                            <Animated.Image source={{
                                 uri: "https://musebeta.herokuapp.com" + this.props.route.params.artiste.image
                             }} style={styles.albumimage3}/>
                             </TouchableOpacity>
@@ -173,9 +189,11 @@ class Musicplayer extends Component {
                 <Text style={styles.mainheader}>
                     {this.state.artiste}
                 </Text>
-                <MaterialCommunityIcons name="progress-download" size={32} color="white" style={{paddingLeft:'23%', paddingTop:2,}} />
+                <MaterialCommunityIcons name="progress-download" size={32} color="white" style={{paddingLeft:'8%', paddingTop:2,}} />
                 <MaterialCommunityIcons name="account-check-outline" size={32} color="white"  style={{paddingLeft:'8%', paddingTop:2,}} />
-                <FontAwesome5 name="heart" size={25} color="white"  style={{paddingLeft:'8%', paddingTop:5,}} />
+                {this.state.liked ?
+                (<FontAwesome5 name="heart" size={25} color="white"  style={{paddingLeft:'8%', paddingTop:5,}} onPress={this.liked} />):
+                (<Entypo name="heart" size={25} color="white" style={{paddingLeft:'8%', paddingTop:5,}} onPress={this.liked}/>)}
                 </View>
                 <Text style={{fontSize:20,color:'white' ,paddingLeft:20, fontWeight:'bold', opacity:0.8}}>{this.props.route.params.artiste.collaborators}</Text>
 
@@ -259,6 +277,7 @@ const styles = StyleSheet.create({
         borderRadius: 200,
         borderColor: '#ff4d99',
        borderWidth: 5,
+
     },
 
 
