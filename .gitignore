@@ -13,6 +13,7 @@ musev/
 *.mobileprovision
 *.orig.*
 web-build/
+musev/
 
 # macOS
 .DS_Store

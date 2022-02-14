@@ -1,5 +1,5 @@
-import {React} from 'react';
-import { StyleSheet, Text, View,Image, ImageBackground, TouchableOpacity, ScrollView, StatusBar} from 'react-native';
+import {React, useEffect, useState} from 'react';
+import { StyleSheet, Text, View,Image, ImageBackground, TouchableOpacity, ScrollView, StatusBar, ActivityIndicator} from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import rad from '../assets/rad.jpg';
@@ -10,14 +10,81 @@ import adele from '../assets/adele.jpg';
 import doja from '../assets/doja.jpg';
 import { Octicons } from '@expo/vector-icons';
 import { Foundation } from '@expo/vector-icons';
-import Home from './Home';
+import Musicplayer from './Musicplayer';
+import axios from 'axios';
+
 
 
 
 export default function Browser ({navigation}) {
-   return (
+
+    const [isMusicLoading, setMusicLoading] = useState(true);
+    const [isAlbumLoading, setAlbumLoading] = useState(true);
+
+    const [albums, setAlbum] = useState(null);
+
+    const [music, setMusic] = useState(null);
+    const [cover, setCover] = useState(null);
+    
+
+    useEffect(() => {
+        //get request to get all the songs
+        
+        fetch('https://musebeta.herokuapp.com/museb/album/',{
+            method: 'GET',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+            }})
+        .then(response => response.json())
+        .then(jsonResponse => 
+            setAlbum(jsonResponse))
+        .then(setAlbumLoading(false))
+        .catch(error => console.log(error))
        
-   
+
+        fetch('https://musebeta.herokuapp.com/museb/music/',{
+            method: 'GET',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+            }})
+        .then(response => response.json())
+        .then(jsonResponse => 
+            setMusic(jsonResponse))
+        .then(setMusicLoading(false))
+        .catch(error => console.log(error))
+
+        fetch('https://musebeta.herokuapp.com/museb/cover/',{
+            method: 'GET',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+            }})
+        .then(response => response.json())
+        .then(jsonResponse => 
+            setCover(jsonResponse)
+        )
+        .catch(error => console.log(error))
+        
+    }, [])
+
+    const updateStreams = (music) => {
+        fetch('https://musebeta.herokuapp.com/museb/music/',{
+            method: 'PUT',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+            },
+        body: json.stringify(music)})
+        .then(response => response.json())
+        .then(jsonResponse => 
+            console.log(jsonResponse))
+        .catch(error => console.log(error))
+    }
+    
+    console.log(albums)
+        return (
             <ScrollView style={styles.container}  showsVerticalScrollIndicator={false} > 
                 <View >
                         <Text style={{fontWeight:'bold', fontSize:35, alignSelf:'center',color:'white',marginTop:35,}}> muse.</Text>
@@ -41,30 +108,27 @@ export default function Browser ({navigation}) {
             <Text style={{color:'white',fontWeight:'bold'}} >
                 Trending</Text> Music </Text>
                 <View>
-                <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-                    <View style={{flexDirection:'row'}}>
-                    <TouchableOpacity style={styles.musiccontent}>
-                    <Image source={sark} style={styles.mainimage}/>
-                    </TouchableOpacity>
+                {isMusicLoading ? (<ActivityIndicator color="#fff" size="large" />) :
+                (<ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+                    <View style={{flexDirection:'row', flexWrap: "wrap"}}>
+                    {cover &&(
                     <View>
-                    <TouchableOpacity style={styles.musiccontentsmall}>
-                    <Image source={adele} style={styles.smallimage}/>
-                    </TouchableOpacity>
-                    <TouchableOpacity  onPress={() => navigation.navigate("Musicplayer")} style={styles.musiccontentsmall}>
-                    <Image source={doja} style={styles.smallimage}/>
-                    </TouchableOpacity>
+                         {cover.map((artiste, index) => (
+                        <TouchableOpacity style={styles.musiccontent} key={index} onPress={() => {this.updateStreams(artiste);navigation.navigate("Musicplayer", {artiste: artiste})}}>
+                        <Image source={{uri: "https://musebeta.herokuapp.com"+artiste.image}} style={styles.mainimage}/>
+                        </TouchableOpacity>))}
                     </View>
-                    <View>
-                    <TouchableOpacity style={styles.musiccontentsmall}>
-                    <Image source={arthur} style={styles.smallimage}/>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.musiccontentsmall}>
-                    <Image source={kanye} style={styles.smallimage}/>
-                    </TouchableOpacity>
+                    )}
+                    {music &&(
+                    <View style={{flexDirection: "row", flexWrap: "wrap"}}>
+                        {music.map((artiste, index) => (
+                    <TouchableOpacity key={index} onPress={() => navigation.navigate("Musicplayer", {artiste: artiste})}  style={styles.musiccontentsmall}>
+                    <Image source={{uri: "https://musebeta.herokuapp.com"+artiste.image}} style={styles.smallimage}/>
+                    </TouchableOpacity>))}
                     </View>
-                    
+                    )}            
                     </View>
-                </ScrollView>
+                </ScrollView>)}
                 </View>
 
                 {/* Live Radio */}
@@ -93,29 +157,22 @@ export default function Browser ({navigation}) {
                 Latest </Text> Albums </Text>
                 
                 <View>
+                    { isAlbumLoading ? (<ActivityIndicator color="#fff" size="large" style={{marginBottom: 100}} />) :
+                    (
                 <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+                {albums && (
                     <View style={{flexDirection:'row', marginBottom:200,}}>
-                    <TouchableOpacity style={styles.albums}>
-                    <Image source={arthur} style={styles.albumimage}/>
+                        
+                        {albums.map((album, index) => (
+                    <TouchableOpacity style={styles.albums} key={index} onPress={() => navigation.navigate("Album", {album: album})}>
+                    <Image source={{uri: "https://musebeta.herokuapp.com"+album.image}} style={styles.albumimage}/>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.albums}>
-                    <Image source={doja} style={styles.albumimage3}/>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.albums}>
-                    <Image source={adele} style={styles.albumimage2}/>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.albums}>
-                    <Image source={kanye} style={styles.albumimage1}/>
-                    </TouchableOpacity>
+                        ))}
                     </View>
+                )}
                 </ScrollView>
-                </View>
-
-
-
-
-
-                
+                    )}
+                </View>                
             </View>
             </ScrollView>
             

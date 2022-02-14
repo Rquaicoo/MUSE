@@ -1,6 +1,12 @@
 import {React} from 'react';
 import { StyleSheet, Text, View,Image, ImageBackground, TouchableOpacity, ScrollView} from 'react-native';
 import { AntDesign, Feather } from '@expo/vector-icons';
+import pop from "../assets/pop.png";
+import afro from '../assets/afro.jpg';
+import hits from '../assets/activate.jpg';
+import kpop from '../assets/blackpink.png';
+import randb from '../assets/adele.jpg';
+import orchestra from '../assets/ochestra.jpeg';
 
 
 export default function Genre({navigation}) {
@@ -21,12 +27,12 @@ export default function Genre({navigation}) {
                                 <TouchableOpacity style={{borderColor: "#343547", borderWidth: 1, alignContent: "center", justifyContent: "center", padding: 8, borderRadius: 20}}>
                                     <Feather name="search" size={21} color="white" />
                                 </TouchableOpacity>
-                                <Image source={require('../assets/doja.jpg')} style={styles.image} />
+                                <Image source={require('../assets/memoji.png')} style={styles.image} />
                             </View>
                         </View>
                         
-                        <TouchableOpacity style={{ marginBottom: "3%"}}>
-                            <ImageBackground source={require('../assets/pop.png')} style={styles.contentImages} imageStyle={{ borderRadius: 20}}>
+                        <TouchableOpacity style={{ marginBottom: "3%"}} onPress={() => navigation.navigate("MusicList", {genre: "Pop", image:pop})}>
+                            <ImageBackground source={pop} style={styles.contentImages} imageStyle={{ borderRadius: 20}}>
                                 <View style={{}}>
                                     <Text style={styles.insideImageText}>Pop</Text>
                                     <Text style={styles.insideImageText2}>300 Music</Text>
@@ -72,8 +78,8 @@ export default function Genre({navigation}) {
                             </View>
                         </View>
 
-                        <TouchableOpacity style={{ marginBottom: "3%"}}>
-                            <ImageBackground source={require('../assets/afro.jpg')} style={styles.contentImages} imageStyle={{ borderRadius: 20}}>
+                        <TouchableOpacity style={{ marginBottom: "3%"}} onPress={() => navigation.navigate("MusicList", {genre: "Afro", image: afro})}>
+                            <ImageBackground source={afro} style={styles.contentImages} imageStyle={{ borderRadius: 20}}>
                                 <View style={{}}>
                                     <Text style={styles.insideImageText}>Afro</Text>
                                     <Text style={styles.insideImageText2}>300 Music</Text>
@@ -85,8 +91,8 @@ export default function Genre({navigation}) {
                             </ImageBackground>
                         </TouchableOpacity>
 
-                        <TouchableOpacity style={{ marginBottom: "3%",}}>
-                            <ImageBackground source={require('../assets/activate.jpg')} style={styles.contentImages} imageStyle={{ borderRadius: 20}} >
+                        <TouchableOpacity style={{ marginBottom: "3%",}} onPress={() => navigation.navigate("MusicList", {genre: "Hits", image: hits})}>
+                            <ImageBackground source={hits} style={styles.contentImages} imageStyle={{ borderRadius: 20}} >
                                 <View style={{}}>
                                     <Text style={styles.insideImageText}>Hits</Text>
                                     <Text style={styles.insideImageText2}>300 Music</Text>
@@ -98,8 +104,8 @@ export default function Genre({navigation}) {
                             </ImageBackground>
                         </TouchableOpacity>
 
-                        <TouchableOpacity style={{ marginBottom: "3%",}}>
-                            <ImageBackground source={require('../assets/blackpink.png')} style={styles.contentImages} imageStyle={{ borderRadius: 20}} >
+                        <TouchableOpacity style={{ marginBottom: "3%",}} onPress={() => navigation.navigate("MusicList", {genre: "Kpop", image: kpop})}>
+                            <ImageBackground source={kpop} style={styles.contentImages} imageStyle={{ borderRadius: 20}}  >
                                 <View style={{}}>
                                     <Text style={styles.insideImageText}>KPop</Text>
                                     <Text style={styles.insideImageText2}>300 Music</Text>
@@ -111,28 +117,28 @@ export default function Genre({navigation}) {
                             </ImageBackground>
                         </TouchableOpacity>
 
-                        <TouchableOpacity style={{ marginBottom: "3%",}}>
-                            <ImageBackground source={require('../assets/adele.jpg')} style={styles.contentImages} imageStyle={{ borderRadius: 20}} >
+                        <TouchableOpacity style={{ marginBottom: "3%",}} onPress={() => navigation.navigate("MusicList", {genre: "Rhythm", image: randb})}>
+                            <ImageBackground source={randb} style={styles.contentImages} imageStyle={{ borderRadius: 20}} >
                                 <View style={{}}>
-                                    <Text style={styles.insideImageText}>R&B</Text>
+                                    <Text style={styles.insideImageText}>Rhythm</Text>
                                     <Text style={styles.insideImageText2}>300 Music</Text>
                                 </View>
                                 
-                                <TouchableOpacity style={styles.insideImageCircle} >
-                                    <AntDesign name="down" size={24} color="white" style={{padding: "10%"}} />
+                                <TouchableOpacity style={{backgroundColor: "rgba(0,0,0,0.5)", height: "35%", width: "10%", marginLeft: "49%", marginTop: "10%", alignItems: "center", justifyContent: "center", borderRadius: 100,}} >
+                                    <AntDesign name="down" size={24} color="white" style={{padding: "10%",}} />
                                 </TouchableOpacity> 
                             </ImageBackground>
                         </TouchableOpacity>
 
 
-                        <TouchableOpacity style={{ marginBottom: "3%",}}>
-                            <ImageBackground source={require('../assets/ochestra.jpeg')} style={styles.contentImages} imageStyle={{ borderRadius: 20}} >
+                        <TouchableOpacity style={{ marginBottom: "3%",}} onPress={() => navigation.navigate("MusicList", {genre: "Orchestra", image: orchestra})}>
+                            <ImageBackground source={orchestra} style={styles.contentImages} imageStyle={{ borderRadius: 20}}>
                                 <View style={{}}>
-                                    <Text style={styles.insideImageText}>Och-{"\n"}estra</Text>
+                                    <Text style={styles.insideImageText}>Orc-{"\n"}hestra</Text>
                                     <Text style={styles.insideImageText2}>300 Music</Text>
                                 </View>
                                 
-                                <TouchableOpacity style={styles.insideImageCircle} >
+                                <TouchableOpacity style={{backgroundColor: "rgba(0,0,0,0.5)", height: "35%", width: "10%", marginLeft: "53%", marginTop: "10%", alignItems: "center", justifyContent: "center", borderRadius: 100,}} >
                                     <AntDesign name="down" size={24} color="white" style={{padding: "10%"}} />
                                 </TouchableOpacity> 
                             </ImageBackground>

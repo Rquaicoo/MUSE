@@ -72,7 +72,7 @@ export default function MyMusic({ navigation }) {
           <Text style={{color: "#3f3f4f", marginBottom: 10}}>Your activities</Text>
           <TouchableOpacity  style={{display: "flex", flexDirection: "row", marginTop: 20 }}>
           <MaterialIcons name="playlist-add" size={30} color="#343547" />
-          <Text style={{color: "white", fontWeight: "100", fontSize: 17, marginLeft: "5%", marginRight: "50%"}}>Your playlists</Text>
+          <Text style={{color: "white", fontWeight: "100", fontSize: 17, marginLeft: "5%", marginRight: "50%"}}>Listen later</Text>
           <MaterialIcons name="navigate-next" size={30} color="#343547" />
           </TouchableOpacity>
           <View style={{
