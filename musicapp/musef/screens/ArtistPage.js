@@ -12,7 +12,7 @@ export default function ArtistPage ({route, navigation}) {
     const [artisteAlbums, setArtisteAlbums] = useState(null);
 
     useEffect(() => {
-        fetch('http://localhost:8000/museb/artist_content/',{
+        fetch('https://musebeta.herokuapp.com/museb/artist_content/',{
             method: 'POST',
             headers: {
               Accept: 'application/json',

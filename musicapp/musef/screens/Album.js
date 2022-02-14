@@ -31,7 +31,7 @@ class Album extends Component {
 
     getArtiste (){
         const artiste_id = this.props.route.params.album.artiste;
-        fetch('http://localhost:8000/museb/artist/',{
+        fetch('https://musebeta.herokuapp.com/museb/artist/',{
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -46,7 +46,7 @@ class Album extends Component {
 
     getAlbum (){
         const album = this.props.route.params.album;
-        fetch('http://localhost:8000/museb/album/',{
+        fetch('https://musebeta.herokuapp.com/museb/album/',{
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
