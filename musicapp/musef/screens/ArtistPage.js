@@ -60,8 +60,27 @@ export default function ArtistPage ({route, navigation}) {
 
             {/* container for songs */}
             <ScrollView>
+            
+            
+            <View>
+            <Text style={{fontSize:20,color:'#fff', fontWeight:'bold',marginLeft: "4%",}}>Albums created by {artiste.name}</Text>
+
+                <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+                {artisteAlbums && (
+                    <View style={{flexDirection:'row', marginBottom:20,}}>
+                        
+                        {artisteAlbums.map((album, index) => (
+                    <TouchableOpacity style={styles.albums} key={index} onPress={() => navigation.navigate("Album", {album: album})}>
+                    <Image source={{uri: "https://musebeta.herokuapp.com"+album.image}} style={styles.albumimage}/>
+                    </TouchableOpacity>
+                        ))}
+                    </View>
+                )}
+                </ScrollView>
+                </View>     
                 {artisteMusic &&(
                 <View style={{marginLeft: "4%", marginTop: 40}}>
+                     <Text style={{fontSize:20,color:'#fff', fontWeight:'bold',}}>{artiste.name}'s songs</Text>
                     {artisteMusic.map((song, index) => (
                     <TouchableOpacity style={{display: "flex", flex:5, flexDirection: "row", borderColor: "#343547", borderBottomWidth:1, paddingBottom: "5%", marginBottom: "5%"}} key={index} onPress={() => navigation.navigate("Musicplayer", {artiste: song})}>
                         <View style={{flex:4, flexDirection: "row"}}>
@@ -109,5 +128,21 @@ const styles = StyleSheet.create({
         resizeMode: "contain",
         borderRadius: 500,
       },
+      albums: {
+        height:170,
+        width:170,
+        backgroundColor: '#1e202c',
+        marginLeft: 20,
+        marginTop: 20,
+        borderRadius: 100,
+       
+    },
+    albumimage: {
+        height:170,
+        width:170,
+        borderRadius: 100,
+        borderColor: 'orange',
+       borderWidth: 5,
+    },
 
 });
