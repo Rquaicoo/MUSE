@@ -56,8 +56,8 @@ export default function AllPopularArtists({ navigation }) {
                 {artistes &&(
                 <View style={{justifyContent: "center", alignItems: "center"}}>
                     {artistes.map((artist, index) => (
-                    <View key={index}>
-                    <TouchableOpacity style={styles.popularalbums}>
+                    <View key={index} onPress={() => navigation.navigate("ArtistPage", {artist: artist})}>
+                    <TouchableOpacity style={styles.popularalbums} onPress={() => navigation.navigate("ArtistPage", {artist: artist})}>
                     <Image source={{
                       uri: "https://musebeta.herokuapp.com" + artist.image
                     }} style={styles.popularimage}/>

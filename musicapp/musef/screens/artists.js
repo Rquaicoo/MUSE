@@ -31,7 +31,7 @@ export default function artists({ navigation }) {
     .catch(error => console.log(error))
     
 
-    fetch('http://localhost:8000/museb/popular_artists/',{
+    fetch('https://musebeta.herokuapp.com/museb/popular_artists/',{
         method: 'GET',
         headers: {
           Accept: 'application/json',
@@ -84,7 +84,7 @@ export default function artists({ navigation }) {
                      <View style={{height: 500}}>
                        <ScrollView>
                        {artistes.map((artist, index) => (
-                    <TouchableOpacity style={styles.albums} key={index} onPress={() => navigation.navigate("ArtistPage", {artiste: artist})}>
+                    <TouchableOpacity style={styles.albums} key={index} onPress={() => navigation.navigate("ArtistPage", {artist: artist})}>
                     <Image source={{
                       uri: "https://musebeta.herokuapp.com" + artist.image
                     }} style={styles.albumimage}/>
@@ -108,7 +108,7 @@ export default function artists({ navigation }) {
                     <View key={index}>
                     <TouchableOpacity style={styles.popularalbums} onPress={() => navigation.navigate("ArtistPage", {artist: artist})}>
                     <Image source={{
-                      uri: "http://localhost:8000" + artist.image
+                      uri: "https://musebeta.herokuapp.com" + artist.image
                     }} style={styles.popularimage}/>
                     </TouchableOpacity>
                     <View>
