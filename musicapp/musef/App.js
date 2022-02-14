@@ -13,11 +13,15 @@ import SignUp from './screens/SignUp';
 import SignIn from './screens/SignIn';
 import Musicplayer from './screens/Musicplayer';
 import myprofile from './screens/myprofile';
+
+import Startupscreen from './screens/Startupscreen';
+
 import Album from './screens/Album';
 
 import AllPopularArtists from './screens/AllArtists';
 import MusicList from './screens/MusicList';
 import ArtistPage from './screens/ArtistPage';
+
 
 import { AudioProvider } from './screens/AudioProvider';
 import { LocalAudio } from './screens/LocalAudio';
@@ -27,13 +31,18 @@ import { LocalAudio } from './screens/LocalAudio';
 
 const Stack = createNativeStackNavigator();
 
+
 export default function App() {
   return (
     <AudioProvider>
     <NavigationContainer>
       <Stack.Navigator>
+      <Stack.Screen name="Startupscreen" component={Startupscreen} options={{
+        headerShown: false
+      }} /
       
       <Stack.Screen name="Tabs" component={Tabs} options={{
+
         headerShown: false
       }} />
       <Stack.Screen name="AllArtists" component={AllPopularArtists} options={{
@@ -73,7 +82,7 @@ export default function App() {
       <Stack.Screen name="myprofile" component={myprofile} options={{
         headerShown: false
       }} />
-      
+
       <Stack.Screen name="LocalAudio" component={LocalAudio} options={{
         headerShown: false
       }} />
