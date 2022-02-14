@@ -16,7 +16,7 @@ export default function SignIn ({navigation}) {
         }
 
         axios 
-            .post('/museb/auth/login/', payload)
+            .post('http://127.0.0.1:8000/museb/auth/login/', payload)
             .then(response => {
                 const { token, user } = response.data;
                 console.log(token);

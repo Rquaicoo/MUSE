@@ -16,6 +16,10 @@ import Musicplayer from './screens/Musicplayer';
 import myprofile from './screens/myprofile';
 import Startupscreen from './screens/Startupscreen';
 
+import { AudioProvider } from './screens/AudioProvider';
+import { LocalAudio } from './screens/LocalAudio';
+
+
 
 
 const Stack = createSharedElementStackNavigator();
@@ -23,6 +27,7 @@ const Stack = createSharedElementStackNavigator();
 
 export default function App() {
   return (
+    <AudioProvider>
     <NavigationContainer>
       <Stack.Navigator>
       <Stack.Screen name="Startupscreen" component={Startupscreen} options={{
@@ -54,10 +59,21 @@ export default function App() {
       <Stack.Screen name="myprofile" component={myprofile} options={{
         headerShown: false
       }} />
+<<<<<<< HEAD
       
+=======
+      }}
+      sharedElements={(route) => {
+        return ['shared'];
+      }}
+      />
+      <Stack.Screen name="LocalAudio" component={LocalAudio} options={{
+        headerShown: false
+      }} />
+>>>>>>> 1028ecacc288dfeaf0e85b84ae87efbf32b2f147
       </Stack.Navigator>
     </NavigationContainer>
+    </AudioProvider>
   );
 }
-
 
