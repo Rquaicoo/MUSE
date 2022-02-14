@@ -24,7 +24,12 @@ class CreateUserSerializer(serializers.ModelSerializer):
 class MusicSerializer(serializers.ModelSerializer):
     class Meta:
         model = Music
-        fields = ('id', 'title', 'imageURL', 'image', 'fileURL','main_artiste', 'collaborators', 'music_file', 'streams')
+        fields = ('id', 'title', 'imageURL', 'image', 'fileURL','main_artiste', 'collaborators', 'music_file', 'streams', 'trending', 'genre')
+
+class CoverArtiseSerilizer(serializers.ModelSerializer):
+    class Meta:
+        model = CoverArtiste
+        fields = ('id', 'title', 'imageURL', 'image', 'fileURL','main_artiste', 'collaborators', 'music_file', 'streams', 'trending')
 
 class AlbumSerializer(serializers.ModelSerializer):
     class Meta:

@@ -156,11 +156,7 @@ export default function Home({ navigation }) {
     <Ionicons name="ios-play-skip-forward-outline" size={30} color="white" style={{ paddingTop:10,paddingLeft:20}}/>
     </View>
     </TouchableWithoutFeedback>
-    
     </View>
-
-
-
 
 
     
@@ -174,10 +170,8 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "#151723",
     height: "100%",
-<<<<<<< HEAD
-=======
     flex: 1,
->>>>>>> 1028ecacc288dfeaf0e85b84ae87efbf32b2f147
+
 
   },
   image: {
