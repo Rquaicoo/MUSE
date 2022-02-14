@@ -84,7 +84,7 @@ export default function artists({ navigation }) {
                      <View style={{height: 500}}>
                        <ScrollView>
                        {artistes.map((artist, index) => (
-                    <TouchableOpacity style={styles.albums} key={index} onPress={() => navigation.navigate("ArtistPage", {artiste: artist})}>
+                    <TouchableOpacity style={styles.albums} key={index} onPress={() => navigation.navigate("ArtistPage", {artist: artist})}>
                     <Image source={{
                       uri: "https://musebeta.herokuapp.com" + artist.image
                     }} style={styles.albumimage}/>
