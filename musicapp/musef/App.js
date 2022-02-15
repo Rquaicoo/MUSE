@@ -40,26 +40,6 @@ export default function App() {
       <Stack.Screen name="Startupscreen" component={Startupscreen} options={{
         headerShown: false
       }} />
-      
-      <Stack.Screen name="Tabs" component={Tabs} options={{
-
-        headerShown: false
-      }} />
-      <Stack.Screen name="AllArtists" component={AllPopularArtists} options={{
-        headerShown: false
-      }} />
-      <Stack.Screen name="ArtistPage" component={ArtistPage} options={{
-        headerShown: false
-      }} />
-      <Stack.Screen name="MusicList" component={MusicList} options={{
-        headerShown: false
-      }} />
-       <Stack.Screen name="SignIn" component={SignIn} options={{
-        headerShown: false
-      }} />
-      <Stack.Screen name="Album" component={Album} options={{
-           headerShown: false }} />
-      
       <Stack.Screen name="Intro1" component={Intro1} options={{
         headerShown: false
       }} />
@@ -73,6 +53,24 @@ export default function App() {
       <Stack.Screen name="SignUp" component={SignUp} options={{
         headerShown: false
       }} />
+      <Stack.Screen name="SignIn" component={SignIn} options={{
+        headerShown: false
+      }} />
+      <Stack.Screen name="Tabs" component={Tabs} options={{
+     headerShown: false
+      }} />  
+      <Stack.Screen name="AllArtists" component={AllPopularArtists} options={{
+        headerShown: false
+      }} />
+      <Stack.Screen name="ArtistPage" component={ArtistPage} options={{
+        headerShown: false
+      }} />
+      <Stack.Screen name="MusicList" component={MusicList} options={{
+        headerShown: false
+      }} />
+      <Stack.Screen name="Album" component={Album} options={{
+           headerShown: false }} />
+      
       
       <Stack.Screen name="Musicplayer" component={Musicplayer} options={{
         headerShown: false
