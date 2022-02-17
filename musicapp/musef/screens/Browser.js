@@ -14,6 +14,34 @@ import Musicplayer from './Musicplayer';
 import axios from 'axios';
 
 
+const updateStreams = (music) => {
+    fetch('http://localhost:8000/museb/music/',{
+        method: 'PUT',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+    body: JSON.stringify(music)})
+    .then(response => response.json())
+    .then(jsonResponse => 
+        console.log(jsonResponse))
+    .catch(error => console.log(error))
+}
+
+const updateCoverStreams = (music) => {
+    fetch('http://localhost:8000/museb/cover/',{
+        method: 'PUT',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+    body: JSON.stringify(music)})
+    .then(response => response.json())
+    .then(jsonResponse => 
+        console.log(jsonResponse))
+    .catch(error => console.log(error))
+}
+
 
 
 export default function Browser ({navigation}) {
@@ -99,7 +127,7 @@ export default function Browser ({navigation}) {
                     {cover &&(
                     <View>
                          {cover.map((artiste, index) => (
-                        <TouchableOpacity style={styles.musiccontent} key={index} onPress={() => {console.log(artiste);navigation.navigate("Musicplayer", {artiste: artiste})}}>
+                        <TouchableOpacity style={styles.musiccontent} key={index} onPress={() => {updateCoverStreams(artiste);navigation.navigate("Musicplayer", {artiste: artiste})}}>
                         <Image source={{uri: "https://musebeta.herokuapp.com"+artiste.image}} style={styles.mainimage}/>
                         </TouchableOpacity>))}
                     </View>
@@ -107,7 +135,7 @@ export default function Browser ({navigation}) {
                     {music &&(
                     <View style={{flexDirection: "row", flexWrap: "wrap"}}>
                         {music.map((artiste, index) => (
-                    <TouchableOpacity key={index} onPress={() => navigation.navigate("Musicplayer", {artiste: artiste})}  style={styles.musiccontentsmall}>
+                    <TouchableOpacity key={index} onPress={() => {updateStreams(artiste);navigation.navigate("Musicplayer", {artiste: artiste})}}  style={styles.musiccontentsmall}>
                     <Image source={{uri: "https://musebeta.herokuapp.com"+artiste.image}} style={styles.smallimage}/>
                     </TouchableOpacity>))}
                     </View>
