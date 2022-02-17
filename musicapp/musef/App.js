@@ -17,6 +17,7 @@ import myprofile from './screens/myprofile';
 import Startupscreen from './screens/Startupscreen';
 
 import Album from './screens/Album';
+import Home from './screens/Home';
 
 import AllPopularArtists from './screens/AllArtists';
 import MusicList from './screens/MusicList';
@@ -37,29 +38,21 @@ export default function App() {
     <AudioProvider>
     <NavigationContainer>
       <Stack.Navigator>
+      <Stack.Screen name="Home" component={Home} options={{
+     headerShown: false
+      }} /> 
+      <Stack.Screen name="Tabs" component={Tabs} options={{
+     headerShown: false
+      }} /> 
+      <Stack.Screen name="SignUp" component={SignUp} options={{
+        headerShown: false
+      }} />
+      <Stack.Screen name="SignIn" component={SignIn} options={{
+        headerShown: false
+      }} />
       <Stack.Screen name="Startupscreen" component={Startupscreen} options={{
         headerShown: false
       }} />
-      
-      <Stack.Screen name="Tabs" component={Tabs} options={{
-
-        headerShown: false
-      }} />
-      <Stack.Screen name="AllArtists" component={AllPopularArtists} options={{
-        headerShown: false
-      }} />
-      <Stack.Screen name="ArtistPage" component={ArtistPage} options={{
-        headerShown: false
-      }} />
-      <Stack.Screen name="MusicList" component={MusicList} options={{
-        headerShown: false
-      }} />
-       <Stack.Screen name="SignIn" component={SignIn} options={{
-        headerShown: false
-      }} />
-      <Stack.Screen name="Album" component={Album} options={{
-           headerShown: false }} />
-      
       <Stack.Screen name="Intro1" component={Intro1} options={{
         headerShown: false
       }} />
@@ -69,10 +62,19 @@ export default function App() {
       <Stack.Screen name="Intro3" component={Intro3} options={{
         headerShown: false
       }} />
-      
-      <Stack.Screen name="SignUp" component={SignUp} options={{
+       
+      <Stack.Screen name="AllArtists" component={AllPopularArtists} options={{
         headerShown: false
       }} />
+      <Stack.Screen name="ArtistPage" component={ArtistPage} options={{
+        headerShown: false
+      }} />
+      <Stack.Screen name="MusicList" component={MusicList} options={{
+        headerShown: false
+      }} />
+      <Stack.Screen name="Album" component={Album} options={{
+           headerShown: false }} />
+      
       
       <Stack.Screen name="Musicplayer" component={Musicplayer} options={{
         headerShown: false

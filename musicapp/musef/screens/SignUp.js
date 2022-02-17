@@ -14,6 +14,7 @@ class SignUp extends Component{
         username: '',
         email: '',
         password: '',
+        secure: true,
     }
 
     onUnsernameChange = (text) => {
@@ -26,6 +27,10 @@ class SignUp extends Component{
 
     onPasswordChange = (text) => {
         this.setState({password: text})
+    }
+
+    changeSecureState = () => {
+        this.setState({secure: !this.state.secure})
     }
 
     handleRequest = (props) => {
@@ -60,7 +65,7 @@ render () {
         return (
                 <ScrollView style={{  backgroundColor: '#151723', height: "100%", }}>
                 <View style={styles.container}>
-                    <TouchableOpacity style={{borderColor: "#ffffff", borderWidth: 1, padding: "4%", borderRadius: 10, marginRight: 20}} onPress={() => navigation.navigate("SignIn")}>
+                    <TouchableOpacity style={{borderColor: "#ffffff", borderWidth: 1, padding: "4%", borderRadius: 10, marginRight: 20}} onPress={() => navigation.goBack()}>
                         <Ionicons name="chevron-back-sharp" size={24} color="white" />
                     </TouchableOpacity>
                         <Text style={{fontWeight:'bold', fontSize:30, color: "#fdfdfd", marginTop: "2%"}}>Sign Up</Text>
@@ -109,10 +114,10 @@ render () {
                             placeholder="Enter your strong password" 
                             onChangeText={this.onPasswordChange.bind(this)}
                             placeholderTextColor="#ffffff"
-                            secureTextEntry={true}
+                            secureTextEntry={this.state.secure}
                             defaultValue={this.state.password}
                             />
-                            <AntDesign name="eyeo" size={24} color="white" style={{right: "60%", top: "6%"}} />
+                            <AntDesign name="eyeo" size={24} color="white" style={{right: "60%", top: "6%"}} onPress={() => this.changeSecureState()} />
                     </View>
                 </View>
 
