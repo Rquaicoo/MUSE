@@ -73,14 +73,20 @@ class MusicView(APIView):
         pass
 
     def put(self, request):
-        serializer = MusicSerializer(request.data)
-        if serializer.is_valid():
-            music = Music.objects.filter(id=dict(serializer)["id"])
+        try:
+            serializer = MusicSerializer(data=request.data)
+            music_dict = dict(serializer.initial_data)
+            music_id = music_dict['id']
+            music = Music.objects.get(id=music_id)
             music.streams += 1
             music.save()
-            serializer.save()
+            if serializer.is_valid():
+                serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        except:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
+        
 
 class CoverArtisteView(APIView):
     def get(self, request, *args, **kwargs):
@@ -90,6 +96,19 @@ class CoverArtisteView(APIView):
     
     def post(self, ):
         pass
+    def put(self, request):
+        try:
+            serializer = MusicSerializer(data=request.data)
+            music_dict = dict(serializer.initial_data)
+            music_id = music_dict['id']
+            music = Music.objects.get(id=music_id)
+            music.streams += 1
+            music.save()
+            if serializer.is_valid():
+                serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        except:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class PopularArtistView(APIView):
     def get(self, request, *args, **kwargs):
@@ -182,3 +201,14 @@ class ArtistePageView(APIView):
         artiste_album_serializer = AlbumSerializer(artist_album, many=True)
 
         return(Response({"music": artiste_music_serializer.data, "album": artiste_album_serializer.data}, status=status.HTTP_302_FOUND))
+
+class LikedMusicView(APIView):
+    def post(self, request,):
+        music_serializer = MusicSerializer(data=request.data)
+        if music_serializer.is_valid():
+            music_id = dict(music_serializer.initial_data)["id"]
+            music = Music.objects.get(id=music_id)
+            music.likes += 1
+            music.save()
+            return Response(music_serializer.data, status=status.HTTP_201_CREATED)
+        return Response(music_serializer.errors, status=status.HTTP_400_BAD_REQUEST)

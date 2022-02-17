@@ -36,5 +36,6 @@ def users(request):
     if request.user.is_authenticated:
         users = BetaUsers.objects.all()
         return render(request, 'users.html', {'users': users})
-
+def downloadApp(request):
+    return render(request, 'downloadapp.html')
 
