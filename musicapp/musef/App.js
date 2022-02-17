@@ -17,6 +17,7 @@ import myprofile from './screens/myprofile';
 import Startupscreen from './screens/Startupscreen';
 
 import Album from './screens/Album';
+import Home from './screens/Home';
 
 import AllPopularArtists from './screens/AllArtists';
 import MusicList from './screens/MusicList';
@@ -37,6 +38,9 @@ export default function App() {
     <AudioProvider>
     <NavigationContainer>
       <Stack.Navigator>
+      <Stack.Screen name="Home" component={Home} options={{
+     headerShown: false
+      }} /> 
       <Stack.Screen name="Tabs" component={Tabs} options={{
      headerShown: false
       }} /> 
