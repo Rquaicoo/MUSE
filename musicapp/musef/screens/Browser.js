@@ -29,7 +29,7 @@ const updateStreams = (music) => {
 }
 
 const updateCoverStreams = (music) => {
-    fetch('http://localhost:8000/museb/cover/',{
+    fetch('https://musebeta.herokuapp.com/museb/cover/',{
         method: 'PUT',
         headers: {
           Accept: 'application/json',
