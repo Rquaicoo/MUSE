@@ -4,6 +4,22 @@ import {LinearGradient} from 'expo-linear-gradient';
 import memoji from '../assets/memoji.png';
 import { Feather, AntDesign,Entypo, Ionicons,FontAwesome5, SimpleLineIcons,FontAwesome, MaterialCommunityIcons,MaterialIcons,  } from '@expo/vector-icons';
 
+
+const updateStreams = (music) => {
+    fetch('http://localhost:8000/museb/music/',{
+        method: 'PUT',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+    body: JSON.stringify(music)})
+    .then(response => response.json())
+    .then(jsonResponse => 
+        console.log(jsonResponse))
+    .catch(error => console.log(error))
+}
+
+
 export default function MusicList ({route, navigation}) {
 
     const {genre, image} = route.params;
@@ -57,7 +73,7 @@ export default function MusicList ({route, navigation}) {
             {music &&(
             <View style={{marginLeft: "4%", marginTop: 40}}>
                 {music.map((song, index) => (
-                <TouchableOpacity style={{display: "flex", flexDirection: "row", borderColor: "#343547", borderBottomWidth:1, paddingBottom: "5%", marginBottom: "5%"}} key={index} onPress={() => navigation.navigate("Musicplayer", {artiste: song})}>
+                <TouchableOpacity style={{display: "flex", flexDirection: "row", borderColor: "#343547", borderBottomWidth:1, paddingBottom: "5%", marginBottom: "5%"}} key={index} onPress={() => {updateStreams(song);navigation.navigate("Musicplayer", {artiste: song})}}>
                     <Image source={{
                             uri: "https://musebeta.herokuapp.com" + song.image
                         }} style={{resizeMode: "cover", height: 55, width: 45}}/>
