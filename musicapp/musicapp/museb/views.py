@@ -182,3 +182,14 @@ class ArtistePageView(APIView):
         artiste_album_serializer = AlbumSerializer(artist_album, many=True)
 
         return(Response({"music": artiste_music_serializer.data, "album": artiste_album_serializer.data}, status=status.HTTP_302_FOUND))
+
+class LikedMusicView(APIView):
+    def post(self, request,):
+        music_serializer = MusicSerializer(data=request.data)
+        if music_serializer.is_valid():
+            music_id = dict(music_serializer.initial_data)["id"]
+            music = Music.objects.get(id=music_id)
+            music.likes += 1
+            music.save()
+            return Response(music_serializer.data, status=status.HTTP_201_CREATED)
+        return Response(music_serializer.errors, status=status.HTTP_400_BAD_REQUEST)

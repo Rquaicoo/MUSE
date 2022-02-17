@@ -180,7 +180,7 @@ class Musicplayer extends Component {
             >
                 <ScrollView showsVerticalScrollIndicator={false} >
                             <TouchableOpacity style={styles.albums}>
-                            <Animated.Image source={{
+                            <Image source={{
                                 uri: "https://musebeta.herokuapp.com" + this.props.route.params.artiste.image
                             }} style={styles.albumimage3}/>
                             </TouchableOpacity>

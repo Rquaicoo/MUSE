@@ -69,21 +69,6 @@ export default function Browser ({navigation}) {
         
     }, [])
 
-    const updateStreams = (music) => {
-        fetch('https://musebeta.herokuapp.com/museb/music/',{
-            method: 'PUT',
-            headers: {
-              Accept: 'application/json',
-              'Content-Type': 'application/json',
-            },
-        body: json.stringify(music)})
-        .then(response => response.json())
-        .then(jsonResponse => 
-            console.log(jsonResponse))
-        .catch(error => console.log(error))
-    }
-    
-    console.log(albums)
         return (
             <ScrollView style={styles.container}  showsVerticalScrollIndicator={false} > 
                 <View >
@@ -114,7 +99,7 @@ export default function Browser ({navigation}) {
                     {cover &&(
                     <View>
                          {cover.map((artiste, index) => (
-                        <TouchableOpacity style={styles.musiccontent} key={index} onPress={() => {this.updateStreams(artiste);navigation.navigate("Musicplayer", {artiste: artiste})}}>
+                        <TouchableOpacity style={styles.musiccontent} key={index} onPress={() => {console.log(artiste);navigation.navigate("Musicplayer", {artiste: artiste})}}>
                         <Image source={{uri: "https://musebeta.herokuapp.com"+artiste.image}} style={styles.mainimage}/>
                         </TouchableOpacity>))}
                     </View>
