@@ -60,7 +60,7 @@ class Album extends Component {
         }
 
         updateStreams = (music) => {
-            fetch('http://localhost:8000/museb/music/',{
+            fetch('https://musebeta.herokuapp.com/museb/music/',{
                 method: 'PUT',
                 headers: {
                   Accept: 'application/json',
