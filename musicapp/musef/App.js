@@ -22,6 +22,7 @@ import Home from './screens/Home';
 import AllPopularArtists from './screens/AllArtists';
 import MusicList from './screens/MusicList';
 import ArtistPage from './screens/ArtistPage';
+import AllNewTrending from './screens/AllNewTrending';
 
 
 import { AudioProvider } from './screens/AudioProvider';
@@ -68,6 +69,9 @@ export default function App() {
             }} />
 
             <Stack.Screen name="AllArtists" component={AllPopularArtists} options={{
+              headerShown: false
+            }} />
+            <Stack.Screen name="AllNewTrending" component={AllNewTrending} options={{
               headerShown: false
             }} />
             <Stack.Screen name="ArtistPage" component={ArtistPage} options={{

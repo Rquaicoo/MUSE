@@ -99,20 +99,21 @@ class Musicplayer extends Component {
                 volume
             }
 
-            //playbackInstance.setOnPlaybackStatusUpdate(this.OnPlaybackStatusUpdate)
+            playbackInstance.setOnPlaybackStatusUpdate(this.OnPlaybackStatusUpdate)
             await playbackInstance.loadAsync(source, status, false) //prevents audio from downloadning before playing
             this.setState({playbackInstance})
             this.handlePlayPause()
+            
         }
         catch (error) {
             console.log(error)
         }
 
-         {/*OnPlaybackStatusUpdate = status => {
+         OnPlaybackStatusUpdate = status => {
             this.setState({
                 isBuffering: status.isBuffering
             })
-        }*/}
+        }
     }
 
     /*control handlers */
