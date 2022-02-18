@@ -45,30 +45,28 @@ export default function ArtistPage ({route, navigation}) {
 
 
     return (
-        <ScrollView style={{display: "flex", backgroundColor: "#151723"}}>
+        <ScrollView style={{display: "flex", backgroundColor: "#141515"}}>
             
+           
             <ImageBackground source={{
                       uri: "https://musebeta.herokuapp.com" + artiste.image
-                    }} style={{height:400,width:"100%",borderRadius: 40,}}>
+                    }} style={{height:500,width:"100%"}}
+                    imageStyle={{borderRadius: 25,}} >
             <View  style={styles.headerContainer}>
                 <View>
                     <Ionicons name="arrow-back-outline" size={30} color="white"  onPress={() => navigation.goBack()} style={{paddingTop:6,}}/>
                 </View>
                 
-                <View style={{marginLeft: "67%", display: "flex", }}>
-                    <TouchableOpacity style={{borderColor: "#fff", borderWidth: 1, alignContent: "center", justifyContent: "center", padding: 4, borderRadius: 1000}} onPress={() => navigation.navigate("myprofile")}>
-                        <Image source={require('../assets/memoji.png')} style={styles.image} />
-                    </TouchableOpacity>
-                </View>
              </View>
 
             <View>
-                <View style={{marginLeft: "5%", marginTop: "40%"}}>
+                <View style={{marginLeft: "5%", marginTop: "70%"}}>
                     <Text style={{fontSize:60,color:'#fff', fontWeight:'bold',}}>{artiste.name}</Text>
                     <Text style={{fontSize:12,color:'#fff', fontWeight:'bold',}}>120 songs</Text>
                 </View>
              </View>
              </ImageBackground>
+             
 
 
 
@@ -77,7 +75,7 @@ export default function ArtistPage ({route, navigation}) {
             
             
             <View>
-            <Text style={{fontSize:20,color:'#fff', fontWeight:'bold',marginLeft: "4%",}}>Albums created by {artiste.name}</Text>
+            <Text style={{fontSize:20,color:'#fff', fontWeight:'bold',marginLeft: "4%", marginTop:10}}>Albums created by {artiste.name}</Text>
 
                 <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
                 {artisteAlbums && (
@@ -94,14 +92,14 @@ export default function ArtistPage ({route, navigation}) {
                 </View>     
                     {artisteMusic &&(
                     <View style={{marginLeft: "4%", marginTop: 40}}>
-                        <Text style={{fontSize:20,color:'#fff', fontWeight:'bold',}}>{artiste.name}'s songs</Text>
+                        <Text style={{fontSize:20,color:'#fff', fontWeight:'bold',marginBottom:10}}>{artiste.name}'s songs</Text>
                         
                         {artisteMusic.map((song, index) => (
                         <TouchableOpacity style={{display: "flex", flex:5, flexDirection: "row", borderColor: "#343547", borderBottomWidth:1, paddingBottom: "5%", marginBottom: "5%"}} key={index} onPress={() =>{updateStreams(song);navigation.navigate("Musicplayer", {artiste: song})}}>
                             <View style={{flex:4, flexDirection: "row"}}>
                                 <Image source={{
                                         uri: "https://musebeta.herokuapp.com" + song.image
-                                    }} style={{resizeMode: "cover", height: 55, width: 45}}/>
+                                    }} style={{resizeMode: "cover", height: 60, width: 60, borderRadius:16,}} image/>
                                 <View style={{marginLeft: "5%"}}>
                                     <Text style={{fontSize:16,color:'#fff', fontWeight:'bold',}}>{song.title}</Text>
                                     <Text style={{fontSize:14,color:'#fff', fontWeight:'200',}}>{song.collaborators}</Text>
@@ -156,7 +154,7 @@ const styles = StyleSheet.create({
         height:170,
         width:170,
         borderRadius: 100,
-        borderColor: 'orange',
+        borderColor: 'white',
        borderWidth: 5,
     },
 

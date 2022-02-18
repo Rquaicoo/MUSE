@@ -134,7 +134,7 @@ export default function artists({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#151723",
+    backgroundColor: "#141515",
     height: "100%",
 
   },
@@ -203,7 +203,7 @@ albumimage: {
     height:100,
     width:100,
     borderRadius: 100,
-    borderColor: '#343547',
+    borderColor: '#282A2A',
    borderWidth: 5,
 },
 

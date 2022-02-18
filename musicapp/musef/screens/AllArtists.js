@@ -44,7 +44,7 @@ export default function AllPopularArtists({ navigation }) {
                 </View>
             </View>
             
-            <View style={{marginLeft: "43%", display: "flex", flexDirection: "row", alignItems: "center"}}>
+            <View style={{marginLeft: "53%", display: "flex", flexDirection: "row", alignItems: "center"}}>
                   <TouchableOpacity onPress={() => navigation.navigate("myprofile")} >
                     <Image source={require('../assets/memoji.png')} style={styles.image} />
                     </TouchableOpacity>
@@ -52,9 +52,31 @@ export default function AllPopularArtists({ navigation }) {
         </View>
                         
 
-                <ScrollView>
+                <ScrollView horizontal={true}>
                 {artistes &&(
-                <View style={{justifyContent: "center", alignItems: "center"}}>
+                <View style={{justifyContent: "center", alignItems: "center", flexDirection:'row'}}>
+                    {artistes.map((artist, index) => (
+                    <View key={index} onPress={() => navigation.navigate("ArtistPage", {artist: artist})}>
+                    <TouchableOpacity style={styles.popularalbums} onPress={() => navigation.navigate("ArtistPage", {artist: artist})}>
+                    <Image source={{
+                      uri: "https://musebeta.herokuapp.com" + artist.image
+                    }} style={styles.popularimage}/>
+                    </TouchableOpacity>
+                    <View>
+                    <Text style={styles.artistname}>{artist.name}</Text>
+                    <Text style={styles.artistlikes}> 900K Followers</Text>
+                    </View>
+                    <TouchableOpacity style={styles.followbutton}>
+                    <Text style={{color:'white', fontSize:20, fontWeight:'bold',alignSelf:'center',paddingTop:7,}}> Follow </Text>
+                    </TouchableOpacity>
+                    </View>))}
+                    </View>)}
+
+                </ScrollView>
+
+                <ScrollView horizontal={true}>
+                {artistes &&(
+                <View style={{justifyContent: "center", alignItems: "center", flexDirection:'row'}}>
                     {artistes.map((artist, index) => (
                     <View key={index} onPress={() => navigation.navigate("ArtistPage", {artist: artist})}>
                     <TouchableOpacity style={styles.popularalbums} onPress={() => navigation.navigate("ArtistPage", {artist: artist})}>
@@ -82,7 +104,7 @@ export default function AllPopularArtists({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#151723",
+    backgroundColor: "#141515",
     height: "100%",
 
   },
@@ -110,19 +132,19 @@ const styles = StyleSheet.create({
 
 
 popularalbums: {
-    height:200,
-    width:300,
+    height:300,
+    width:200,
     backgroundColor: '#1e202c',
     marginLeft: 20,
     marginTop: 20,
-    borderRadius: 100,
+    borderRadius: 50,
    
 },
 
 followbutton: {
     height:40,
     width:150,
-    backgroundColor: '#1e202c',
+    backgroundColor: '#1E1F1F',
     marginLeft: 20,
     marginTop: 10,
     borderRadius: 50,
@@ -131,9 +153,9 @@ followbutton: {
    
 },
 popularimage: {
-    height:200,
-    width:300,
-    borderRadius: 30,
+    height:300,
+    width:200,
+    borderRadius: 25,
 },
 
 

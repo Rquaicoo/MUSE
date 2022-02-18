@@ -55,7 +55,9 @@ export default function Home({ navigation }) {
       {/* Title */}
         <View  style={styles.headerContainer}>
             <View>
-                <Text style={styles.headerText}>muse.</Text>
+              <TouchableOpacity  onPress={() => navigation.push("Tabs")} >
+              <Text style={styles.headerText}>muse.</Text>
+              </TouchableOpacity>
             </View>
             
             {/* Profile */}
@@ -169,7 +171,7 @@ export default function Home({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#151723",
+    backgroundColor: "#141515",
     height: "100%",
     flex: 1,
 
@@ -194,7 +196,7 @@ const styles = StyleSheet.create({
   modal: {
     position: "absolute",
     height: "11%",
-    backgroundColor:'#fd62ab',
+    backgroundColor:'#282A2A',
    borderTopLeftRadius:30,
    borderTopRightRadius:30,
     marginBottom:'5%',
@@ -212,7 +214,7 @@ const styles = StyleSheet.create({
   headercontent: {
     height:60,
     width:'90%',
-    backgroundColor: '#313341',
+    backgroundColor: '#282A2A',
     marginTop:20,
     borderRadius: 25,
     alignSelf: "center",
@@ -314,7 +316,7 @@ popularalbums: {
 followbutton: {
     height:40,
     width:150,
-    backgroundColor: '#1e202c',
+    backgroundColor: '#1E1F1F',
     marginLeft: 20,
     marginTop: 10,
     borderRadius: 50,
