@@ -4,6 +4,7 @@ import { StyleSheet, Text, View, Image, TouchableOpacity, ImageBackground,Scroll
 import { Feather, SimpleLineIcons, Ionicons, MaterialIcons, MaterialCommunityIcons,  } from '@expo/vector-icons';
 import doja2 from '../assets/doja2.jpg';
 import doja from '../assets/doja.jpg';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import sark from '../assets/sark.jpg';
 import arthur from '../assets/arthur.jpg';
 import kanye from '../assets/kanye.jpeg';
@@ -177,13 +178,13 @@ const styles = StyleSheet.create({
 
   mainimage: {
     height:460,
-    width:265,
+    width:wp('61%'),
     borderRadius: 40,
     overflow: 'hidden',
 },
 musiccontent: {
     height:460,
-    width:265,
+    width:wp('61%'),
     backgroundColor: '#1e202c',
     marginLeft: 20,
     marginTop: 20,
@@ -243,7 +244,7 @@ popularalbums: {
 followbutton: {
     height:40,
     width:150,
-    backgroundColor: '#1e202c',
+    backgroundColor: '#323434',
     marginLeft: 20,
     marginTop: 10,
     borderRadius: 50,
