@@ -43,6 +43,9 @@ export default function App() {
     <AudioProvider>
         <NavigationContainer>
           <Stack.Navigator>
+          <Stack.Screen name="SignIn" component={SignIn} options={{
+              headerShown: false
+            }} />
           <Stack.Screen name="Startupscreen" component={Startupscreen} options={{
               headerShown: false
             }} />
@@ -53,9 +56,7 @@ export default function App() {
             <Stack.Screen name="SignUp" component={SignUp} options={{
               headerShown: false
             }} />
-            <Stack.Screen name="SignIn" component={SignIn} options={{
-              headerShown: false
-            }} />
+            
             <Stack.Screen name="Intro1" component={Intro1} options={{
               headerShown: false
             }} />
