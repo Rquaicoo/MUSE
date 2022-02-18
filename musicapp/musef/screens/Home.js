@@ -3,11 +3,7 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, TextInput, View, Image,Modal, TouchableOpacity, TouchableWithoutFeedback, ImageBackground,ScrollView} from 'react-native';
 import { Feather, Octicons, Ionicons, FontAwesome, MaterialCommunityIcons,  } from '@expo/vector-icons';
 import doja2 from '../assets/doja2.jpg';
-import doja from '../assets/doja.jpg';
-import sark from '../assets/sark.jpg';
-import arthur from '../assets/arthur.jpg';
-import kanye from '../assets/kanye.jpeg';
-import adele from '../assets/adele.jpg';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import { SharedElement } from 'react-navigation-shared-element';
 import {
   SharedElementTransition,
@@ -61,9 +57,9 @@ export default function Home({ navigation }) {
             </View>
             
             {/* Profile */}
-            <View style={{marginLeft: "42%", display: "flex", flexDirection: "row", alignItems: "center"}}>
+            <View style={{marginLeft: "50%", display: "flex", flexDirection: "row", alignItems: "center"}}>
                 <TouchableOpacity style={{borderColor: "#343547", borderWidth: 1, alignContent: "center", justifyContent: "center", padding: 8, borderRadius: 20}}>
-                    <Octicons name="radio-tower" size={25} color="white" />
+                    <Octicons name="radio-tower" size={15} color="white" />
                   </TouchableOpacity >
                   <TouchableOpacity onPress={() => navigation.navigate("myprofile")} >
                     <Image source={require('../assets/memoji.png')} style={styles.image} />
@@ -178,11 +174,11 @@ const styles = StyleSheet.create({
 
   },
   image: {
-    height: 60,
-    width: 60,
+    height: 35,
+    width: 35,
     resizeMode: "contain",
     borderRadius: 500,
-    marginLeft: "5%",
+    marginLeft: "17%",
     marginTop: -2,
   },
   
@@ -250,13 +246,13 @@ const styles = StyleSheet.create({
 
   mainimage: {
     height:450,
-    width:390,
+    width:'100%',
     borderRadius: 40,
     overflow: 'hidden',
 },
 musiccontent: {
     height:450,
-    width:390,
+    width:wp('90%'),
     backgroundColor: '#1e202c',
     marginLeft: 20,
     marginTop: 20,

@@ -27,7 +27,9 @@ export default function Genre({navigation}) {
                                 <TouchableOpacity style={{borderColor: "#343547", borderWidth: 1, alignContent: "center", justifyContent: "center", padding: 8, borderRadius: 20}}>
                                     <Feather name="search" size={21} color="white" />
                                 </TouchableOpacity>
+                                <TouchableOpacity  onPress={() => navigation.navigate("myprofile")} >
                                 <Image source={require('../assets/memoji.png')} style={styles.image} />
+                                </TouchableOpacity>
                             </View>
                         </View>
                         
@@ -44,7 +46,7 @@ export default function Genre({navigation}) {
                             </ImageBackground>
                         </TouchableOpacity>
 
-                        <View>
+                        <View style={{width: '80%', display: 'flex' ,}}>
                             <View style={{marginLeft: -10, flexDirection: "row", }}>
                                 <TouchableOpacity style={styles.tags}>
                                     <Text style={styles.tagText}>Happy</Text>
