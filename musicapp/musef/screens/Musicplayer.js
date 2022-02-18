@@ -3,6 +3,7 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, TextInput, View, Image,Modal, TouchableOpacity, TouchableWithoutFeedback, Animated,ScrollView} from 'react-native';
 import { Feather, Entypo, Ionicons,FontAwesome5, FontAwesome, MaterialCommunityIcons,MaterialIcons,  } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
+import Slider from '@react-native-community/slider';
 import doja from '../assets/doja.jpg';
 import { SharedElement } from 'react-navigation-shared-element';
 import {
@@ -173,11 +174,6 @@ class Musicplayer extends Component {
 
                 <View 
                 style={styles.container}>
-                    <LinearGradient
-                colors={['#ffafd4', '#fd62ab', '#c34e85']}
-                start={{x: 1, y: 0}}
-                end={{x: 1, y: 0.5}}
-            >
                 <ScrollView showsVerticalScrollIndicator={false} >
                             <TouchableOpacity style={styles.albums}>
                             <Image source={{
@@ -206,9 +202,16 @@ class Musicplayer extends Component {
 
                 {/* WaveForm */}
                 
-                <Image source={require('../assets/wave.png')} style={{width:390, height:50, marginLeft:10, marginTop:15, opacity:0.8}} />
+                    <Slider
+                    style={{width: 395, height: 40, marginLeft:15,}}
+                    minimumValue={0}
+                    maximumValue={10}
+                    minimumTrackTintColor="#FFFFFF"
+                    maximumTrackTintColor="grey"
+                    />
+
                 <View style={styles.main}>
-                <Text style={{fontSize:15,color:'white' ,paddingLeft:10, paddingTop:10, fontWeight:'bold', opacity:0.7}}> 0:00</Text>
+                <Text style={{fontSize:15,color:'white' ,paddingLeft:16, paddingTop:10, fontWeight:'bold', opacity:0.7}}> 0:00</Text>
                 <Text style={{fontSize:15,color:'white' ,paddingLeft:'73%', paddingTop:10, fontWeight:'bold', opacity:0.7}}> 3:45</Text>
                 </View>
 
@@ -233,13 +236,13 @@ class Musicplayer extends Component {
                 </View>
 
                 <View style={styles.main1}>
-                <TouchableOpacity onPress={() => navigation.goBack()}  style={{height:50, width:50, backgroundColor:'#8f1145', borderRadius:15, marginBottom: 10,}}>
+                <TouchableOpacity onPress={() => navigation.goBack()}  style={{height:50, width:50, backgroundColor:'#151723', borderRadius:15, marginBottom: 10,}}>
                 <Feather name="chevrons-up" size={40} color="white"  style={{ paddingLeft:5, paddingTop:5}}/>
                 </TouchableOpacity>
             
                 </View>
                 </ScrollView>
-            </LinearGradient>             
+                      
                 </View>
             );
         }
@@ -247,7 +250,17 @@ class Musicplayer extends Component {
 
 const styles = StyleSheet.create({
     container: {    
+        backgroundColor: '#151723',
      height: "100%",
+    },
+
+    waveform:{
+    height:5,
+    width:'90%',
+    backgroundColor:'white',
+    marginLeft:'5%',
+    marginTop:10,
+    marginBottom:10,
     },
     main: {
         flexDirection: "row",
@@ -272,8 +285,8 @@ const styles = StyleSheet.create({
         height:300,
         width:300,
         backgroundColor: '#1e202c',
-        marginTop: '30%',
-        marginBottom: '10%',
+        marginTop: '20%',
+        marginBottom: '20%',
         borderRadius: 200,
         alignSelf: 'center',
        
@@ -282,7 +295,7 @@ const styles = StyleSheet.create({
         height:300,
         width:300,
         borderRadius: 200,
-        borderColor: '#ff4d99',
+        borderColor: 'white',
        borderWidth: 5,
 
     },

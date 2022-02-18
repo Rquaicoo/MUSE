@@ -134,7 +134,7 @@ export default function artists({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#151723",
+    backgroundColor: "#141515",
     height: "100%",
 
   },
