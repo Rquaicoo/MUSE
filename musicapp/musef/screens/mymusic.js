@@ -15,7 +15,7 @@ export default function MyMusic({ navigation }) {
             
 
             <View style={{marginLeft: "34%", display: "flex", flexDirection: "row", alignItems: "center"}}>
-                <TouchableOpacity style={{borderColor: "#343547", borderWidth: 1, alignContent: "center", justifyContent: "center", padding: 8, borderRadius: 20}}>
+                <TouchableOpacity style={{borderColor: "#282A2A", borderWidth: 1, alignContent: "center", justifyContent: "center", padding: 8, borderRadius: 20}}>
                     <Feather name="search" size={21} color="white" />
                   </TouchableOpacity>
                     <Image source={require('../assets/doja.jpg')} style={styles.image} />
@@ -71,12 +71,12 @@ export default function MyMusic({ navigation }) {
         <View  style={{marginLeft: "5%", marginTop: "15%"}}>
           <Text style={{color: "#3f3f4f", marginBottom: 10}}>Your activities</Text>
           <TouchableOpacity  style={{display: "flex", flexDirection: "row", marginTop: 20 }}>
-          <MaterialIcons name="playlist-add" size={30} color="#343547" />
+          <MaterialIcons name="playlist-add" size={30} color="#282A2A" />
           <Text style={{color: "white", fontWeight: "100", fontSize: 17, marginLeft: "5%", marginRight: "50%"}}>Listen later</Text>
-          <MaterialIcons name="navigate-next" size={30} color="#343547" />
+          <MaterialIcons name="navigate-next" size={30} color="#282A2A" />
           </TouchableOpacity>
           <View style={{
-      backgroundColor: "#343547",
+      backgroundColor: "#282A2A",
        width: "90%",
         height: 1, 
         marginLeft: "1%",
@@ -84,12 +84,12 @@ export default function MyMusic({ navigation }) {
     }}></View>
 
           <TouchableOpacity  style={{display: "flex", flexDirection: "row", marginTop: 20 }}>
-          <MaterialCommunityIcons name="heart-plus-outline" size={30} color="#343547" />
-          <Text style={{color: "white", fontWeight: "100", fontSize: 17, marginLeft: "5%", marginRight: "51%"}}>Liked songs</Text>
-          <MaterialIcons name="navigate-next" size={30} color="#343547" />
+          <MaterialCommunityIcons name="heart-plus-outline" size={30} color="#282A2A" />
+          <Text style={{color: "white", fontWeight: "100", fontSize: 17, marginLeft: "5%", marginRight: "48%"}}>Liked songs</Text>
+          <MaterialIcons name="navigate-next" size={30} color="#282A2A" />
           </TouchableOpacity>
           <View style={{
-      backgroundColor: "#343547",
+      backgroundColor: "#282A2A",
        width: "90%",
         height: 1,
         marginLeft: "1%",
@@ -97,9 +97,9 @@ export default function MyMusic({ navigation }) {
     }}  ></View>
 
           <TouchableOpacity  style={{display: "flex", flexDirection: "row", marginTop: 20 }}>
-          <SimpleLineIcons name="user-following" size={30} color="#343547" />
-          <Text style={{color: "white", fontWeight: "100", fontSize: 17, marginLeft: "5%", marginRight: "42%"}}>Followed Artistes</Text>
-          <MaterialIcons name="navigate-next" size={30} color="#343547" />
+          <SimpleLineIcons name="user-following" size={30} color="#282A2A" />
+          <Text style={{color: "white", fontWeight: "100", fontSize: 17, marginLeft: "5%", marginRight: "39%"}}>Followed Artistes</Text>
+          <MaterialIcons name="navigate-next" size={30} color="#282A2A" />
           </TouchableOpacity>
         </View>
     </View>
@@ -109,7 +109,7 @@ export default function MyMusic({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#151723",
+    backgroundColor: "#141515",
     height: "100%",
 
   },
@@ -134,13 +134,13 @@ const styles = StyleSheet.create({
     },
     downloadsContent: {
       borderRadius: 20,
-      borderColor: "#343547", 
+      borderColor: "#282A2A", 
       borderWidth: 1, 
       width: "40%", 
       height: 130, 
       alignItems: "center", 
       justifyContent: "center",
-      backgroundColor: "#343547",
+      backgroundColor: "#282A2A",
       marginRight: "10%"
       
     },

@@ -150,7 +150,7 @@ export default function Genre({navigation}) {
 
 
 const styles = StyleSheet.create({
-    container: { backgroundColor: '#151723',
+    container: { backgroundColor: '#141515',
     height: "100%",
     paddingLeft: "1%",
     },
@@ -215,7 +215,7 @@ const styles = StyleSheet.create({
        
     },
     tags: {
-        backgroundColor: "#343547", 
+        backgroundColor: "#323434", 
         height: 45, 
         width: 100, 
         borderRadius: 20, 
@@ -225,7 +225,7 @@ const styles = StyleSheet.create({
 
     },
     tagslong: {
-        backgroundColor: "#343547", 
+        backgroundColor: "#323434", 
         height: 45, 
         width: 145, 
         borderRadius: 20, 

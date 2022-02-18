@@ -24,7 +24,7 @@ function Tabs({navigation}) {
         inactiveTintColor: '#bdbdbd',
         showLabel: false,
           tabBarStyle: {
-              backgroundColor: '#151723',
+              backgroundColor: '#141515',
               height:'11%',
               
           },
@@ -40,7 +40,7 @@ function Tabs({navigation}) {
 
       <Tab.Screen name="Home" component={Home} 
       options={{ tabBarLabel:() => {return null}, headerShown: false , tabBarIcon: ({color}) => 
-        <TouchableOpacity  component={Home} style={{height:70, width:70, backgroundColor:'#343547', borderRadius:100, marginTop:10,}} onPress={() => navigation.navigate("Home")}>
+        <TouchableOpacity  component={Home} style={{height:70, width:70, backgroundColor:'#282A2A', borderRadius:100, marginTop:10,}} onPress={() => navigation.navigate("Home")}>
         <Foundation name="home" size={34} color="white" style={{ paddingTop:17,paddingLeft:23,}} />
         </TouchableOpacity>
     }}/>

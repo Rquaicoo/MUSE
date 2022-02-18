@@ -99,6 +99,7 @@ export default function Browser ({navigation}) {
 
         return (
             <ScrollView style={styles.container}  showsVerticalScrollIndicator={false} > 
+            <StatusBar barStyle="light-content" />
                 <View >
                         <Text style={{fontWeight:'bold', fontSize:35, alignSelf:'center',color:'white',marginTop:35,}}> muse.</Text>
                     <TouchableOpacity style={styles.header}>
@@ -133,13 +134,15 @@ export default function Browser ({navigation}) {
                     </View>
                     )}
                     {music &&(
+
                     <View style={{flexDirection: "row", flexWrap: "wrap"}}>
                         {music.map((artiste, index) => (
-                    <TouchableOpacity key={index} onPress={() => {updateStreams(artiste);navigation.navigate("Musicplayer", {artiste: artiste})}}  style={styles.musiccontentsmall}>
+                    <TouchableOpacity key={index} onPress={() => {updateStreams(artiste);navigation.navigate("Musicplayer", {artiste: artiste})}}  style={styles.musiccontent}>
                     <Image source={{uri: "https://musebeta.herokuapp.com"+artiste.image}} style={styles.smallimage}/>
                     </TouchableOpacity>))}
                     </View>
-                    )}            
+                    )}          
+                      
                     </View>
                 </ScrollView>)}
                 </View>
@@ -200,13 +203,13 @@ export default function Browser ({navigation}) {
 const styles = StyleSheet.create({
 
     container: {
-    backgroundColor: '#151723',
+    backgroundColor: '#141515',
     height: "100%",
 },
 
     header: {
         flexDirection: 'row',
-        backgroundColor: '#1e202c',
+        backgroundColor: '#1E1F1F',
         height: "7%",
         width: "90%",
         borderRadius:15,
@@ -216,7 +219,7 @@ const styles = StyleSheet.create({
     headercontent: {
         height:'70%',
         width:'30%',
-        backgroundColor: '#313341',
+        backgroundColor: '#282A2A',
         marginLeft: '2%',
         borderRadius: 15,
         alignSelf: "center",
@@ -228,9 +231,9 @@ const styles = StyleSheet.create({
     },
 
     smallimage: {
-        height:125,
-        width:125,
-        borderRadius: 20,
+        height:280,
+        width:280,
+        borderRadius: 25,
     },
 
     music: {
@@ -258,7 +261,7 @@ const styles = StyleSheet.create({
         height:170,
         width:170,
         borderRadius: 100,
-        borderColor: 'orange',
+        borderColor: '#3C3E3E',
        borderWidth: 5,
     },
 

@@ -44,23 +44,17 @@ export default function MusicList ({route, navigation}) {
 
 
     return (
-        <ScrollView style={{display: "flex", backgroundColor: "#151723"}}>
+        <ScrollView style={{display: "flex", backgroundColor: "#141515"}}>
             
-            <ImageBackground source={image} style={{height:400,width:"100%",borderRadius: 40,}}>
+            <ImageBackground source={image} style={{height:450,width:"100%",}} imageStyle={{borderRadius: 40,}}>
             <View  style={styles.headerContainer}>
                 <View>
                     <Ionicons name="arrow-back-outline" size={30} color="white"  onPress={() => navigation.goBack()} style={{paddingTop:6,}}/>
                 </View>
-                
-                <View style={{marginLeft: "67%", display: "flex", }}>
-                    <TouchableOpacity style={{borderColor: "#fff", borderWidth: 1, alignContent: "center", justifyContent: "center", padding: 4, borderRadius: 1000}} onPress={() => navigation.navigate("myprofile")}>
-                        <Image source={require('../assets/memoji.png')} style={styles.image} />
-                    </TouchableOpacity>
-                </View>
              </View>
 
             <View>
-                <View style={{marginLeft: "5%", marginTop: "40%"}}>
+                <View style={{marginLeft: "5%", marginTop: "60%"}}>
                     <Text style={{fontSize:60,color:'#fff', fontWeight:'bold',}}>{genre}</Text>
                     <Text style={{fontSize:12,color:'#fff', fontWeight:'bold',}}>120 songs</Text>
                 </View>
@@ -76,7 +70,7 @@ export default function MusicList ({route, navigation}) {
                 <TouchableOpacity style={{display: "flex", flexDirection: "row", borderColor: "#343547", borderBottomWidth:1, paddingBottom: "5%", marginBottom: "5%"}} key={index} onPress={() => {updateStreams(song);navigation.navigate("Musicplayer", {artiste: song})}}>
                     <Image source={{
                             uri: "https://musebeta.herokuapp.com" + song.image
-                        }} style={{resizeMode: "cover", height: 55, width: 45}}/>
+                        }} style={{resizeMode: "cover", height: 60, width: 60, borderRadius:15}}/>
                     <View style={{marginLeft: "5%"}}>
                         <Text style={{fontSize:16,color:'#fff', fontWeight:'bold',}}>{song.title}</Text>
                         <Text style={{fontSize:14,color:'#fff', fontWeight:'200',}}>{song.collaborators}</Text>
@@ -111,8 +105,8 @@ const styles = StyleSheet.create({
         marginLeft:2,
       },
       image: {
-        height: 45,
-        width: 45,
+        height: 30,
+        width: 30,
         resizeMode: "contain",
         borderRadius: 500,
       },
