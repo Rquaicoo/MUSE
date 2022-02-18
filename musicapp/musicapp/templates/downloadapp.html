@@ -1,0 +1,47 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Join our waiting list</title>
+    <link rel="logo" href="{% static 'images/logo.png' %}" type="image/png" sizes="16x16">
+    <!-- Font Icon -->
+    <link rel="stylesheet" href="{% static 'fonts/material-icon/css/material-design-iconic-font.min.css' %}">
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <!-- Main css -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body style="height: 100%;">
+
+    <div class="main">
+
+        <section class="signup">
+            <div class="container">
+                
+                <div class="signup-content">
+                    <form method="POST" id="signup-form" class="signup-form" action="">
+                        {% csrf_token %}
+                        <p style="display: flex; font-size:25px; align-self:center; color:#151723; justify-content:center;"><b>muse.</b></p>
+                        <h2 class="form-title">Dowload app for Android or iOS</h2>
+                        
+
+                        <p>Allow installation from unknown sources in your settings before installing the app</p>
+                        
+
+                        <div class="form-group" style="display: flex; flex-direction: row" >
+                            <button type="submit" name="submit" id="submit" class="form-submit" style="width: 40%; display: flex;flex-direction: row; font-size: 12px"><ion-icon name="logo-android"></ion-icon>  android</button>
+                            <button type="submit" name="submit" id="submit" class="form-submit" style="width: 40%; margin-left: 20px"><ion-icon name="logo-apple"></ion-icon>  iOS</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    
+</body>
+</html>
