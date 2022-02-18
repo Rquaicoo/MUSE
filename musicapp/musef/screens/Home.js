@@ -55,7 +55,9 @@ export default function Home({ navigation }) {
       {/* Title */}
         <View  style={styles.headerContainer}>
             <View>
-                <Text style={styles.headerText}>muse.</Text>
+              <TouchableOpacity  onPress={() => navigation.push("Tabs")} >
+              <Text style={styles.headerText}>muse.</Text>
+              </TouchableOpacity>
             </View>
             
             {/* Profile */}

@@ -57,15 +57,10 @@ export default function ArtistPage ({route, navigation}) {
                     <Ionicons name="arrow-back-outline" size={30} color="white"  onPress={() => navigation.goBack()} style={{paddingTop:6,}}/>
                 </View>
                 
-                <View style={{marginLeft: "67%", display: "flex", }}>
-                    <TouchableOpacity style={{borderColor: "#fff", borderWidth: 1,padding: 4,marginLeft:30, borderRadius: 1000}} onPress={() => navigation.navigate("myprofile")}>
-                        <Image source={require('../assets/memoji.png')} style={styles.image} />
-                    </TouchableOpacity>
-                </View>
              </View>
 
             <View>
-                <View style={{marginLeft: "5%", marginTop: "65%"}}>
+                <View style={{marginLeft: "5%", marginTop: "70%"}}>
                     <Text style={{fontSize:60,color:'#fff', fontWeight:'bold',}}>{artiste.name}</Text>
                     <Text style={{fontSize:12,color:'#fff', fontWeight:'bold',}}>120 songs</Text>
                 </View>

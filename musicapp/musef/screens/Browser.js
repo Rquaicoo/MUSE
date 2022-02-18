@@ -134,13 +134,15 @@ export default function Browser ({navigation}) {
                     </View>
                     )}
                     {music &&(
+
                     <View style={{flexDirection: "row", flexWrap: "wrap"}}>
                         {music.map((artiste, index) => (
-                    <TouchableOpacity key={index} onPress={() => {updateStreams(artiste);navigation.navigate("Musicplayer", {artiste: artiste})}}  style={styles.musiccontentsmall}>
+                    <TouchableOpacity key={index} onPress={() => {updateStreams(artiste);navigation.navigate("Musicplayer", {artiste: artiste})}}  style={styles.musiccontent}>
                     <Image source={{uri: "https://musebeta.herokuapp.com"+artiste.image}} style={styles.smallimage}/>
                     </TouchableOpacity>))}
                     </View>
-                    )}            
+                    )}          
+                      
                     </View>
                 </ScrollView>)}
                 </View>
@@ -229,9 +231,9 @@ const styles = StyleSheet.create({
     },
 
     smallimage: {
-        height:125,
-        width:125,
-        borderRadius: 20,
+        height:280,
+        width:280,
+        borderRadius: 25,
     },
 
     music: {
@@ -259,7 +261,7 @@ const styles = StyleSheet.create({
         height:170,
         width:170,
         borderRadius: 100,
-        borderColor: 'orange',
+        borderColor: '#3C3E3E',
        borderWidth: 5,
     },
 
