@@ -163,7 +163,7 @@ export default function Home({ navigation }) {
     
     </View>
     </View>
-    </View>
+    
   )};
 
 const styles = StyleSheet.create({
