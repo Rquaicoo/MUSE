@@ -71,7 +71,7 @@ export default function Browser ({navigation}) {
         .catch(error => console.log(error))
        
 
-        fetch('https://musebeta.herokuapp.com/museb/music/',{
+        fetch('http://localhost:8000/museb/music/',{
             method: 'GET',
             headers: {
               Accept: 'application/json',
