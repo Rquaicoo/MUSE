@@ -46,9 +46,7 @@ export default function App() {
           <Stack.Screen name="Startupscreen" component={Startupscreen} options={{
               headerShown: false
             }} />
-            <Stack.Screen name="Home" component={Home} options={{
-              headerShown: false
-            }} />
+           
             <Stack.Screen name="Tabs" component={Tabs} options={{
               headerShown: false
             }} />
