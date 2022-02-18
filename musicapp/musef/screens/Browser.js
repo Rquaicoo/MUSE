@@ -104,13 +104,13 @@ export default function Browser ({navigation}) {
                         <Text style={{fontWeight:'bold', fontSize:35, alignSelf:'center',color:'white',marginTop:35,}}> muse.</Text>
                     <TouchableOpacity style={styles.header}>
                     <View style={{flexDirection:'row', justifyContent:'center'}}>
-                    <TouchableOpacity style={styles.headercontent} onPress={() => {(navigation.navigate("Tabs"))}}>
+                    <TouchableOpacity style={styles.headercontent} onPress={() => {navigation.navigate("AllNewTrending", {musicType: "All", endpoint: 'music/'})}}>
                         <Text style={{color:'white', fontSize:20,fontWeight: 'bold', paddingTop:13, paddingLeft:37,}}> All</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.headercontent}>
+                    <TouchableOpacity style={styles.headercontent} onPress={() => {navigation.navigate("AllNewTrending", {musicType: "New", endpoint: 'new/'})}}>
                     <Text style={{color:'white', fontSize:20,fontWeight: 'bold', paddingTop:13, paddingLeft:30,}}> New</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.headercontent}>
+                    <TouchableOpacity style={styles.headercontent} onPress={() => {navigation.navigate("AllNewTrending", {musicType: "Trending", endpoint: 'trending/'})}}>
                     <Text style={{color:'white', fontSize:20,fontWeight: 'bold', paddingTop:13, paddingLeft:10,}}> Trending</Text>
                     </TouchableOpacity>
                 </View>

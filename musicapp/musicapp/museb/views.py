@@ -85,6 +85,20 @@ class MusicView(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         except:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class TrendingMusicView(APIView):
+    def get(self, request):
+        trending_music = Music.objects.filter(trending=True)
+        serializer = MusicSerializer(trending_music, many=True)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+class NewMusicView(APIView):
+    def get(self, request):
+        new_music = Music.objects.filter(new=True)
+        serializer = MusicSerializer(new_music, many=True)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
         
         
 
@@ -131,6 +145,7 @@ class AlbumView(APIView):
 
             album = Album.objects.get(id=album_id)
             music = Music.objects.filter(album=album)
+        
 
             
             music_serializer = MusicSerializer(music, many=True)
