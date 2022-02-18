@@ -87,15 +87,10 @@ class Album extends Component {
                         <Ionicons name="arrow-back-outline" size={30} color="white"  onPress={() => navigation.navigate("Tabs")} style={{paddingTop:6,}}/>
                     </View>
                     
-                    <View style={{marginLeft: "67%", display: "flex", }}>
-                        <TouchableOpacity style={{borderColor: "#fff", borderWidth: 1, alignContent: "center", justifyContent: "center", padding: 4, borderRadius: 1000}} onPress={() => navigation.navigate("myprofile")}>
-                            <Image source={require('../assets/memoji.png')} style={styles.image} />
-                        </TouchableOpacity>
-                    </View>
                 </View>
 
                 <View>
-                    <View style={{height: "60%", width: "80%", marginLeft: "10%", marginTop: "5%"}}>
+                    <View style={{height: "60%", width: "90%", marginLeft: "5%", marginTop: "5%"}}>
                         <Image source={{
                             uri: "https://musebeta.herokuapp.com" + this.props.route.params.album.image
                         }} style={{resizeMode: "cover", height: "90%", width: "90%", alignSelf: "center", borderRadius:20,}} />
@@ -156,10 +151,12 @@ const styles = StyleSheet.create({
         marginLeft:2,
       },
       image: {
-        height: 45,
-        width: 45,
+        height: 30,
+        width: 30,
         resizeMode: "contain",
         borderRadius: 500,
+
+        borderColor: "#3C3E3E",
       },
 
 });

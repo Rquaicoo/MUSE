@@ -174,6 +174,11 @@ class Musicplayer extends Component {
 
                 <View 
                 style={styles.container}>
+                    <LinearGradient
+                            colors={['#2b2b2b','#111212']}
+                            start={{x: 0, y: 0.1}}
+                            end={{x: 0, y: 1}}
+                            style={{height: "100%"}}> 
                 <ScrollView showsVerticalScrollIndicator={false} >
                             <TouchableOpacity style={styles.albums}>
                             <Image source={{
@@ -203,7 +208,7 @@ class Musicplayer extends Component {
                 {/* WaveForm */}
                 
                     <Slider
-                    style={{width: 395, height: 40, marginLeft:15,}}
+                    style={{width: 395, height: 40, marginLeft:15,marginTop:10,}}
                     minimumValue={0}
                     maximumValue={10}
                     minimumTrackTintColor="#FFFFFF"
@@ -229,20 +234,20 @@ class Musicplayer extends Component {
                 </View>
 
                 <View style={styles.main1}>
-                <MaterialCommunityIcons name="playlist-music" size={40} color="white"  style={{ paddingRight:60}}/>
-                <Ionicons name="ios-repeat" size={40} color="white" style={{ paddingRight:60}} />
-                <Ionicons name="md-shuffle" size={40} color="white"  style={{ paddingRight:60}}/>
-                <MaterialIcons name="playlist-add" size={40} color="white" />
+                <MaterialCommunityIcons name="playlist-music" size={40} color="grey"  style={{ paddingRight:60}}/>
+                <Ionicons name="ios-repeat" size={40} color="grey" style={{ paddingRight:60}} />
+                <Ionicons name="md-shuffle" size={40} color="grey"  style={{ paddingRight:60}}/>
+                <MaterialIcons name="playlist-add" size={40} color="grey" />
                 </View>
 
                 <View style={styles.main1}>
-                <TouchableOpacity onPress={() => navigation.goBack()}  style={{height:50, width:50, backgroundColor:'#151723', borderRadius:15, marginBottom: 10,}}>
+                <TouchableOpacity onPress={() => navigation.goBack()}  style={{height:50, width:50, backgroundColor:'#282A2A', borderRadius:15, marginBottom: 10,}}>
                 <Feather name="chevrons-up" size={40} color="white"  style={{ paddingLeft:5, paddingTop:5}}/>
                 </TouchableOpacity>
             
                 </View>
                 </ScrollView>
-                      
+                      </LinearGradient>
                 </View>
             );
         }
