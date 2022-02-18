@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from 'react';
-import { Animated, StyleSheet,Alert,Text, View } from 'react-native';
+import { Animated, StyleSheet,StatusBar,Text, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 
@@ -42,7 +42,9 @@ const FadeInView = (props) => {
 // You can then use your `FadeInView` in place of a `View` in your components:
 
   return (
+    
     <View style={styles.container} >
+       <StatusBar barStyle="light-content" />
     <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}  >
       <FadeInView > 
         <Text style={{fontSize: 60, textAlign: 'center',fontWeight:'bold',color:'white', margin: 10}}>muse.</Text>

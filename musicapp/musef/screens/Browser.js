@@ -99,6 +99,7 @@ export default function Browser ({navigation}) {
 
         return (
             <ScrollView style={styles.container}  showsVerticalScrollIndicator={false} > 
+            <StatusBar barStyle="light-content" />
                 <View >
                         <Text style={{fontWeight:'bold', fontSize:35, alignSelf:'center',color:'white',marginTop:35,}}> muse.</Text>
                     <TouchableOpacity style={styles.header}>
@@ -200,13 +201,13 @@ export default function Browser ({navigation}) {
 const styles = StyleSheet.create({
 
     container: {
-    backgroundColor: '#151723',
+    backgroundColor: '#141515',
     height: "100%",
 },
 
     header: {
         flexDirection: 'row',
-        backgroundColor: '#1e202c',
+        backgroundColor: '#1E1F1F',
         height: "7%",
         width: "90%",
         borderRadius:15,
@@ -216,7 +217,7 @@ const styles = StyleSheet.create({
     headercontent: {
         height:'70%',
         width:'30%',
-        backgroundColor: '#313341',
+        backgroundColor: '#282A2A',
         marginLeft: '2%',
         borderRadius: 15,
         alignSelf: "center",
