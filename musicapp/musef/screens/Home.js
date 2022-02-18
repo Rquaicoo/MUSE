@@ -3,11 +3,7 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, TextInput, View, Image,Modal, TouchableOpacity, TouchableWithoutFeedback, ImageBackground,ScrollView} from 'react-native';
 import { Feather, Octicons, Ionicons, FontAwesome, MaterialCommunityIcons,  } from '@expo/vector-icons';
 import doja2 from '../assets/doja2.jpg';
-import doja from '../assets/doja.jpg';
-import sark from '../assets/sark.jpg';
-import arthur from '../assets/arthur.jpg';
-import kanye from '../assets/kanye.jpeg';
-import adele from '../assets/adele.jpg';
+import MiniPlayer from './MiniPlayer';
 import { SharedElement } from 'react-navigation-shared-element';
 import {
   SharedElementTransition,
@@ -134,37 +130,9 @@ export default function Home({ navigation }) {
     </ScrollView>
       
     {/* Music Player */}
-    <View 
-    style={styles.modal}>
-    <TouchableWithoutFeedback  >
-    <View style={{flexDirection:'row',padding:20,}}>
-    <Feather name="x" size={24} color="white"  style={{ paddingTop:15,}}/>
-            <View  >
-              
-              <TouchableOpacity onPress={() => navigation.navigate("Musicplayer")}  >
-             
-              <Image source={require('../assets/doja.jpg')} style={styles.modalimage}  />
-            
-              </TouchableOpacity>
-            
-             
-            </View>
-    <View>
-    
-     <Text style={styles.modaltext}> Woman </Text>
-    <Text style={{fontSize:18, color:'white', paddingLeft:10, }}> Doja Cat</Text>
-    </View>
-   
-    <Ionicons name="ios-play-skip-back-outline" size={30} color="white" style={{ paddingTop:10,paddingLeft:40}}/>
-    <FontAwesome name="play-circle" size={50} color="white"  style={{paddingTop:1,paddingLeft:20}} />
-    <Ionicons name="ios-play-skip-forward-outline" size={30} color="white" style={{ paddingTop:10,paddingLeft:20}}/>
-    </View>
-    </TouchableWithoutFeedback>
-    </View>
-
-
-    
-    
+    <View style={{height: "12%"}}>
+      <MiniPlayer />
+   </View>
     </View>
     </View>
   )};

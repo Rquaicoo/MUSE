@@ -3,15 +3,8 @@ import { StyleSheet, Text, View,Image, ImageBackground, TouchableOpacity, Scroll
 import { AntDesign } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import rad from '../assets/rad.jpg';
-import sark from '../assets/sark.jpg';
-import arthur from '../assets/arthur.jpg';
-import kanye from '../assets/kanye.jpeg';
-import adele from '../assets/adele.jpg';
-import doja from '../assets/doja.jpg';
 import { Octicons } from '@expo/vector-icons';
-import { Foundation } from '@expo/vector-icons';
-import Musicplayer from './Musicplayer';
-import axios from 'axios';
+
 
 
 const updateStreams = (music) => {
@@ -43,7 +36,6 @@ const updateCoverStreams = (music) => {
 }
 
 
-
 export default function Browser ({navigation}) {
 
     const [isMusicLoading, setMusicLoading] = useState(true);
@@ -71,7 +63,7 @@ export default function Browser ({navigation}) {
         .catch(error => console.log(error))
        
 
-        fetch('https://musebeta.herokuapp.com/museb/music/',{
+        fetch('http://localhost:8000/museb/music/',{
             method: 'GET',
             headers: {
               Accept: 'application/json',
@@ -94,6 +86,9 @@ export default function Browser ({navigation}) {
             setCover(jsonResponse)
         )
         .catch(error => console.log(error))
+
+       
+          
         
     }, [])
 
@@ -104,13 +99,13 @@ export default function Browser ({navigation}) {
                         <Text style={{fontWeight:'bold', fontSize:35, alignSelf:'center',color:'white',marginTop:35,}}> muse.</Text>
                     <TouchableOpacity style={styles.header}>
                     <View style={{flexDirection:'row', justifyContent:'center'}}>
-                    <TouchableOpacity style={styles.headercontent} onPress={() => {(navigation.navigate("Tabs"))}}>
+                    <TouchableOpacity style={styles.headercontent} onPress={() => {navigation.navigate("AllNewTrending", {musicType: "All", endpoint: 'music/'})}}>
                         <Text style={{color:'white', fontSize:20,fontWeight: 'bold', paddingTop:13, paddingLeft:37,}}> All</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.headercontent}>
+                    <TouchableOpacity style={styles.headercontent} onPress={() => {navigation.navigate("AllNewTrending", {musicType: "New", endpoint: 'new/'})}}>
                     <Text style={{color:'white', fontSize:20,fontWeight: 'bold', paddingTop:13, paddingLeft:30,}}> New</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.headercontent}>
+                    <TouchableOpacity style={styles.headercontent} onPress={() => {navigation.navigate("AllNewTrending", {musicType: "Trending", endpoint: 'trending/'})}}>
                     <Text style={{color:'white', fontSize:20,fontWeight: 'bold', paddingTop:13, paddingLeft:10,}}> Trending</Text>
                     </TouchableOpacity>
                 </View>
