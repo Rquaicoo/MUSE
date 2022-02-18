@@ -1,6 +1,7 @@
 import {React, useEffect, useState} from 'react';
 import { StyleSheet, Text, View,Image, ImageBackground, TouchableOpacity, ScrollView, StatusBar, ActivityIndicator} from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import rad from '../assets/rad.jpg';
 import sark from '../assets/sark.jpg';
@@ -225,14 +226,15 @@ const styles = StyleSheet.create({
         alignSelf: "center",
     },
     mainimage: {
-        height:280,
-        width:280,
+        height:hp('30%'),
+        width:wp('65%'),
         borderRadius: 25,
+
     },
 
     smallimage: {
-        height:280,
-        width:280,
+        height:hp('30%'),
+        width:wp('65%'),
         borderRadius: 25,
     },
 
@@ -241,12 +243,12 @@ const styles = StyleSheet.create({
     },
 
     musiccontent: {
-        height:280,
-        width:280,
+        height:hp('30%'),
+        width:wp('65%'),
         backgroundColor: '#1e202c',
         marginLeft: 20,
         marginTop: 20,
-        borderRadius: 15,
+        borderRadius: 25,
     },
     albums: {
         height:170,

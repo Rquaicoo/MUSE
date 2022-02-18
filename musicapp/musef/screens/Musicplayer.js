@@ -208,7 +208,7 @@ class Musicplayer extends Component {
                 {/* WaveForm */}
                 
                     <Slider
-                    style={{width: 395, height: 40, marginLeft:15,marginTop:10,}}
+                    style={{width: '90%', height: 40, marginLeft:15,marginTop:10,}}
                     minimumValue={0}
                     maximumValue={10}
                     minimumTrackTintColor="#FFFFFF"
