@@ -7,12 +7,14 @@ import { useNavigation } from '@react-navigation/native';
 
 
 
+
 class SignIn extends Component {
 
     state = {
         username: '',
         password: '',
         denied: false,
+        secure: true,
     }
 
     onUnsernameChange = (text) => {
@@ -21,6 +23,10 @@ class SignIn extends Component {
 
     onPasswordChange = (text) => {
         this.setState({password: text})
+    }
+
+    changeSecureState = () => {
+        this.setState({secure: !this.state.secure})
     }
 
     handleRequest = (props) => {
@@ -33,7 +39,7 @@ class SignIn extends Component {
             .post('https://musebeta.herokuapp.com/museb/auth/login/', payload)
             .then(response => {
                 const { token, user } = response.data;
-                console.log(token);
+                console.log(token, user);
                 
                 axios.defaults.headers.common.Authorization = "Token ${token}"
 
@@ -51,7 +57,7 @@ class SignIn extends Component {
         return (
                     <ScrollView style={{  backgroundColor: '#151723', height: "100%", }}>
                         <View style={styles.container}>
-                            <TouchableOpacity style={{borderColor: "#ffffff", borderWidth: 1, padding: "4%", borderRadius: 10, marginRight: 20}} onPress={() => navigation.navigate("Intro3")}>
+                            <TouchableOpacity style={{borderColor: "#ffffff", borderWidth: 1, padding: "4%", borderRadius: 10, marginRight: 20}} onPress={() => navigation.goBack()}>
                                 <Ionicons name="chevron-back-sharp" size={24} color="white" />
                             </TouchableOpacity>
                                 <Text style={{fontWeight:'bold', fontSize:30, color: "#fdfdfd", marginTop: "2%"}}>Log In</Text>
@@ -99,10 +105,10 @@ class SignIn extends Component {
                                     placeholder="Enter your password" 
                                     onChangeText={this.onPasswordChange.bind(this)}
                                     placeholderTextColor="#ffffff"
-                                    secureTextEntry={true}
+                                    secureTextEntry={this.state.secure}
                                     defaultValue={this.state.password}
                                     />
-                                    <AntDesign name="eyeo" size={24} color="white" style={{right: "60%", top: "6%"}} />
+                                    <AntDesign name="eyeo" size={24} color="white" style={{right: "60%", top: "6%"}} onPress={() => this.changeSecureState()} />
                             </View>
                         </View>
 
