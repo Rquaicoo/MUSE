@@ -3,15 +3,8 @@ import { StyleSheet, Text, View,Image, ImageBackground, TouchableOpacity, Scroll
 import { AntDesign } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import rad from '../assets/rad.jpg';
-import sark from '../assets/sark.jpg';
-import arthur from '../assets/arthur.jpg';
-import kanye from '../assets/kanye.jpeg';
-import adele from '../assets/adele.jpg';
-import doja from '../assets/doja.jpg';
 import { Octicons } from '@expo/vector-icons';
-import { Foundation } from '@expo/vector-icons';
-import Musicplayer from './Musicplayer';
-import axios from 'axios';
+
 
 
 const updateStreams = (music) => {
@@ -41,7 +34,6 @@ const updateCoverStreams = (music) => {
         console.log(jsonResponse))
     .catch(error => console.log(error))
 }
-
 
 
 export default function Browser ({navigation}) {
@@ -94,6 +86,9 @@ export default function Browser ({navigation}) {
             setCover(jsonResponse)
         )
         .catch(error => console.log(error))
+
+       
+          
         
     }, [])
 

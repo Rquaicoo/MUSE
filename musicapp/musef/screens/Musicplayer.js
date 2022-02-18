@@ -14,7 +14,7 @@ import {
 
 import { Audio } from 'expo-av'
 import { useNavigation } from '@react-navigation/native';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const audioBookPlaylist = [
     
@@ -38,9 +38,33 @@ class Musicplayer extends Component {
         artiste: "",
         rotateValueHolder: new Animated.Value(0)
     }
-    like() {
+    like (){
         this.state.liked = !this.state.liked
+        fetch('https://musebeta.herokuapp.com/museb/artist/',{
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(artiste_id)
+        })
+        .then(response => response.json())
+        .then(responseJson => {
+            this.setState({artiste: responseJson["artiste"]})}
+    )
+        .catch(error => console.log(error))
     }
+
+    getData = async () => {
+        try {
+          const token = await AsyncStorage.getItem('token')
+          if(value !== null) {
+            // value previously stored
+            console.log(token)
+          }
+        } catch(e) {
+          // error reading value
+        }
+      }
 
     async componentDidMount() {
         try {

@@ -35,6 +35,7 @@ class SignIn extends Component {
           await AsyncStorage.setItem('token', value)
         } catch (e) {
           // saving error
+          console.log(e)
         }
       }
 
