@@ -23,7 +23,7 @@ export default function AllNewTrending({route, navigation}) {
     const [music, setMusic] = useState(null);
 
     useEffect(() => {
-        fetch('http://localhost:8000/museb/' + endpoint, {
+        fetch('https://musebeta.herokuapp.com/museb/' + endpoint, {
             method: 'GET',
             headers: {
               Accept: 'application/json',
