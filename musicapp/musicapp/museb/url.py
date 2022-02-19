@@ -13,6 +13,7 @@ urlpatterns = [
     path('cover/', CoverArtisteView.as_view(), name="cover"),
     path('new/', NewMusicView.as_view(), name="new_music"),
     path('trending/', TrendingMusicView.as_view(), name="trending_music"),
+    path('liked/', LikedMusicView.as_view(), name="liked_music"),
     re_path(r'^album/$', AlbumView.as_view(), name="album_list"),
     re_path(r'^artist/$', ArtistView.as_view(), name="artist_list"),
     re_path(r'^popular_artists/$', PopularArtistView.as_view(), name="popular_artist_list"),

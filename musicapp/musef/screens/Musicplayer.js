@@ -15,10 +15,9 @@ import {
 import { Audio } from 'expo-av'
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { throwIfAudioIsDisabled } from 'expo-av/build/Audio/AudioAvailability';
 
-const audioBookPlaylist = [
-    
-]
+
 class Musicplayer extends Component {
 
     constructor(props) {
@@ -26,7 +25,6 @@ class Musicplayer extends Component {
     
         const artiste = this.props.route.params.artiste;
         var imagePath = "https://musebeta.herokuapp.com" + artiste.image
-        console.log(imagePath)
     }
     state = {
         isPlaying: false,
@@ -36,30 +34,40 @@ class Musicplayer extends Component {
         isBuffering: false,
         liked: false,
         artiste: "",
+        token: "",
+        playlist: this.props.route.params.playlist,
+        index: this.props.route.params.index,
         rotateValueHolder: new Animated.Value(0)
     }
-    like (){
-        this.state.liked = !this.state.liked
-        fetch('https://musebeta.herokuapp.com/museb/artist/',{
+
+    changeLikedState = () => {
+        this.setState({liked: !this.state.liked})
+    }
+
+    like (id){
+        let token = this.getToken()
+        console.log(token)
+        fetch('http://localhost:8000/museb/liked/',{
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(artiste_id)
+            body: JSON.stringify({'user_token': this.state.token, 'music_id':this.props.route.params.artiste.id })
         })
         .then(response => response.json())
         .then(responseJson => {
-            this.setState({artiste: responseJson["artiste"]})}
+            console.log(responseJson)}
     )
         .catch(error => console.log(error))
     }
 
-    getData = async () => {
+    getToken = async () => {
         try {
-          const token = await AsyncStorage.getItem('token')
-          if(value !== null) {
+            var token =  await AsyncStorage.getItem('token')
+            this.setState({token: token})
+          if(token !== null) {
             // value previously stored
-            console.log(token)
+            
           }
         } catch(e) {
           // error reading value
@@ -68,7 +76,7 @@ class Musicplayer extends Component {
 
     async componentDidMount() {
         try {
-            this.getArtiste()
+            
             await Audio.setAudioModeAsync({
                 allowsRecordingIOS: false,
                 interruptionModeIOS: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
@@ -79,21 +87,22 @@ class Musicplayer extends Component {
                 playThroughEarpieceAndroid: false
             })
             this.loadAudio()
-            this.startImageRotateFunction();
+            
         }
         catch(error) {
             console.log(error)
         }
     }
 
+
     getArtiste (){
-        const artiste_id = this.props.route.params.artiste;
+        //const artiste_id = this.props.route.params.artiste;
         fetch('https://musebeta.herokuapp.com/museb/artist/',{
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(artiste_id)
+            body: JSON.stringify(this.state.playlist[this.state.index].main_artiste)
         })
         .then(response => response.json())
         .then(responseJson => {
@@ -104,6 +113,7 @@ class Musicplayer extends Component {
 
     async loadAudio () {
         const {currentIndex, isPlaying, volume} = this.state
+    
         if (isPlaying) {
             this.handlePlayPause()
         }
@@ -112,20 +122,23 @@ class Musicplayer extends Component {
 
             //new audio instance
             const playbackInstance = new Audio.Sound()
+            await playbackInstance.unloadAsync()
 
             //source of audio file
             const source = {
-                uri: "https://musebeta.herokuapp.com" + this.props.route.params.artiste.music_file
+                uri: "https://musebeta.herokuapp.com" + this.state.playlist[this.state.index].music_file
             }
 
             const status = {
                 shouldPlay: isPlaying,
                 volume
             }
-
-            playbackInstance.setOnPlaybackStatusUpdate(this.OnPlaybackStatusUpdate)
+            
+            
+            //playbackInstance.setOnPlaybackStatusUpdate(this.OnPlaybackStatusUpdate)
             await playbackInstance.loadAsync(source, status, false) //prevents audio from downloadning before playing
             this.setState({playbackInstance})
+
             this.handlePlayPause()
             
         }
@@ -133,16 +146,17 @@ class Musicplayer extends Component {
             console.log(error)
         }
 
-         OnPlaybackStatusUpdate = status => {
+        /*{ OnPlaybackStatusUpdate = status => {
             this.setState({
                 isBuffering: status.isBuffering
-            })
-        }
+            })}
+        }*/
     }
 
     /*control handlers */
 
     handlePlayPause = async () => {
+        this.getArtiste()
         const { isPlaying, playbackInstance} = this.state
         //check whether audio is playing or pausing
         isPlaying ? await playbackInstance.pauseAsync() : await playbackInstance.playAsync()
@@ -153,30 +167,30 @@ class Musicplayer extends Component {
     }
 
     handlePreviousTrack = async () => {
-        let { playbackInstance, currentIndex } = this.state
+        let { playbackInstance, index } = this.state
 
         if (playbackInstance) {
             //clear curent track
-            await playbackInstance.unloadAsync()
-            currentIndex < audioBookPlaylist.length -1 ? (currentIndex -=1 ) : (currentIndex = 0)
+            index != 0 ? (index -=1 ) : (index = 0)
 
             this.setState({
-                currentIndex
+                index
             })
 
             this.loadAudio()
+            
         }
     }
 
     handleNextTrack = async () => {
-        let { playbackInstance, currentIndex } = this.state
+        let { playbackInstance, index } = this.state
 
         if (playbackInstance) {
-            await playbackInstance.unloadAsync()
-            currentIndex < audioBookPlaylist.length -1 ? (currentIndex+1 ) : (currentIndex = 0)
+            
+            index != 0 ? (index+=1 ) : (index = 1)
 
             this.setState({
-                currentIndex
+                index
             })
 
             this.loadAudio()
@@ -207,7 +221,7 @@ class Musicplayer extends Component {
                 <ScrollView showsVerticalScrollIndicator={false} >
                             <TouchableOpacity style={styles.albums}>
                             <Image source={{
-                                uri: "https://musebeta.herokuapp.com" + this.props.route.params.artiste.image
+                                uri: "https://musebeta.herokuapp.com" + this.state.playlist[this.state.index].image
                             }} style={styles.albumimage3}/>
                             </TouchableOpacity>
 
@@ -215,7 +229,7 @@ class Musicplayer extends Component {
                 {/* Header */}
                 <View style={styles.main}>
                 <Ionicons name="play" size={20} color="white" style={{ paddingLeft:19,}}/>
-                <Text style={{fontSize:17,color:'white' , paddingTop:1, opacity:0.8}}> {this.props.route.params.artiste.title}</Text>
+                <Text style={{fontSize:17,color:'white' , paddingTop:1, opacity:0.8}}>{this.state.playlist[this.state.index].title}</Text>
                 </View>
                 
                 <View style={styles.main}>
@@ -225,8 +239,8 @@ class Musicplayer extends Component {
                 <MaterialCommunityIcons name="progress-download" size={32} color="white" style={{paddingLeft:'8%', paddingTop:2,}} />
                 <MaterialCommunityIcons name="account-check-outline" size={32} color="white"  style={{paddingLeft:'8%', paddingTop:2,}} />
                 {this.state.liked ?
-                (<FontAwesome5 name="heart" size={25} color="white"  style={{paddingLeft:'8%', paddingTop:5,}} onPress={this.liked} />):
-                (<Entypo name="heart" size={25} color="white" style={{paddingLeft:'8%', paddingTop:5,}} onPress={this.liked}/>)}
+                (<Entypo name="heart" size={25} color="white" style={{paddingLeft:'8%', paddingTop:5,}} onPress={() => {this.changeLikedState();this.like(this.props.route.params.artiste.id)}} />):
+                (<FontAwesome5 name="heart" size={25} color="white"  style={{paddingLeft:'8%', paddingTop:5,}} onPress={()=> {this.changeLikedState();this.like(this.props.route.params.artiste.id)}} />)}
                 </View>
                 <Text style={{fontSize:20,color:'white' ,paddingLeft:20, fontWeight:'bold', opacity:0.8}}>{this.props.route.params.artiste.collaborators}</Text>
 
@@ -247,7 +261,7 @@ class Musicplayer extends Component {
 
                 {/* PLay */}
                 <View style={styles.main1}>
-                <Ionicons name="ios-play-back-outline" size={50} color="white" style={{ paddingTop:20, paddingRight:30}}/>
+                <Ionicons name="ios-play-back-outline" size={50} color="white" style={{ paddingTop:20, paddingRight:30}} onPress={() => {this.handlePreviousTrack()}}/>
                 <TouchableOpacity onPress={this.handlePlayPause}>
                 {this.state.isPlaying ? (
                 <Ionicons name="ios-pause" size={90} color="white"  style={{paddingTop:1,paddingLeft:20}} />) : (
@@ -255,7 +269,7 @@ class Musicplayer extends Component {
                 <FontAwesome name="play-circle" size={90} color="white"  style={{paddingTop:1,paddingLeft:20}} />)}
                 </TouchableOpacity>
 
-                <Ionicons name="ios-play-forward-outline" size={50} color="white" style={{ paddingTop:20,paddingLeft:40}}/>
+                <Ionicons name="ios-play-forward-outline" size={50} color="white" style={{ paddingTop:20,paddingLeft:40}} onPress={() => {this.handleNextTrack()}}/>
                 </View>
 
                 <View style={styles.main1}>
