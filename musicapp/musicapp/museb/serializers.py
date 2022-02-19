@@ -50,3 +50,8 @@ class GenreSerializer(serializers.ModelSerializer):
     class Meta:
         model = Genre
         fields = ('id', 'title')
+
+class LikedMusicSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = LikedMusic
+        fields = ('id','user_token','music')

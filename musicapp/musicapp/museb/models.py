@@ -134,3 +134,6 @@ class LikedMusic(models.Model):
 class ListenLater(models.Model):
     user_token = models.OneToOneField(Token, on_delete=models.SET_NULL, null=True)
     music = models.ForeignKey(Music, on_delete=models.SET_NULL, null=True)
+
+    def __str__(self):
+        return self.music
