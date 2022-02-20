@@ -132,7 +132,7 @@ export default function Home({ navigation }) {
     </ScrollView>
       
     {/* Music Player */}
-    <View style={{height: "12%"}}>
+    <View style={{height: "18%"}}>
       <MiniPlayer />
    </View>
     </View>
