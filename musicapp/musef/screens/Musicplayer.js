@@ -1,6 +1,6 @@
 import React, {Component, useState} from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, TextInput, View, Image,Modal, TouchableOpacity, TouchableWithoutFeedback, Animated,ScrollView} from 'react-native';
+import { StyleSheet, Text, TextInput, View, Image,Modal, TouchableOpacity, BackHandler, Animated,ScrollView} from 'react-native';
 import { Feather, Entypo, Ionicons,FontAwesome5, FontAwesome, MaterialCommunityIcons,MaterialIcons,  } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import Slider from '@react-native-community/slider';
@@ -75,6 +75,11 @@ class Musicplayer extends Component {
       }
 
     async componentDidMount() {
+        this.backHandler = BackHandler.addEventListener(
+            "hardwareBackPress",
+            this.backAction
+          );
+
         try {
             
             await Audio.setAudioModeAsync({
@@ -94,14 +99,9 @@ class Musicplayer extends Component {
         }
     }
 
-    async componentWillUnmount() {
-
-        try {
-            this.playbackInstance.unloadAsync()
-        }
-        catch(error) {
-            console.log(error)
-        }
+    componentWillUnmount() {
+        this.backHandler.remove();
+       
     }
 
 
@@ -219,6 +219,14 @@ class Musicplayer extends Component {
             //do nothing
         }
     }
+
+    backAction = () => {
+        if (this.state.isPlaying) {
+            this.state.playbackInstance.unloadAsync()
+            this.props.navigation.goBack()
+        }
+        return true;
+      };
     
     startImageRotateFunction = () => {
         Animated.loop(Animated.timing(this.state.rotateValueHolder, {

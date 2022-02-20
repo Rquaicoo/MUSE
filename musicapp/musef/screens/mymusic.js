@@ -40,7 +40,7 @@ export default function MyMusic({ navigation }) {
                 <View style={{backgroundColor: "#151723", padding: "7%", borderRadius: 20}}>
                 <Ionicons name="md-musical-note" size={24} color="white" />
                 </View>
-                <Text style={{color: "white"}}>Music</Text>
+                <Text style={{color: "white"}}>My Music</Text>
                 <Text  style={{color: "white"}}>23 songs</Text>
                 </TouchableOpacity>
                 
