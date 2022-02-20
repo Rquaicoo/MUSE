@@ -1,5 +1,6 @@
 from email.mime import audio
 import json
+import random
 from urllib import request
 from django.shortcuts import render
 from django.contrib.auth import get_user_model
@@ -85,6 +86,20 @@ class MusicView(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         except:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class TrendingMusicView(APIView):
+    def get(self, request):
+        trending_music = Music.objects.filter(trending=True)
+        serializer = MusicSerializer(trending_music, many=True)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+class NewMusicView(APIView):
+    def get(self, request):
+        new_music = Music.objects.filter(new=True)
+        serializer = MusicSerializer(new_music, many=True)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
         
         
 
@@ -131,6 +146,7 @@ class AlbumView(APIView):
 
             album = Album.objects.get(id=album_id)
             music = Music.objects.filter(album=album)
+        
 
             
             music_serializer = MusicSerializer(music, many=True)
@@ -203,12 +219,22 @@ class ArtistePageView(APIView):
         return(Response({"music": artiste_music_serializer.data, "album": artiste_album_serializer.data}, status=status.HTTP_302_FOUND))
 
 class LikedMusicView(APIView):
+    def get(self, request):
+        if request.user.is_authenticated:
+            liked_music = LikedMusic.objects.filter(token=request.user.token)
+            serializer = MusicSerializer(liked_music, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+            
     def post(self, request,):
-        music_serializer = MusicSerializer(data=request.data)
-        if music_serializer.is_valid():
+        try:
+            music_serializer = MusicSerializer(data=request.data)
             music_id = dict(music_serializer.initial_data)["id"]
-            music = Music.objects.get(id=music_id)
-            music.likes += 1
-            music.save()
+            token = dict(music_serializer.initial_data)["token"]
+            LikedMusic.objects.create(music_id=music_id, token=token)
+            if music_serializer.is_valid():
+                music_serializer.save()
+                return Response(music_serializer.data, status=status.HTTP_201_CREATED)
             return Response(music_serializer.data, status=status.HTTP_201_CREATED)
-        return Response(music_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        except:
+            return Response(music_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
