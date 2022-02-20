@@ -1,5 +1,5 @@
 import React, {Component, useEffect, useState} from 'react';
-import {Text, View, StyleSheet, Image, TouchableOpacity, ScrollView, ImageBackground} from 'react-native';
+import {Text, View, StyleSheet, Image, TouchableOpacity, ScrollView, ImageBackground, ActivityIndicator} from 'react-native';
 import {LinearGradient} from 'expo-linear-gradient';
 import memoji from '../assets/memoji.png';
 import { Feather, AntDesign,Entypo, Ionicons,FontAwesome5, SimpleLineIcons,FontAwesome, MaterialCommunityIcons,MaterialIcons,  } from '@expo/vector-icons';
@@ -23,6 +23,7 @@ const updateStreams = (music) => {
 export default function MusicList ({route, navigation}) {
 
     const {genre, image} = route.params;
+    const [isLoading, setLoading] = useState(true);
     const [music, setMusic] = useState(null);
 
     useEffect(() => {
@@ -39,7 +40,7 @@ export default function MusicList ({route, navigation}) {
             setMusic(jsonResponse)
         )
         .catch(error => console.log(error))
-        .finally();
+        .finally(() => setLoading(false));
     }, [])
 
 
@@ -64,27 +65,30 @@ export default function MusicList ({route, navigation}) {
 
 
             {/* container for songs */}
-            {music &&(
-            <View style={{marginLeft: "4%", marginTop: 40}}>
-                {music.map((song, index) => (
-                <TouchableOpacity style={{display: "flex", flexDirection: "row", borderColor: "#343547", borderBottomWidth:1, paddingBottom: "5%", marginBottom: "5%"}} key={index} onPress={() => {updateStreams(song);navigation.navigate("Musicplayer", {artiste: song, playlist: music, index:index})}}>
-                    <Image source={{
-                            uri: "https://musebeta.herokuapp.com" + song.image
-                        }} style={{resizeMode: "cover", height: 60, width: 60, borderRadius:15}}/>
-                    <View style={{marginLeft: "5%"}}>
-                        <Text style={{fontSize:16,color:'#fff', fontWeight:'bold',}}>{song.title}</Text>
-                        <Text style={{fontSize:14,color:'#fff', fontWeight:'200',}}>{song.collaborators}</Text>
-                        <View style={{display: "flex", flexDirection: "row",}} >
-                            <MaterialCommunityIcons name="play-box-multiple-outline" size={11} color="white" />
-                            <Text style={{fontSize:11,color:'#fff', fontWeight:'200',marginLeft: "4%"}}>{song.streams} streams</Text>
-                            <Ionicons name="ios-timer-outline" size={11} color="white" style={{marginLeft: "15%"}} />
-                            <Text style={{fontSize:11,color:'#fff', fontWeight:'200',marginLeft: "4%"}}>3.14</Text>
+            {isLoading ? (<ActivityIndicator color="#fff" size="large" />) :
+            (<View>
+                {music &&(
+                <View style={{marginLeft: "4%", marginTop: 40}}>
+                    {music.map((song, index) => (
+                    <TouchableOpacity style={{display: "flex", flexDirection: "row", borderColor: "#343547", borderBottomWidth:1, paddingBottom: "5%", marginBottom: "5%"}} key={index} onPress={() => {updateStreams(song);navigation.navigate("Musicplayer", {artiste: song, playlist: music, index:index})}}>
+                        <Image source={{
+                                uri: "https://musebeta.herokuapp.com" + song.image
+                            }} style={{resizeMode: "cover", height: 60, width: 60, borderRadius:15}}/>
+                        <View style={{marginLeft: "5%"}}>
+                            <Text style={{fontSize:16,color:'#fff', fontWeight:'bold',}}>{song.title}</Text>
+                            <Text style={{fontSize:14,color:'#fff', fontWeight:'200',}}>{song.collaborators}</Text>
+                            <View style={{display: "flex", flexDirection: "row",}} >
+                                <MaterialCommunityIcons name="play-box-multiple-outline" size={11} color="white" />
+                                <Text style={{fontSize:11,color:'#fff', fontWeight:'200',marginLeft: "4%"}}>{song.streams} streams</Text>
+                                <Ionicons name="ios-timer-outline" size={11} color="white" style={{marginLeft: "15%"}} />
+                                <Text style={{fontSize:11,color:'#fff', fontWeight:'200',marginLeft: "4%"}}>3.14</Text>
+                            </View>
                         </View>
-                    </View>
-                    <View style={{justifyContent: "center", marginLeft: "18%"}}>
-                        <Feather name="play" size={24} color="white" />
-                    </View>
-                </TouchableOpacity>))}
+                        <View style={{justifyContent: "center", marginLeft: "18%"}}>
+                            <Feather name="play" size={24} color="white" />
+                        </View>
+                    </TouchableOpacity>))}
+                </View>)}
             </View>)}
         </ScrollView>
     )

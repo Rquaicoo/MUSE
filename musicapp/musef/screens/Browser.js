@@ -48,9 +48,8 @@ export default function Browser ({navigation}) {
         .then(response => response.json())
         .then(jsonResponse => 
             setAlbum(jsonResponse))
-        .then(setAlbumLoading(false))
         .catch(error => console.log(error))
-       
+        .finally(() => setAlbumLoading(false));
 
         fetch('https://musebeta.herokuapp.com/museb/music/',{
             method: 'GET',
@@ -61,8 +60,8 @@ export default function Browser ({navigation}) {
         .then(response => response.json())
         .then(jsonResponse => 
             setMusic(jsonResponse))
-        .then(setMusicLoading(false))
         .catch(error => console.log(error))
+        .finally(() => setMusicLoading(false));
         
     }, [])
 
