@@ -18,13 +18,11 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { throwIfAudioIsDisabled } from 'expo-av/build/Audio/AudioAvailability';
 
 
-class Musicplayer extends Component {
+class LocalMusicPlayer extends Component {
 
     constructor(props) {
         super(props);
     
-        const artiste = this.props.route.params.artiste;
-        var imagePath = "https://musebeta.herokuapp.com" + artiste.image
     }
     state = {
         isPlaying: false,
@@ -32,47 +30,11 @@ class Musicplayer extends Component {
         currentIndex: 0,
         volume: 1.0,
         isBuffering: false,
-        liked: false,
-        artiste: "",
-        token: "",
         playlist: this.props.route.params.playlist,
         index: this.props.route.params.index,
         rotateValueHolder: new Animated.Value(0)
     }
 
-    changeLikedState = () => {
-        this.setState({liked: !this.state.liked})
-    }
-
-    like (id){
-        let token = this.getToken()
-        console.log(token)
-        fetch('http://localhost:8000/museb/liked/',{
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({'user_token': this.state.token, 'music_id':this.props.route.params.artiste.id })
-        })
-        .then(response => response.json())
-        .then(responseJson => {
-            console.log(responseJson)}
-    )
-        .catch(error => console.log(error))
-    }
-
-    getToken = async () => {
-        try {
-            var token =  await AsyncStorage.getItem('token')
-            this.setState({token: token})
-          if(token !== null) {
-            // value previously stored
-            
-          }
-        } catch(e) {
-          // error reading value
-        }
-      }
 
     async componentDidMount() {
         this.backHandler = BackHandler.addEventListener(
@@ -105,22 +67,6 @@ class Musicplayer extends Component {
     }
 
 
-    getArtiste (){
-        //const artiste_id = this.props.route.params.artiste;
-        fetch('https://musebeta.herokuapp.com/museb/artist/',{
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(this.state.playlist[this.state.index].main_artiste)
-        })
-        .then(response => response.json())
-        .then(responseJson => {
-            this.setState({artiste: responseJson["artiste"]})}
-    )
-        .catch(error => console.log(error))
-    }
-
     async loadAudio () {
         const {currentIndex, isPlaying, volume} = this.state
     
@@ -136,7 +82,7 @@ class Musicplayer extends Component {
 
             //source of audio file
             const source = {
-                uri: "https://musebeta.herokuapp.com" + this.state.playlist[this.state.index].music_file
+                uri: this.state.playlist[this.state.index].uri
             }
 
             const status = {
@@ -166,7 +112,7 @@ class Musicplayer extends Component {
     /*control handlers */
 
     handlePlayPause = async () => {
-        this.getArtiste()
+
         const { isPlaying, playbackInstance} = this.state
         //check whether audio is playing or pausing
         isPlaying ? await playbackInstance.pauseAsync() : await playbackInstance.playAsync()
@@ -221,10 +167,15 @@ class Musicplayer extends Component {
     }
 
     backAction = () => {
+        try {
         if (this.state.isPlaying) {
             this.state.playbackInstance.unloadAsync()
             this.props.navigation.goBack()
         }
+    }
+    catch {
+        this.props.navigation.goBack()
+    }
         return true;
       };
     
@@ -251,29 +202,21 @@ class Musicplayer extends Component {
                             style={{height: "100%"}}> 
                 <ScrollView showsVerticalScrollIndicator={false} >
                             <TouchableOpacity style={styles.albums}>
-                            <Image source={{
-                                uri: "https://musebeta.herokuapp.com" + this.state.playlist[this.state.index].image
-                            }} style={styles.albumimage3}/>
+                            <Image source={require("../assets/song.jpg")} style={styles.albumimage3}/>
                             </TouchableOpacity>
 
 
                 {/* Header */}
                 <View style={styles.main}>
                 <Ionicons name="play" size={20} color="white" style={{ paddingLeft:19,}}/>
-                <Text style={{fontSize:17,color:'white' , paddingTop:1, opacity:0.8}}>{this.state.playlist[this.state.index].title}</Text>
+                <Text style={{fontSize:17,color:'white' , paddingTop:1, opacity:0.8}}>{this.state.playlist[this.state.index].filename}</Text>
                 </View>
                 
                 <View style={styles.main}>
                 <Text style={styles.mainheader}>
                     {this.state.artiste}
                 </Text>
-                <MaterialCommunityIcons name="progress-download" size={32} color="white" style={{paddingLeft:'8%', paddingTop:2,}} />
-                <MaterialCommunityIcons name="account-check-outline" size={32} color="white"  style={{paddingLeft:'8%', paddingTop:2,}} />
-                {this.state.liked ?
-                (<Entypo name="heart" size={25} color="white" style={{paddingLeft:'8%', paddingTop:5,}} onPress={() => {this.changeLikedState();this.like(this.props.route.params.artiste.id)}} />):
-                (<FontAwesome5 name="heart" size={25} color="white"  style={{paddingLeft:'8%', paddingTop:5,}} onPress={()=> {this.changeLikedState();this.like(this.props.route.params.artiste.id)}} />)}
                 </View>
-                <Text style={{fontSize:20,color:'white' ,paddingLeft:20, fontWeight:'bold', opacity:0.8}}>{this.props.route.params.artiste.collaborators}</Text>
 
                 {/* WaveForm */}
                 
@@ -384,5 +327,5 @@ const styles = StyleSheet.create({
 export default function(props) {
     const navigation = useNavigation();
   
-    return <Musicplayer {...props} navigation={navigation} />;
+    return <LocalMusicPlayer {...props} navigation={navigation} />;
   }
