@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import { StyleSheet, Text, View,Image, ImageBackground, TouchableOpacity, ScrollView} from 'react-native';
 import { Feather, AntDesign,Entypo, Ionicons,FontAwesome5, SimpleLineIcons,FontAwesome, MaterialCommunityIcons,MaterialIcons,  } from '@expo/vector-icons';
 import { AudioContext } from './AudioProvider';
+import { useNavigation } from '@react-navigation/native';
 
 
 export class LocalAudio extends React.Component {
@@ -9,6 +10,7 @@ export class LocalAudio extends React.Component {
     
     
     render() {
+        const { navigation } = this.props;
         return (
         <ScrollView style={styles.container}>
             <View  style={styles.headerContainer}>
@@ -16,7 +18,7 @@ export class LocalAudio extends React.Component {
                                 <Text style={styles.headerText}>Your Music</Text>
                                 <View style={{flexDirection: "row",}}>
                                     <Feather name="music" size={18} color="white" />
-                                    <Text style={{fontSize:15,color:'white', paddingLeft:10,paddingTop:1,}}>Your Music</Text>
+                                    <Text style={{fontSize:15,color:'white', paddingLeft:10,paddingTop:1,}}>Your Local Music</Text>
                                 </View>
                             </View>
                     
@@ -30,9 +32,9 @@ export class LocalAudio extends React.Component {
 
                         {/* container for songs */}
                         <View style={{marginLeft: "4%", marginTop: 40}}>
-                            {this.context.audioFiles.map(item => 
-                <TouchableOpacity style={{display: "flex", flexDirection: "row", borderColor: "#343547", borderBottomWidth:1, paddingBottom: "5%", marginBottom: "5%"}} key={item.id} onPress={() => {navigation.navigate("Musicplayer", {artiste: song})}}>
-                <Image source={require('../assets/memoji.png')} style={{resizeMode: "cover", height: 60, width: 60, borderRadius:15}}/>
+                            {this.context.audioFiles.map((item, index) => 
+                <TouchableOpacity style={{display: "flex", flexDirection: "row", borderColor: "#343547", borderBottomWidth:1, paddingBottom: "5%", marginBottom: "5%"}} key={index} onPress={() =>{navigation.navigate("LocalMusicPlayer", {playlist: this.context.audioFiles, index:index})}}>
+                <Image source={require('../assets/song.jpg')} style={{resizeMode: "cover", height: 60, width: 60, borderRadius:15}}/>
                     <View style={{flex:4, flexDirection: "row"}}>
                         <View style={{marginLeft: "5%",flex:3}}>
                             <Text style={{fontSize:16,color:'#fff', fontWeight:'bold',}}>{item.filename}</Text>
@@ -76,4 +78,9 @@ const styles = StyleSheet.create({
     },
 });
 
-export default LocalAudio;
+// Wrap and export
+export default function(props) {
+    const navigation = useNavigation();
+  
+    return <LocalAudio {...props} navigation={navigation} />;
+  }
