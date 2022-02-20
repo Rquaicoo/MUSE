@@ -5,11 +5,12 @@ import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-nativ
 import { SafeAreaView } from 'react-native-safe-area-context';
 import rad from '../assets/rad.jpg';
 import { Octicons } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 
 const updateStreams = (music) => {
-    fetch('http://localhost:8000/museb/music/',{
+    fetch('https://musebeta.herokuapp.com/museb/music/',{
         method: 'PUT',
         headers: {
           Accept: 'application/json',
@@ -22,19 +23,6 @@ const updateStreams = (music) => {
     .catch(error => console.log(error))
 }
 
-const updateCoverStreams = (music) => {
-    fetch('https://musebeta.herokuapp.com/museb/cover/',{
-        method: 'PUT',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-    body: JSON.stringify(music)})
-    .then(response => response.json())
-    .then(jsonResponse => 
-        console.log(jsonResponse))
-    .catch(error => console.log(error))
-}
 
 
 export default function Browser ({navigation}) {
@@ -45,7 +33,7 @@ export default function Browser ({navigation}) {
     const [albums, setAlbum] = useState(null);
 
     const [music, setMusic] = useState(null);
-    const [cover, setCover] = useState(null);
+
     
 
     useEffect(() => {
@@ -60,11 +48,10 @@ export default function Browser ({navigation}) {
         .then(response => response.json())
         .then(jsonResponse => 
             setAlbum(jsonResponse))
-        .then(setAlbumLoading(false))
         .catch(error => console.log(error))
-       
+        .finally(() => setAlbumLoading(false));
 
-        fetch('http://localhost:8000/museb/music/',{
+        fetch('https://musebeta.herokuapp.com/museb/music/',{
             method: 'GET',
             headers: {
               Accept: 'application/json',
@@ -73,23 +60,8 @@ export default function Browser ({navigation}) {
         .then(response => response.json())
         .then(jsonResponse => 
             setMusic(jsonResponse))
-        .then(setMusicLoading(false))
         .catch(error => console.log(error))
-
-        fetch('https://musebeta.herokuapp.com/museb/cover/',{
-            method: 'GET',
-            headers: {
-              Accept: 'application/json',
-              'Content-Type': 'application/json',
-            }})
-        .then(response => response.json())
-        .then(jsonResponse => 
-            setCover(jsonResponse)
-        )
-        .catch(error => console.log(error))
-
-       
-          
+        .finally(() => setMusicLoading(false));
         
     }, [])
 
@@ -121,19 +93,11 @@ export default function Browser ({navigation}) {
                 {isMusicLoading ? (<ActivityIndicator color="#fff" size="large" />) :
                 (<ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
                     <View style={{flexDirection:'row', flexWrap: "wrap"}}>
-                    {cover &&(
-                    <View>
-                         {cover.map((artiste, index) => (
-                        <TouchableOpacity style={styles.musiccontent} key={index} onPress={() => {updateCoverStreams(artiste);navigation.navigate("Musicplayer", {artiste: artiste})}}>
-                        <Image source={{uri: "https://musebeta.herokuapp.com"+artiste.image}} style={styles.mainimage}/>
-                        </TouchableOpacity>))}
-                    </View>
-                    )}
                     {music &&(
 
                     <View style={{flexDirection: "row", flexWrap: "wrap"}}>
                         {music.map((artiste, index) => (
-                    <TouchableOpacity key={index} onPress={() => {updateStreams(artiste);navigation.navigate("Musicplayer", {artiste: artiste})}}  style={styles.musiccontent}>
+                    <TouchableOpacity key={index} onPress={() => {updateStreams(artiste);navigation.navigate("Musicplayer", {artiste: artiste, playlist: music, index:index})}}  style={styles.musiccontent}>
                     <Image source={{uri: "https://musebeta.herokuapp.com"+artiste.image}} style={styles.smallimage}/>
                     </TouchableOpacity>))}
                     </View>

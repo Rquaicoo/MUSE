@@ -17,12 +17,12 @@ const FadeInView = (props) => {
       {
         toValue: 1000,
        
-        duration: 6000000,
+        duration: 90000,
         useNativeDriver: true, 
       }
     ).start()
-      
-    navigation.navigate('Tabs') 
+    , navigation.navigate('SignIn')
+     
   }, [fadeAnim])
 
   

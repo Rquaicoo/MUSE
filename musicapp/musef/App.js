@@ -26,9 +26,14 @@ import AllNewTrending from './screens/AllNewTrending';
 
 
 import { AudioProvider } from './screens/AudioProvider';
-import { LocalAudio } from './screens/LocalAudio';
+import  LocalAudio  from './screens/LocalAudio';
+import  LocalMusicPlayer  from './screens/LocalMusicPlayer';
 
-
+import AlbumList from './screens/AlbumList';
+import Favourites from './screens/Favourites';
+import Playlists from './screens/Playlists';
+import FollowedArtists from './screens/FollowedArtists';
+import ListenLater from './screens/ListenLater';
 
 
 const Stack = createNativeStackNavigator();
@@ -43,14 +48,13 @@ export default function App() {
     <AudioProvider>
         <NavigationContainer>
           <Stack.Navigator>
-          <Stack.Screen name="SignIn" component={SignIn} options={{
-              headerShown: false
-            }} />
           <Stack.Screen name="Startupscreen" component={Startupscreen} options={{
               headerShown: false
             }} />
-           
-            <Stack.Screen name="Tabs" component={Tabs} options={{
+          <Stack.Screen name="SignIn" component={SignIn} options={{
+              headerShown: false
+            }} />
+          <Stack.Screen name="Tabs" component={Tabs} options={{
               headerShown: false
             }} />
             <Stack.Screen name="SignUp" component={SignUp} options={{
@@ -93,6 +97,24 @@ export default function App() {
             }} />
 
             <Stack.Screen name="LocalAudio" component={LocalAudio} options={{
+              headerShown: false
+            }} />
+            <Stack.Screen name="LocalMusicPlayer" component={LocalMusicPlayer} options={{
+              headerShown: false
+            }} />
+            <Stack.Screen name="AlbumList" component={AlbumList} options={{
+              headerShown: false
+            }} />
+            <Stack.Screen name="Favourites" component={Favourites} options={{
+              headerShown: false
+            }} />
+            <Stack.Screen name="FollowedArtists" component={FollowedArtists} options={{
+              headerShown: false
+            }} />
+            <Stack.Screen name="ListenLater" component={ListenLater} options={{
+              headerShown: false
+            }} />
+            <Stack.Screen name="Playlists" component={Playlists} options={{
               headerShown: false
             }} />
           </Stack.Navigator>
