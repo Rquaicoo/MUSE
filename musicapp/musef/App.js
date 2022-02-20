@@ -48,13 +48,14 @@ export default function App() {
     <AudioProvider>
         <NavigationContainer>
           <Stack.Navigator>
-          <Stack.Screen name="Startupscreen" component={Startupscreen} options={{
+         
+          <Stack.Screen name="Tabs" component={Tabs} options={{
+              headerShown: false
+            }} />
+             <Stack.Screen name="Startupscreen" component={Startupscreen} options={{
               headerShown: false
             }} />
           <Stack.Screen name="SignIn" component={SignIn} options={{
-              headerShown: false
-            }} />
-          <Stack.Screen name="Tabs" component={Tabs} options={{
               headerShown: false
             }} />
             <Stack.Screen name="SignUp" component={SignUp} options={{
