@@ -67,7 +67,7 @@ export default function MusicList ({route, navigation}) {
             {music &&(
             <View style={{marginLeft: "4%", marginTop: 40}}>
                 {music.map((song, index) => (
-                <TouchableOpacity style={{display: "flex", flexDirection: "row", borderColor: "#343547", borderBottomWidth:1, paddingBottom: "5%", marginBottom: "5%"}} key={index} onPress={() => {updateStreams(song);navigation.navigate("Musicplayer", {artiste: song})}}>
+                <TouchableOpacity style={{display: "flex", flexDirection: "row", borderColor: "#343547", borderBottomWidth:1, paddingBottom: "5%", marginBottom: "5%"}} key={index} onPress={() => {updateStreams(song);navigation.navigate("Musicplayer", {artiste: song, playlist: music, index:index})}}>
                     <Image source={{
                             uri: "https://musebeta.herokuapp.com" + song.image
                         }} style={{resizeMode: "cover", height: 60, width: 60, borderRadius:15}}/>
