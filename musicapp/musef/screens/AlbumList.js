@@ -2,22 +2,18 @@ import React, {useEffect, useState} from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Image, TouchableOpacity, ActivityIndicator,ScrollView} from 'react-native';
 import { Feather, SimpleLineIcons, Ionicons, MaterialIcons, MaterialCommunityIcons,  } from '@expo/vector-icons';
-import doja2 from '../assets/doja2.jpg';
-import doja from '../assets/doja.jpg';
-import sark from '../assets/sark.jpg';
-import arthur from '../assets/arthur.jpg';
-import kanye from '../assets/kanye.jpeg';
-import adele from '../assets/adele.jpg';
 
-export default function AllPopularArtists({ navigation }) {
+
+export default function AlbumList({ navigation }) {
 
   const [isLoading, setLoading] = useState(true);
-  const [artistes, setArtiste] = useState(null);
+  const [albums, setAlbums] = useState(null);
+  const [artists, setArtists] = useState(null);
 
 
   useEffect(() => {
     //get request to get all the songs
-    fetch('https://musebeta.herokuapp.com/museb/artist/',{
+    fetch('https://musebeta.herokuapp.com/museb/album/',{
         method: 'GET',
         headers: {
           Accept: 'application/json',
@@ -25,10 +21,24 @@ export default function AllPopularArtists({ navigation }) {
         }})
     .then(response => response.json())
     .then(jsonResponse => 
-        setArtiste(jsonResponse)
+        setAlbums(jsonResponse)
     )
     .catch(error => console.log(error))
-    .finally(setLoading(false));
+    .finally(() => setLoading(false));
+
+   
+        fetch('https://musebeta.herokuapp.com/museb/artist/',{
+            method: "GET",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+        .then(response => response.json())
+        .then(responseJson => {
+           setArtists(responseJson)}
+        )
+        .catch(error => console.log(error))
+    
     
   }, [])
 
@@ -37,10 +47,10 @@ export default function AllPopularArtists({ navigation }) {
     <View >
         <View  style={styles.headerContainer}>
             <View>
-                <Text style={styles.headerText}>Artists</Text>
+                <Text style={styles.headerText}>Albums</Text>
                 <View style={{flexDirection:'row'}}>
                 <MaterialCommunityIcons name="account-music-outline" size={20} color="white" />
-                <Text style={{fontSize:15,color:'white', paddingLeft:10,paddingTop:1,}}>783 Artists</Text>
+                <Text style={{fontSize:15,color:'white', paddingLeft:10,paddingTop:1,}}>Albums</Text>
                 </View>
             </View>
             
@@ -51,50 +61,25 @@ export default function AllPopularArtists({ navigation }) {
             </View>
         </View>
                         
-
-                <ScrollView showsHorizontalScrollIndicator={false} horizontal={true}>
-                {artistes &&(
+                {isLoading ? (<ActivityIndicator color="#fff" size="large" />) :
+                (<ScrollView showsHorizontalScrollIndicator={false} horizontal={true}>
+                {albums &&(
                 <View style={{justifyContent: "center", alignItems: "center", flexDirection:'row'}}>
-                    {artistes.map((artist, index) => (
-                    <View key={index} onPress={() => navigation.navigate("ArtistPage", {artist: artist})}>
-                    <TouchableOpacity style={styles.popularalbums} onPress={() => navigation.navigate("ArtistPage", {artist: artist})}>
+                    {albums.map((album, index) => (
+                    <View key={index} onPress={() => navigation.navigate("Album", {album: album})}>
+                    <TouchableOpacity style={styles.popularalbums} onPress={() => navigation.navigate("Album", {album: album})}>
                     <Image source={{
-                      uri: "https://musebeta.herokuapp.com" + artist.image
+                      uri: "https://musebeta.herokuapp.com" + album.image
                     }} style={styles.popularimage}/>
                     </TouchableOpacity>
                     <View>
-                    <Text style={styles.artistname}>{artist.name}</Text>
-                    <Text style={styles.artistlikes}> 900K Followers</Text>
+                    <Text style={styles.artistname}>{/*artists[(album.artiste)-1].name*/}</Text>
+                    <Text style={styles.artistlikes}>{album.title}</Text>
                     </View>
-                    <TouchableOpacity style={styles.followbutton}>
-                    <Text style={{color:'white', fontSize:20, fontWeight:'bold',alignSelf:'center',paddingTop:7,}}> Follow </Text>
-                    </TouchableOpacity>
                     </View>))}
                     </View>)}
 
-                </ScrollView>
-
-                <ScrollView showsHorizontalScrollIndicator={false} horizontal={true}>
-                {artistes &&(
-                <View style={{justifyContent: "center", alignItems: "center", flexDirection:'row'}}>
-                    {artistes.map((artist, index) => (
-                    <View key={index} onPress={() => navigation.navigate("ArtistPage", {artist: artist})}>
-                    <TouchableOpacity style={styles.popularalbums} onPress={() => navigation.navigate("ArtistPage", {artist: artist})}>
-                    <Image source={{
-                      uri: "https://musebeta.herokuapp.com" + artist.image
-                    }} style={styles.popularimage}/>
-                    </TouchableOpacity>
-                    <View>
-                    <Text style={styles.artistname}>{artist.name}</Text>
-                    <Text style={styles.artistlikes}> 900K Followers</Text>
-                    </View>
-                    <TouchableOpacity style={styles.followbutton}>
-                    <Text style={{color:'white', fontSize:20, fontWeight:'bold',alignSelf:'center',paddingTop:7,}}> Follow </Text>
-                    </TouchableOpacity>
-                    </View>))}
-                    </View>)}
-
-                </ScrollView>
+                </ScrollView>)}
                 
 
         </View>

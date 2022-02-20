@@ -1,6 +1,8 @@
-from email.mime import audio
+from email.mime import audio, image
 import json
+from lib2to3.pgen2 import token
 import random
+from turtle import title
 from urllib import request
 from django.shortcuts import render
 from django.contrib.auth import get_user_model
@@ -220,21 +222,18 @@ class ArtistePageView(APIView):
 
 class LikedMusicView(APIView):
     def get(self, request):
-        if request.user.is_authenticated:
-            liked_music = LikedMusic.objects.filter(token=request.user.token)
-            serializer = MusicSerializer(liked_music, many=True)
+            token = Token.objects.get(user=request.user)
+            liked_music = LikedMusic.objects.filter(user_token=token)
+            serializer = LikedMusicSerializer(liked_music, many=True)
             return Response(serializer.data, status=status.HTTP_200_OK)
             
     def post(self, request,):
-        try:
-            music_serializer = MusicSerializer(data=request.data)
-            music_id = dict(music_serializer.initial_data)["id"]
-            token = dict(music_serializer.initial_data)["token"]
-            LikedMusic.objects.create(music_id=music_id, token=token)
-            if music_serializer.is_valid():
-                music_serializer.save()
-                return Response(music_serializer.data, status=status.HTTP_201_CREATED)
-            return Response(music_serializer.data, status=status.HTTP_201_CREATED)
-
-        except:
-            return Response(music_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        serializer = LikedMusicSerializer(data=request.data)
+        liked_music_dict = dict(serializer.initial_data)
+        token = Token.objects.get(key=liked_music_dict["user_token"])
+        music = Music.objects.get(id=liked_music_dict["music_id"])
+        LikedMusic.objects.create(user_token=token, music=music)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.data, status=status.HTTP_200_OK)
