@@ -14,11 +14,13 @@ export default function MyMusic({ navigation }) {
             </View>
             
 
-            <View style={{marginLeft: "34%", display: "flex", flexDirection: "row", alignItems: "center"}}>
+            <View style={{marginLeft: "43%", display: "flex", flexDirection: "row", alignItems: "center"}}>
                 <TouchableOpacity style={{borderColor: "#282A2A", borderWidth: 1, alignContent: "center", justifyContent: "center", padding: 8, borderRadius: 20}}>
-                    <Feather name="search" size={21} color="white" />
+                    <Feather name="search" size={18} color="white" />
                   </TouchableOpacity>
-                    <Image source={require('../assets/doja.jpg')} style={styles.image} />
+                  <TouchableOpacity onPress={() => navigation.navigate("myprofile")} >
+                    <Image source={require('../assets/memoji.png')} style={styles.image} />
+                    </TouchableOpacity>
             </View>
         </View>
 
@@ -98,7 +100,7 @@ export default function MyMusic({ navigation }) {
 
           <TouchableOpacity  style={{display: "flex", flexDirection: "row", marginTop: 20 }}>
           <SimpleLineIcons name="user-following" size={30} color="#282A2A" />
-          <Text style={{color: "white", fontWeight: "100", fontSize: 17, marginLeft: "5%", marginRight: "39%"}}>Followed Artistes</Text>
+          <Text style={{color: "white", fontWeight: "100", fontSize: 17, marginLeft: "5%", marginRight: "38%"}}>Followed Artistes</Text>
           <MaterialIcons name="navigate-next" size={30} color="#282A2A" />
           </TouchableOpacity>
         </View>
