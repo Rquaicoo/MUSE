@@ -18,7 +18,7 @@ export default function MyMusic({ navigation }) {
                 <TouchableOpacity style={{borderColor: "#282A2A", borderWidth: 1, alignContent: "center", justifyContent: "center", padding: 8, borderRadius: 20}}>
                     <Feather name="search" size={21} color="white" />
                   </TouchableOpacity>
-                    <Image source={require('../assets/doja.jpg')} style={styles.image} />
+                    <Image source={require('../assets/memoji.png')} style={styles.image} />
             </View>
         </View>
 
@@ -27,12 +27,11 @@ export default function MyMusic({ navigation }) {
             <View style={{marginTop: 30, flexDirection: "row"}}>
 
 
-                <TouchableOpacity style={styles.downloadsContent}>
+                <TouchableOpacity style={styles.downloadsContent} onPress={() => navigation.navigate("Playlists")}>
                   <View style={{backgroundColor: "#151723", padding: "7%", borderRadius: 20}}>
                     <SimpleLineIcons name="playlist" size={24} color="white" />
                   </View>
-                  <Text style={{color: "white"}}>Playlists</Text>
-                  <Text  style={{color: "white"}}>23 songs</Text>
+                  <Text style={{color: "white", marginTop:6}}>Playlists</Text>
                 </TouchableOpacity>
 
                 
@@ -40,29 +39,26 @@ export default function MyMusic({ navigation }) {
                 <View style={{backgroundColor: "#151723", padding: "7%", borderRadius: 20}}>
                 <Ionicons name="md-musical-note" size={24} color="white" />
                 </View>
-                <Text style={{color: "white"}}>My Music</Text>
-                <Text  style={{color: "white"}}>23 songs</Text>
+                <Text style={{color: "white", marginTop:6}}>My Music</Text>
                 </TouchableOpacity>
                 
             </View>
             
-            <View style={{marginTop: 30, flexDirection: "row"}}>
-                <TouchableOpacity style={styles.downloadsContent}>
+            <View style={{marginTop: 30, flexDirection: "row"}} >
+                <TouchableOpacity style={styles.downloadsContent} onPress={() => navigation.navigate("AlbumList")}>
                   <View style={{backgroundColor: "#151723", padding: "7%", borderRadius: 20}}>
                   <MaterialIcons name="album" size={24} color="white" />
                   </View>
-                  <Text style={{color: "white"}}>Albums</Text>
-                  <Text  style={{color: "white"}}>5 Albums</Text>
+                  <Text style={{color: "white", marginTop:6}}>Albums</Text>
                
                 </TouchableOpacity>
 
                 
-                <TouchableOpacity style={styles.downloadsContent} >
-                <View style={{backgroundColor: "#151723", padding: "7%", borderRadius: 20}}>
+                <TouchableOpacity style={styles.downloadsContent} onPress={() => navigation.navigate("Favourites")}>
+                <View style={{backgroundColor: "#151723", padding: "7%", borderRadius: 20}} >
                 <MaterialIcons name="favorite" size={24} color="white" />
                 </View>
-                <Text style={{color: "white"}}>Favourite</Text>
-                <Text  style={{color: "white"}}>3 songs</Text>
+                <Text style={{color: "white", marginTop:6}}>Favourite</Text>
                 </TouchableOpacity>
                 
             </View>
@@ -70,7 +66,7 @@ export default function MyMusic({ navigation }) {
 
         <View  style={{marginLeft: "5%", marginTop: "15%"}}>
           <Text style={{color: "#3f3f4f", marginBottom: 10}}>Your activities</Text>
-          <TouchableOpacity  style={{display: "flex", flexDirection: "row", marginTop: 20 }}>
+          <TouchableOpacity  style={{display: "flex", flexDirection: "row", marginTop: 20 }} onPress={() => navigation.navigate("ListenLater")}>
           <MaterialIcons name="playlist-add" size={30} color="#282A2A" />
           <Text style={{color: "white", fontWeight: "100", fontSize: 17, marginLeft: "5%", marginRight: "50%"}}>Listen later</Text>
           <MaterialIcons name="navigate-next" size={30} color="#282A2A" />
@@ -83,9 +79,9 @@ export default function MyMusic({ navigation }) {
        marginTop: 9
     }}></View>
 
-          <TouchableOpacity  style={{display: "flex", flexDirection: "row", marginTop: 20 }}>
+          <TouchableOpacity  style={{display: "flex", flexDirection: "row", marginTop: 20 }} onPress={() => navigation.navigate("Favourites")}>
           <MaterialCommunityIcons name="heart-plus-outline" size={30} color="#282A2A" />
-          <Text style={{color: "white", fontWeight: "100", fontSize: 17, marginLeft: "5%", marginRight: "48%"}}>Liked songs</Text>
+          <Text style={{color: "white", fontWeight: "100", fontSize: 17, marginLeft: "5%", marginRight: "48%"}} >Liked songs</Text>
           <MaterialIcons name="navigate-next" size={30} color="#282A2A" />
           </TouchableOpacity>
           <View style={{
@@ -96,7 +92,7 @@ export default function MyMusic({ navigation }) {
        marginTop: 9
     }}  ></View>
 
-          <TouchableOpacity  style={{display: "flex", flexDirection: "row", marginTop: 20 }}>
+          <TouchableOpacity  style={{display: "flex", flexDirection: "row", marginTop: 20 }} onPress={() => navigation.navigate("FollowedArtists")}>
           <SimpleLineIcons name="user-following" size={30} color="#282A2A" />
           <Text style={{color: "white", fontWeight: "100", fontSize: 17, marginLeft: "5%", marginRight: "39%"}}>Followed Artistes</Text>
           <MaterialIcons name="navigate-next" size={30} color="#282A2A" />

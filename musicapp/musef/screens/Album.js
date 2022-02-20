@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Text, View, StyleSheet, Image, TouchableOpacity, ScrollView} from 'react-native';
+import {Text, View, StyleSheet, Image, TouchableOpacity, ScrollView, ActivityIndicator} from 'react-native';
 import {LinearGradient} from 'expo-linear-gradient';
 import memoji from '../assets/memoji.png';
 import { Feather, AntDesign,Entypo, Ionicons,FontAwesome5, SimpleLineIcons,FontAwesome, MaterialCommunityIcons,MaterialIcons,  } from '@expo/vector-icons';
@@ -24,6 +24,7 @@ import { useNavigation } from '@react-navigation/native';
 export default function Album ({route, navigation}) {
     const {album} =  route.params
 
+    const [isLoading, setLoading] = useState(true);
     const [music, setMusic] = useState(null);
     const [artiste, setArtiste] = useState(null);
 
@@ -40,6 +41,7 @@ export default function Album ({route, navigation}) {
             .then(responseJson => {
                 setArtiste(responseJson["artiste"])})
             .catch(error => console.log(error))
+            .finally(() => setLoading(false));
     
 
             fetch('https://musebeta.herokuapp.com/museb/album/',{
@@ -81,6 +83,7 @@ export default function Album ({route, navigation}) {
                     </View>
                 </View>
                 {/* container for songs */}
+                {isLoading ? (<ActivityIndicator color="#fff" size="large" />) : (
                 <ScrollView style={{marginLeft: "4%", marginTop: -150}}>
                     {music &&(
                         <View>
@@ -108,7 +111,7 @@ export default function Album ({route, navigation}) {
                         ))}
                     </View>
                     )}
-                </ScrollView>
+                </ScrollView>)}
                 </LinearGradient>
                 
             </View>
