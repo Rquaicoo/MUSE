@@ -57,13 +57,13 @@ export default function artists({ navigation }) {
                 </View>
             </View>
             
-            <View style={{marginLeft: "43%", display: "flex", flexDirection: "row", alignItems: "center"}}>
+            <View style={{marginLeft: "58%", display: "flex", flexDirection: "row", alignItems: "center"}}>
                 <TouchableOpacity   style={{borderColor: "#343547", borderWidth: 1, padding: 10,borderRadius: 20}}>
                     <Feather name="search" size={21} color="white" />
                   </TouchableOpacity  >
-                  <TouchableOpacity onPress={() => navigation.navigate("myprofile")} >
+                  {/* <TouchableOpacity onPress={() => navigation.navigate("myprofile")} >
                     <Image source={require('../assets/memoji.png')} style={styles.image} />
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
             </View>
         </View>
 
@@ -73,9 +73,9 @@ export default function artists({ navigation }) {
             <ImageBackground source={doja2} style={styles.mainimage}>
             <Text style={styles.imageText}>Doja Cat</Text>
             <View style={{flexDirection:'row'}}>
-            <MaterialCommunityIcons name="account-check-outline" size={27} color="grey" style={{paddingTop:2, paddingLeft:20,}}/>
+            <MaterialCommunityIcons name="account-check-outline" size={27} color="white" style={{paddingTop:2, paddingLeft:20,}}/>
             <Text style={styles.imageText2}>734.1K</Text>
-            <Ionicons name="ios-play-sharp" size={25} color="grey" style={{paddingTop:2,paddingLeft:10,}}/>
+            <Ionicons name="ios-play-sharp" size={25} color="white" style={{paddingTop:2,paddingLeft:10,}}/>
             <Text style={styles.imageText2}>1.3M</Text>
             </View>
             </ImageBackground>
@@ -170,7 +170,7 @@ const styles = StyleSheet.create({
   imageText2: {
     fontSize: 20,
     fontWeight:'bold',
-    color: "grey",
+    color: "white",
     marginLeft:5,
     marginRight:15,
     marginTop:3,
