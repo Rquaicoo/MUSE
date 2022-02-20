@@ -94,6 +94,16 @@ class Musicplayer extends Component {
         }
     }
 
+    async componentWillUnmount() {
+
+        try {
+            this.playbackInstance.unloadAsync()
+        }
+        catch(error) {
+            console.log(error)
+        }
+    }
+
 
     getArtiste (){
         //const artiste_id = this.props.route.params.artiste;
@@ -187,13 +197,26 @@ class Musicplayer extends Component {
 
         if (playbackInstance) {
             
-            index != 0 ? (index+=1 ) : (index = 1)
-
+            try {
+            index != 0 ? (index+=1 ) : (index = 0)
+            }
+            catch {
+                index = 1
+            }
             this.setState({
                 index
             })
 
             this.loadAudio()
+        }
+    }
+
+    goBack() {
+        try {
+            this.playbackInstance.unloadAsync()
+        }
+        catch(error) {
+            //do nothing
         }
     }
     
@@ -280,7 +303,7 @@ class Musicplayer extends Component {
                 </View>
 
                 <View style={styles.main1}>
-                <TouchableOpacity onPress={() => navigation.goBack()}  style={{height:50, width:50, backgroundColor:'#282A2A', borderRadius:15, marginBottom: 10,}}>
+                <TouchableOpacity onPress={() => {this.state.playbackInstance.unloadAsync();navigation.goBack()}}  style={{height:50, width:50, backgroundColor:'#282A2A', borderRadius:15, marginBottom: 10,}}>
                 <Feather name="chevrons-up" size={40} color="white"  style={{ paddingLeft:5, paddingTop:5}}/>
                 </TouchableOpacity>
             
