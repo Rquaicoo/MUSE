@@ -48,6 +48,7 @@ class Music(models.Model):
     genre = models.ForeignKey(Genre, on_delete=models.CASCADE)
     album = models.ForeignKey(Album, on_delete=models.CASCADE, null=True, blank=True)
     trending = models.BooleanField(null=False)
+    new = models.BooleanField(null=False)
     main_artiste = models.ForeignKey(Artiste, on_delete=models.CASCADE)
     collaborators = models.CharField(max_length=100, blank=True, null=True)
     music_file = models.FileField(blank=False)
@@ -127,5 +128,9 @@ class FollowedArtistes(models.Model):
     
 
 class LikedMusic(models.Model):
+    user_token = models.OneToOneField(Token, on_delete=models.SET_NULL, null=True)
+    music = models.ForeignKey(Music, on_delete=models.SET_NULL, null=True)
+
+class ListenLater(models.Model):
     user_token = models.OneToOneField(Token, on_delete=models.SET_NULL, null=True)
     music = models.ForeignKey(Music, on_delete=models.SET_NULL, null=True)

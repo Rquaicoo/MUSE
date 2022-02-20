@@ -52,7 +52,7 @@ export default function AllPopularArtists({ navigation }) {
         </View>
                         
 
-                <ScrollView horizontal={true}>
+                <ScrollView showsHorizontalScrollIndicator={false} horizontal={true}>
                 {artistes &&(
                 <View style={{justifyContent: "center", alignItems: "center", flexDirection:'row'}}>
                     {artistes.map((artist, index) => (
@@ -74,7 +74,7 @@ export default function AllPopularArtists({ navigation }) {
 
                 </ScrollView>
 
-                <ScrollView horizontal={true}>
+                <ScrollView showsHorizontalScrollIndicator={false} horizontal={true}>
                 {artistes &&(
                 <View style={{justifyContent: "center", alignItems: "center", flexDirection:'row'}}>
                     {artistes.map((artist, index) => (
