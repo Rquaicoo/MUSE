@@ -26,7 +26,8 @@ import AllNewTrending from './screens/AllNewTrending';
 
 
 import { AudioProvider } from './screens/AudioProvider';
-import { LocalAudio } from './screens/LocalAudio';
+import  LocalAudio  from './screens/LocalAudio';
+import  LocalMusicPlayer  from './screens/LocalMusicPlayer';
 
 
 
@@ -94,6 +95,9 @@ export default function App() {
             }} />
 
             <Stack.Screen name="LocalAudio" component={LocalAudio} options={{
+              headerShown: false
+            }} />
+            <Stack.Screen name="LocalMusicPlayer" component={LocalMusicPlayer} options={{
               headerShown: false
             }} />
           </Stack.Navigator>
