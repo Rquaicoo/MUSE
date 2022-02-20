@@ -102,7 +102,7 @@ export default function Browser ({navigation}) {
             <ScrollView style={styles.container}  showsVerticalScrollIndicator={false} > 
             <StatusBar barStyle="light-content" />
                 <View >
-                        <Text style={{fontWeight:'bold', fontSize:35, alignSelf:'center',color:'white',marginTop:35,}}> muse.</Text>
+                        <Text style={{fontWeight:'bold', fontSize:45, alignSelf:'center',color:'white',marginTop:35,}}> muse.</Text>
                     <TouchableOpacity style={styles.header}>
                     <View style={{flexDirection:'row', justifyContent:'center'}}>
                     <TouchableOpacity style={styles.headercontent} onPress={() => {(navigation.navigate("Tabs"))}}>
@@ -210,7 +210,7 @@ const styles = StyleSheet.create({
 
     header: {
         flexDirection: 'row',
-        backgroundColor: '#1E1F1F',
+        backgroundColor: '#141515',
         height: "7%",
         width: "90%",
         borderRadius:15,
