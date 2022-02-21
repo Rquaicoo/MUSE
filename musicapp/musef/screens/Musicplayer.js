@@ -61,6 +61,23 @@ class Musicplayer extends Component {
         .catch(error => console.log(error))
     }
 
+    delete (id){
+        let token = this.getToken()
+        console.log(token)
+        fetch('http://localhost:8000/museb/liked/',{
+            method: "DELETE",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({'user_token': this.state.token, 'music_id':this.props.route.params.artiste.id })
+        })
+        .then(response => response.json())
+        .then(responseJson => {
+            console.log(responseJson)}
+    )
+        .catch(error => console.log(error))
+    }
+
     getToken = async () => {
         try {
             var token =  await AsyncStorage.getItem('token')
@@ -270,7 +287,7 @@ class Musicplayer extends Component {
                 <MaterialCommunityIcons name="progress-download" size={32} color="white" style={{paddingLeft:'8%', paddingTop:2,}} />
                 <MaterialCommunityIcons name="account-check-outline" size={32} color="white"  style={{paddingLeft:'8%', paddingTop:2,}} />
                 {this.state.liked ?
-                (<Entypo name="heart" size={25} color="white" style={{paddingLeft:'8%', paddingTop:5,}} onPress={() => {this.changeLikedState();this.like(this.props.route.params.artiste.id)}} />):
+                (<Entypo name="heart" size={25} color="white" style={{paddingLeft:'8%', paddingTop:5,}} onPress={() => {this.changeLikedState();this.delete(this.props.route.params.artiste.id)}} />):
                 (<FontAwesome5 name="heart" size={25} color="white"  style={{paddingLeft:'8%', paddingTop:5,}} onPress={()=> {this.changeLikedState();this.like(this.props.route.params.artiste.id)}} />)}
                 </View>
                 <Text style={{fontSize:20,color:'white' ,paddingLeft:20, fontWeight:'bold', opacity:0.8}}>{this.props.route.params.artiste.collaborators}</Text>
