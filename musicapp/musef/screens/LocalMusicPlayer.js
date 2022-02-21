@@ -144,16 +144,27 @@ class LocalMusicPlayer extends Component {
         if (playbackInstance) {
             
             try {
-            index != 0 ? (index+=1 ) : (index = 0)
+            if (index < this.state.playlist.length - 1) {
+                index += 1
+                this.setState({
+                    index
+                })
+                this.loadAudio()
+            }
+
+            else {
+                this.setState({
+                    index: 0
+                })
+                this.loadAudio()
+            }
             }
             catch {
-                index = 1
+                this.setState({
+                    index: 0
+                })
+                this.loadAudio()
             }
-            this.setState({
-                index
-            })
-
-            this.loadAudio()
         }
     }
 

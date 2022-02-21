@@ -13,7 +13,7 @@ export default function Playlists({navigation}) {
   
     useEffect(() => {
       //get request to get all the songs
-      fetch('http://localhost:8000/museb/playlist/',{
+      fetch('https://musebeta.herokuapp.com/museb/playlist/',{
           method: 'GET',
           headers: {
             Accept: 'application/json',
@@ -56,7 +56,7 @@ export default function Playlists({navigation}) {
                       <View key={index} onPress={() => navigation.navigate("PlaylistContent", {playlist: playlist})}>
                       <TouchableOpacity style={styles.popularalbums} onPress={() => navigation.navigate("PlaylistContent", {playlist: playlist})}>
                       <Image source={{
-                        uri: "http://localhost:8000" + playlist.image
+                        uri: "https://musebeta.herokuapp.com" + playlist.image
                       }} style={styles.popularimage}/>
                       </TouchableOpacity>
                       <View>
