@@ -24,7 +24,7 @@ class Musicplayer extends Component {
         super(props);
     
         const artiste = this.props.route.params.artiste;
-        var imagePath = "https://musebeta.herokuapp.com" + artiste.image
+        var imagePath = "http://localhost:8000" + artiste.image
     }
     state = {
         isPlaying: false,
@@ -124,7 +124,7 @@ class Musicplayer extends Component {
 
     getArtiste (){
         //const artiste_id = this.props.route.params.artiste;
-        fetch('https://musebeta.herokuapp.com/museb/artist/',{
+        fetch('http://localhost:8000/museb/artist/',{
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -153,7 +153,7 @@ class Musicplayer extends Component {
 
             //source of audio file
             const source = {
-                uri: "https://musebeta.herokuapp.com" + this.state.playlist[this.state.index].music_file
+                uri: "http://localhost:8000" + this.state.playlist[this.state.index].music_file
             }
 
             const status = {
@@ -269,7 +269,7 @@ class Musicplayer extends Component {
                 <ScrollView showsVerticalScrollIndicator={false} >
                             <TouchableOpacity style={styles.albums}>
                             <Image source={{
-                                uri: "https://musebeta.herokuapp.com" + this.state.playlist[this.state.index].image
+                                uri: "http://localhost:8000" + this.state.playlist[this.state.index].image
                             }} style={styles.albumimage3}/>
                             </TouchableOpacity>
 
