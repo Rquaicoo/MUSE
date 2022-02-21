@@ -13,7 +13,7 @@ export default function AlbumList({ navigation }) {
 
   useEffect(() => {
     //get request to get all the songs
-    fetch('https://musebeta.herokuapp.com/museb/album/',{
+    fetch('http://localhost:8000/museb/album/',{
         method: 'GET',
         headers: {
           Accept: 'application/json',
@@ -27,7 +27,7 @@ export default function AlbumList({ navigation }) {
     .finally(() => setLoading(false));
 
    
-        fetch('https://musebeta.herokuapp.com/museb/artist/',{
+        fetch('http://localhost:8000/museb/artist/',{
             method: "GET",
             headers: {
                 'Content-Type': 'application/json',
