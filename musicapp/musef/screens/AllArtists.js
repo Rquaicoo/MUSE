@@ -5,9 +5,7 @@ import { Feather, SimpleLineIcons, Ionicons, MaterialIcons, MaterialCommunityIco
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const follow = (artist_id, user_token) => {
-  let token = this.getToken()
-  console.log(token)
-  fetch('http://localhost:8000/museb/liked/',{
+  fetch('http://localhost:8000/museb/followedartists/',{
       method: "POST",
       headers: {
           'Content-Type': 'application/json',
@@ -41,20 +39,11 @@ export default function AllPopularArtists({ navigation }) {
         setArtiste(jsonResponse)
     )
     .catch(error => console.log(error))
-    .finally(setLoading(false));
+    .finally(() => setLoading(false));
 
-    getToken = async () => {
-      try {
-          var token =  await AsyncStorage.getItem('token')
-          setToken(token)
-        if(token !== null) {
-          // value previously stored
-          
-        }
-      } catch(e) {
-        // error reading value
-      }
-    }
+     AsyncStorage.getItem('token')
+     .then(token => setToken(token))
+      .catch((error) => console.log(error))
     
   }, [])
 
@@ -77,8 +66,11 @@ export default function AllPopularArtists({ navigation }) {
             </View>
         </View>
                         
-
-                <ScrollView showsHorizontalScrollIndicator={false} horizontal={true}>
+                {isLoading? (
+                             <View style={{justifyContent: "center", alignItems: "center"}}>
+                         <ActivityIndicator color="#fff" size="large"  style={{alignSelf: "center"}}/>
+                         </View>) :
+                (<ScrollView showsHorizontalScrollIndicator={false} horizontal={true}>
                 {artistes &&(
                 <View style={{justifyContent: "center", alignItems: "center", flexDirection:'row'}}>
                     {artistes.map((artist, index) => (
@@ -92,15 +84,19 @@ export default function AllPopularArtists({ navigation }) {
                     <Text style={styles.artistname}>{artist.name}</Text>
                     <Text style={styles.artistlikes}> 900K Followers</Text>
                     </View>
-                    <TouchableOpacity style={styles.followbutton}>
+                    <TouchableOpacity style={styles.followbutton} onPress={() => console.log(token)}>
                     <Text style={{color:'white', fontSize:20, fontWeight:'bold',alignSelf:'center',paddingTop:7,}}> Follow </Text>
                     </TouchableOpacity>
                     </View>))}
                     </View>)}
 
-                </ScrollView>
+                </ScrollView>)}
 
-                <ScrollView showsHorizontalScrollIndicator={false} horizontal={true}>
+                {isLoading? (
+                             <View style={{justifyContent: "center", alignItems: "center"}}>
+                         <ActivityIndicator color="#fff" size="large"  style={{alignSelf: "center"}}/>
+                         </View>) :
+                (<ScrollView showsHorizontalScrollIndicator={false} horizontal={true}>
                 {artistes &&(
                 <View style={{justifyContent: "center", alignItems: "center", flexDirection:'row'}}>
                     {artistes.map((artist, index) => (
@@ -120,7 +116,7 @@ export default function AllPopularArtists({ navigation }) {
                     </View>))}
                     </View>)}
 
-                </ScrollView>
+                </ScrollView>)}
                 
 
         </View>
