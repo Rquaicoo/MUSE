@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, Image, TouchableOpacity, ActivityIndicator,Scro
 import { Feather, SimpleLineIcons, Ionicons, MaterialIcons, MaterialCommunityIcons,  } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const follow = (artist_id, token) => {
+const follow = (artist_id, user_token) => {
   let token = this.getToken()
   console.log(token)
   fetch('http://localhost:8000/museb/liked/',{
@@ -12,7 +12,7 @@ const follow = (artist_id, token) => {
       headers: {
           'Content-Type': 'application/json',
       },
-      body: JSON.stringify({'user_token': token, 'artist_id':artist_id })
+      body: JSON.stringify({'user_token': user_token, 'artist_id':artist_id })
   })
   .then(response => response.json())
   .then(responseJson => {
