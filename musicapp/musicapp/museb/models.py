@@ -123,17 +123,18 @@ class Playlist(models.Model):
         return self.title
 
 class FollowedArtistes(models.Model):
-    user_token = models.OneToOneField(Token, on_delete=models.SET_NULL, null=True)
+    user_token = models.ForeignKey(Token, on_delete=models.SET_NULL, null=True)
     artistes = models.ForeignKey(Artiste, on_delete=models.SET_NULL, null=True)
     
 
 class LikedMusic(models.Model):
-    user_token = models.OneToOneField(Token, on_delete=models.SET_NULL, null=True)
+    user_token = models.ForeignKey(Token, on_delete=models.SET_NULL, null=True)
     music = models.ForeignKey(Music, on_delete=models.SET_NULL, null=True)
 
 class ListenLater(models.Model):
-    user_token = models.OneToOneField(Token, on_delete=models.SET_NULL, null=True)
+    user_token = models.ForeignKey(Token, on_delete=models.SET_NULL, null=True)
     music = models.ForeignKey(Music, on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
         return self.music
+        

@@ -230,6 +230,7 @@ class LikedMusicView(APIView):
     def post(self, request,):
         serializer = LikedMusicSerializer(data=request.data)
         liked_music_dict = dict(serializer.initial_data)
+        print(liked_music_dict)
         token = Token.objects.get(key=liked_music_dict["user_token"])
         music = Music.objects.get(id=liked_music_dict["music_id"])
         LikedMusic.objects.create(user_token=token, music=music)
@@ -237,3 +238,16 @@ class LikedMusicView(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def delete(self, request):
+        serializer = LikedMusicSerializer(data=request.data)
+        liked_music_dict = dict(serializer.initial_data)
+        token = Token.objects.get(key=liked_music_dict["user_token"])
+        music = Music.objects.get(id=liked_music_dict["music_id"])
+        liked_music = LikedMusic.objects.get(user_token=token, music=music)
+        liked_music.delete()
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+        

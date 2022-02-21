@@ -25,9 +25,21 @@ function Tabs({navigation}) {
         showLabel: false,
           tabBarStyle: {
               backgroundColor: '#141515',
-              height:'11%',
+              height:'9%',
+              alignItems: "center",
+              justifyContent: "center",
               
           },
+          tabBarLabelStyle: {
+            fontSize: 13,
+            marginTop: -30
+          },
+          tabBarIconStyle: {
+            marginTop: -10
+          }
+      }}
+
+      tabBarOptions={{
       }}
      >
       <Tab.Screen name="Browser" component={Browser} 
