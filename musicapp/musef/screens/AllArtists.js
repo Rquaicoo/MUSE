@@ -2,17 +2,30 @@ import React, {useEffect, useState} from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Image, TouchableOpacity, ActivityIndicator,ScrollView} from 'react-native';
 import { Feather, SimpleLineIcons, Ionicons, MaterialIcons, MaterialCommunityIcons,  } from '@expo/vector-icons';
-import doja2 from '../assets/doja2.jpg';
-import doja from '../assets/doja.jpg';
-import sark from '../assets/sark.jpg';
-import arthur from '../assets/arthur.jpg';
-import kanye from '../assets/kanye.jpeg';
-import adele from '../assets/adele.jpg';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+const follow = (artist_id, token) => {
+  let token = this.getToken()
+  console.log(token)
+  fetch('http://localhost:8000/museb/liked/',{
+      method: "POST",
+      headers: {
+          'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({'user_token': token, 'artist_id':artist_id })
+  })
+  .then(response => response.json())
+  .then(responseJson => {
+      console.log(responseJson)}
+)
+  .catch(error => console.log(error))
+}
 
 export default function AllPopularArtists({ navigation }) {
 
   const [isLoading, setLoading] = useState(true);
   const [artistes, setArtiste] = useState(null);
+  const [token, setToken] = useState(null);
 
 
   useEffect(() => {
@@ -29,6 +42,19 @@ export default function AllPopularArtists({ navigation }) {
     )
     .catch(error => console.log(error))
     .finally(setLoading(false));
+
+    getToken = async () => {
+      try {
+          var token =  await AsyncStorage.getItem('token')
+          setToken(token)
+        if(token !== null) {
+          // value previously stored
+          
+        }
+      } catch(e) {
+        // error reading value
+      }
+    }
     
   }, [])
 
@@ -88,7 +114,7 @@ export default function AllPopularArtists({ navigation }) {
                     <Text style={styles.artistname}>{artist.name}</Text>
                     <Text style={styles.artistlikes}> 900K Followers</Text>
                     </View>
-                    <TouchableOpacity style={styles.followbutton}>
+                    <TouchableOpacity style={styles.followbutton} onPress={() => follow(artist.id, token)}>
                     <Text style={{color:'white', fontSize:20, fontWeight:'bold',alignSelf:'center',paddingTop:7,}}> Follow </Text>
                     </TouchableOpacity>
                     </View>))}

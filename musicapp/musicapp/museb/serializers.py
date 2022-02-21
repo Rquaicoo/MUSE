@@ -55,3 +55,13 @@ class LikedMusicSerializer(serializers.ModelSerializer):
     class Meta:
         model = LikedMusic
         fields = ('id','user_token','music')
+
+class ListenLaterSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ListenLater
+        fields = ('id','user_token','music')
+
+class FollowedArtistesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FollowedArtistes
+        fields = ('id','user_token','artistes')
