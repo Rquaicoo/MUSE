@@ -195,6 +195,12 @@ class PlaylistView(APIView):
         serializer = PlaylistSerializer(playlists, many=True)
         return Response(serializer.data)
 
+    def post(self, request):
+        songs_list = dict(request.data)["songs"]
+        music = Music.objects.filter(id__in=songs_list)
+        serializer = MusicSerializer(music, many=True)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
 
 
 

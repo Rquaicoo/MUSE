@@ -109,7 +109,7 @@ class CoverArtiste(models.Model):
 class Playlist(models.Model):
     image = models.ImageField(blank=False, null=False)
     title = models.CharField(max_length=100, blank=False, null=False)
-    songs = models.ForeignKey(Music, on_delete=models.CASCADE)
+    songs = models.ManyToManyField(Music)
 
     @property
     def imageURL(self):
