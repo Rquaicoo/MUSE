@@ -66,7 +66,7 @@ class SignIn extends Component {
     render () {
         const { navigation } = this.props;
         return (
-                    <ScrollView style={{  backgroundColor: '#151723', height: "100%", }}>
+                    <ScrollView style={{  backgroundColor: '#141515', height: "100%", }}>
                         <View style={styles.container}>
                             <TouchableOpacity style={{borderColor: "#ffffff", borderWidth: 1, padding: "4%", borderRadius: 10, marginRight: 20}} onPress={() => navigation.goBack()}>
                                 <Ionicons name="chevron-back-sharp" size={24} color="white" />
