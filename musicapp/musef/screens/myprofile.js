@@ -1,11 +1,38 @@
-import {React, useState} from 'react';
+import {React, useState, useEffect} from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, TextInput, View, Image,Modal, TouchableOpacity, TouchableWithoutFeedback, ImageBackground,ScrollView} from 'react-native';
 import { Feather, AntDesign,Entypo, Ionicons,FontAwesome5, SimpleLineIcons,FontAwesome, MaterialCommunityIcons,MaterialIcons,  } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import memoji from '../assets/memoji.png';
 
+const logout = (token) => {
+    fetch('http://localhost:8000/museb/auth/logout/',{
+            method: 'POST',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({'token': token})
+        })
+        .then(response => response.json())
+        .then(jsonResponse => 
+            console.log(jsonResponse))
+        .then(() => {
+            AsyncStorage.removeItem('token');
+            navigation.navigate('Login');
+        })
+        .catch(error => console.log(error))
+}
 export default function myprofile ({navigation}) {
 
+    const [token, setToken] = useState(null);
+
+    useEffect(() => {
+        AsyncStorage.getItem('token')
+        .then(token => {
+            setToken(token);
+        })
+    }, [])
     return(
         <ScrollView>
         <View style={styles.container}>
@@ -61,7 +88,7 @@ export default function myprofile ({navigation}) {
 
             <TouchableOpacity style={styles.details}>
             
-            <MaterialCommunityIcons name="progress-download" size={30} color="white"  style={{paddingRight:'5%'}} />
+            <MaterialCommunityIcons name="progress-download" size={30} color="white"  style={{paddingRight:'5%'}} onPress={() => navigation.navigate("LocalAudio")} />
             <Text style={{color:'white', fontSize:20, fontWeight:'bold', paddingRight:'38%'}}> Downloads</Text>
             <Entypo name="chevron-right" size={30} color="white" />
             </TouchableOpacity>
@@ -69,7 +96,7 @@ export default function myprofile ({navigation}) {
 
             
             <TouchableOpacity style={styles.details}>
-            <SimpleLineIcons name="logout"size={28} color="white"  style={{paddingRight:'5%'}} />
+            <SimpleLineIcons name="logout"size={28} color="white"  style={{paddingRight:'5%'}} onPress={() => logout(token)} />
             <Text style={{color:'white', fontSize:20, fontWeight:'bold', paddingRight:'48%'}}> Logout</Text>
             <Entypo name="chevron-right" size={30} color="white" />
             </TouchableOpacity>

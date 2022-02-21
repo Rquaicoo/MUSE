@@ -56,6 +56,13 @@ class LogoutUserAPIView(APIView):
         request.user.auth_token.delete()
         return Response(status=status.HTTP_200_OK)
 
+    def post(self, request):
+        #delete the token
+        data = dict(request.data)["token"]
+        token = Token.objects.get(key=data)
+        token.delete()
+        return Response(status=status.HTTP_200_OK)
+
 
 class FacebookLogin(SocialLoginView):
     adapter_class = FacebookOAuth2Adapter
