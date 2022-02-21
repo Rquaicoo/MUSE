@@ -231,12 +231,15 @@ class LocalMusicPlayer extends Component {
 
                 {/* WaveForm */}
                 
-                    <Slider
+                <Slider
                     style={{width: '90%', height: 40, marginLeft:15,marginTop:10,}}
                     minimumValue={0}
                     maximumValue={10}
                     minimumTrackTintColor="#FFFFFF"
                     maximumTrackTintColor="grey"
+                    value={3}
+                    step={1}
+                    disabled={true}
                     />
 
                 <View style={styles.main}>

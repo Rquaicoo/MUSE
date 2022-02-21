@@ -312,6 +312,9 @@ class Musicplayer extends Component {
                     maximumValue={10}
                     minimumTrackTintColor="#FFFFFF"
                     maximumTrackTintColor="grey"
+                    value={3}
+                    step={1}
+                    disabled={true}
                     />
 
                 <View style={styles.main}>

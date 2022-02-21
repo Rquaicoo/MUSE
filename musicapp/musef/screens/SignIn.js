@@ -53,11 +53,17 @@ class SignIn extends Component {
                 
                 axios.defaults.headers.common.Authorization = "Token ${token}"
                 
+                if (token !== null || token !== '' || token !== undefined) {
                 this.storeData(token);
                 this.props.navigation.navigate("Tabs");
+            }
+            else {
+                
+            }
             }).
             catch(
-            this.setState({denied: true}));
+           error => {console.log(error);
+            this.setState({denied: true})});
     };
 
     redirectToSignUp = () => {
@@ -74,7 +80,7 @@ class SignIn extends Component {
                                 <Text style={{fontWeight:'bold', fontSize:30, color: "#fdfdfd", marginTop: "2%"}}>Log In</Text>
                         </View>
 
-                   {this.state.denied  ? (
+                   {this.state.denied ? (
                         <LinearGradient
                         colors={['#8a3f82', '#bb4575', '#f65e69', '#f96e69']}
                         start={{x: 0, y: 0.5}}
