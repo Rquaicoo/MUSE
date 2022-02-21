@@ -23,15 +23,31 @@ const logout = (token) => {
         })
         .catch(error => console.log(error))
 }
+
+
+
 export default function myprofile ({navigation}) {
 
     const [token, setToken] = useState(null);
-
+    const [user, setUser] = useState([]);
     useEffect(() => {
         AsyncStorage.getItem('token')
         .then(token => {
             setToken(token);
-        })
+            fetch('http://localhost:8000/museb/getuser/',{
+                method: 'POST',
+                headers: {
+                  Accept: 'application/json',
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({'user_token': token})
+            })
+            .then(response => response.json())
+            .then(jsonResponse => 
+                setUser(jsonResponse))
+            .catch(error => console.log(error))
+           })
+           
     }, [])
     return(
         <ScrollView>
@@ -59,8 +75,9 @@ export default function myprofile ({navigation}) {
                     <Image source={memoji} style={styles.albumimage3}/>
                 </View>
             </TouchableOpacity>
-            <Text style={styles.text}>James Sakai</Text>
-            <Text style={styles.text1}>0203 000 0000</Text>
+            
+            <Text style={styles.text}>{user.username}</Text>
+            <Text style={styles.text1}>{user.email}</Text>
 
         {/* Details */}
         

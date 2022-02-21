@@ -30,6 +30,7 @@ export default function artists({ navigation }) {
   const [artistes, setArtiste] = useState(null);
   const [popularArtistes, setPopularArtistes] = useState(null);
   const [token, setToken] = useState(null);
+  const [length, setLength] = useState(0);
 
 
   useEffect(() => {
@@ -42,7 +43,7 @@ export default function artists({ navigation }) {
         }})
     .then(response => response.json())
     .then(jsonResponse => 
-        setArtiste(jsonResponse.slice(3,7))
+        {setArtiste(jsonResponse.slice(3,7)); setLength(Object.keys(jsonResponse).length);}
     )
     .catch(error => console.log(error))
     
@@ -72,7 +73,7 @@ export default function artists({ navigation }) {
                 <Text style={styles.headerText}>Artists</Text>
                 <View style={{flexDirection:'row'}}>
                 <MaterialCommunityIcons name="account-music-outline" size={20} color="white" />
-                <Text style={{fontSize:15,color:'white', paddingLeft:10,paddingTop:1,}}>783 Artists</Text>
+                <Text style={{fontSize:15,color:'white', paddingLeft:10,paddingTop:1,}}>{length} Artists</Text>
                 </View>
             </View>
             
@@ -133,7 +134,7 @@ export default function artists({ navigation }) {
                     </TouchableOpacity>
                     <View>
                     <Text style={styles.artistname}>{artist.name}</Text>
-                    <Text style={styles.artistlikes}> 900K Followers</Text>
+                  {/*<Text style={styles.artistlikes}> *900K Followers</Text>*/}
                     </View>
                     <TouchableOpacity style={styles.followbutton} onPress={() => follow(artist.id, token)}>
                     <Text style={{color:'white', fontSize:20, fontWeight:'bold',alignSelf:'center',paddingTop:7,}}> Follow </Text>

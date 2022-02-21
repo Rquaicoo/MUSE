@@ -12,6 +12,8 @@ from rest_framework.authtoken.models import Token
 from rest_framework import status
 from rest_framework.views import APIView
 from .serializers import *
+import json
+
 
 from rest_framework.parsers import JSONParser
 from django.utils.decorators import method_decorator
@@ -391,3 +393,20 @@ class GetLikedMusicView(APIView):
         print(music)
         serializer = MusicSerializer(music, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+class GetUserView(APIView):
+    def get(self, request):
+        try:
+            user = Token.objects.get(key=dict(request.data)["user_token"]).user
+        except KeyError:
+            user = request.user
+        user = UserSerializer(user)
+        return Response(user.data, status=status.HTTP_200_OK)
+        
+    def post(self, request):
+        try:
+            user = Token.objects.get(key=dict(request.data)["user_token"]).user
+        except KeyError:
+            user = request.user
+        user = UserSerializer(user)
+        return Response(user.data, status=status.HTTP_200_OK)
