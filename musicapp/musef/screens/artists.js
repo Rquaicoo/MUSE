@@ -9,7 +9,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const follow = (artist_id, user_token) => {
-  fetch('http://localhost:8000/museb/followedartists/',{
+  fetch('https://musebeta.herokuapp.com/museb/followedartists/',{
       method: "POST",
       headers: {
           'Content-Type': 'application/json',

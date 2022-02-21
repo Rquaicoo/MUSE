@@ -2,7 +2,6 @@ from email.mime import audio, image
 import json
 from lib2to3.pgen2 import token
 import random
-from turtle import title
 from urllib import request
 from django.shortcuts import render
 from django.contrib.auth import get_user_model

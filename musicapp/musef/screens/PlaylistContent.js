@@ -27,7 +27,7 @@ export default function PlaylistContent ({route, navigation}) {
     const [music, setMusic] = useState(null);
 
     useEffect(() => {
-        fetch('http://localhost:8000/museb/playlist/',{
+        fetch('https://musebeta.herokuapp.com/museb/playlist/',{
             method: 'POST',
             headers: {
               Accept: 'application/json',
@@ -47,7 +47,7 @@ export default function PlaylistContent ({route, navigation}) {
     return (
         <ScrollView style={{display: "flex", backgroundColor: "#141515"}}>
             
-            <ImageBackground source={{uri: "http://localhost:8000" + playlist.image}} style={{height:450,width:"100%",}} imageStyle={{borderRadius: 40,}}>
+            <ImageBackground source={{uri: "https://musebeta.herokuapp.com" + playlist.image}} style={{height:450,width:"100%",}} imageStyle={{borderRadius: 40,}}>
             <View  style={styles.headerContainer}>
                 <View>
                     <Ionicons name="arrow-back-outline" size={30} color="white"  onPress={() => navigation.goBack()} style={{paddingTop:6,}}/>
@@ -72,7 +72,7 @@ export default function PlaylistContent ({route, navigation}) {
                     {music.map((song, index) => (
                     <TouchableOpacity style={{display: "flex", flexDirection: "row", borderColor: "#343547", borderBottomWidth:1, paddingBottom: "5%", marginBottom: "5%"}} key={index} onPress={() => {updateStreams(song);navigation.navigate("Musicplayer", {artiste: song, playlist: music, index:index})}}>
                         <Image source={{
-                                uri: "http://localhost:8000" + song.image
+                                uri: "https://musebeta.herokuapp.com" + song.image
                             }} style={{resizeMode: "cover", height: 60, width: 60, borderRadius:15}}/>
                         <View style={{marginLeft: "5%"}}>
                             <Text style={{fontSize:16,color:'#fff', fontWeight:'bold',}}>{song.title}</Text>

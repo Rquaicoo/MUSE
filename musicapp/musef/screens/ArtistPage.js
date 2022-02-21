@@ -5,7 +5,7 @@ import memoji from '../assets/memoji.png';
 import { Feather, AntDesign,Entypo, Ionicons,FontAwesome5, SimpleLineIcons,FontAwesome, MaterialCommunityIcons,MaterialIcons,  } from '@expo/vector-icons';
 
 const updateStreams = (music) => {
-    fetch('http://localhost:8000/museb/music/',{
+    fetch('https://musebeta.herokuapp.com/museb/music/',{
         method: 'PUT',
         headers: {
           Accept: 'application/json',

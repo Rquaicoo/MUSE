@@ -6,7 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import memoji from '../assets/memoji.png';
 
 const logout = (token) => {
-    fetch('http://localhost:8000/museb/auth/logout/',{
+    fetch('https://musebeta.herokuapp.com/museb/auth/logout/',{
             method: 'POST',
             headers: {
               Accept: 'application/json',
