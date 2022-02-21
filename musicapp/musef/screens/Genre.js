@@ -37,7 +37,7 @@ export default function Genre({navigation}) {
                             <ImageBackground source={pop} style={styles.contentImages} imageStyle={{ borderRadius: 20}}>
                                 <View style={{}}>
                                     <Text style={styles.insideImageText}>Pop</Text>
-                                    <Text style={styles.insideImageText2}>300 Music</Text>
+                                    <Text style={styles.insideImageText2}>  Music</Text>
                                 </View>
                                 
                                 <TouchableOpacity style={styles.insideImageCircle} >
@@ -84,7 +84,7 @@ export default function Genre({navigation}) {
                             <ImageBackground source={afro} style={styles.contentImages} imageStyle={{ borderRadius: 20}}>
                                 <View style={{}}>
                                     <Text style={styles.insideImageText}>Afro</Text>
-                                    <Text style={styles.insideImageText2}>300 Music</Text>
+                                    <Text style={styles.insideImageText2}>  Music</Text>
                                 </View>
                                 
                                 <TouchableOpacity style={styles.insideImageCircle} >
@@ -97,7 +97,7 @@ export default function Genre({navigation}) {
                             <ImageBackground source={hits} style={styles.contentImages} imageStyle={{ borderRadius: 20}} >
                                 <View style={{}}>
                                     <Text style={styles.insideImageText}>Hits</Text>
-                                    <Text style={styles.insideImageText2}>300 Music</Text>
+                                    <Text style={styles.insideImageText2}>  Music</Text>
                                 </View>
                                 
                                 <TouchableOpacity style={styles.insideImageCircle} >
@@ -110,7 +110,7 @@ export default function Genre({navigation}) {
                             <ImageBackground source={kpop} style={styles.contentImages} imageStyle={{ borderRadius: 20}}  >
                                 <View style={{}}>
                                     <Text style={styles.insideImageText}>KPop</Text>
-                                    <Text style={styles.insideImageText2}>300 Music</Text>
+                                    <Text style={styles.insideImageText2}>  Music</Text>
                                 </View>
                                 
                                 <TouchableOpacity style={styles.insideImageCircle} >
@@ -123,7 +123,7 @@ export default function Genre({navigation}) {
                             <ImageBackground source={randb} style={styles.contentImages} imageStyle={{ borderRadius: 20}} >
                                 <View style={{}}>
                                     <Text style={styles.insideImageText}>Rhythm</Text>
-                                    <Text style={styles.insideImageText2}>300 Music</Text>
+                                    <Text style={styles.insideImageText2}>  Music</Text>
                                 </View>
                                 
                                 <TouchableOpacity style={{backgroundColor: "rgba(0,0,0,0.5)", height: "35%", width: "10%", marginLeft: "49%", marginTop: "10%", alignItems: "center", justifyContent: "center", borderRadius: 100,}} >
@@ -137,7 +137,7 @@ export default function Genre({navigation}) {
                             <ImageBackground source={orchestra} style={styles.contentImages} imageStyle={{ borderRadius: 20}}>
                                 <View style={{}}>
                                     <Text style={styles.insideImageText}>Orc-{"\n"}hestra</Text>
-                                    <Text style={styles.insideImageText2}>300 Music</Text>
+                                    <Text style={styles.insideImageText2}>  Music</Text>
                                 </View>
                                 
                                 <TouchableOpacity style={{backgroundColor: "rgba(0,0,0,0.5)", height: "35%", width: "10%", marginLeft: "53%", marginTop: "10%", alignItems: "center", justifyContent: "center", borderRadius: 100,}} >

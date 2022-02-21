@@ -18,6 +18,7 @@ urlpatterns = [
     path('listenlater/', ListenLaterView.as_view(), name="listen_later"), 
     path('getlikedmusic/', GetLikedMusicView.as_view(), name="get_liked_music"),
     path('getfollowedartists/', GetFollowedArtistsView.as_view(), name="get_followed_artists"),
+    path('getuser/', GetUserView.as_view(), name="get_user"),
     re_path(r'^album/$', AlbumView.as_view(), name="album_list"),
     re_path(r'^artist/$', ArtistView.as_view(), name="artist_list"),
     re_path(r'^popular_artists/$', PopularArtistView.as_view(), name="popular_artist_list"),
