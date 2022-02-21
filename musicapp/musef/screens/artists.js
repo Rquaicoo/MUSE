@@ -5,16 +5,31 @@ import { Feather, SimpleLineIcons, Ionicons, MaterialIcons, MaterialCommunityIco
 import doja2 from '../assets/doja2.jpg';
 import doja from '../assets/doja.jpg';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
-import sark from '../assets/sark.jpg';
-import arthur from '../assets/arthur.jpg';
-import kanye from '../assets/kanye.jpeg';
-import adele from '../assets/adele.jpg';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+
+const follow = (artist_id, user_token) => {
+  fetch('http://localhost:8000/museb/followedartists/',{
+      method: "POST",
+      headers: {
+          'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({'user_token': user_token, 'artist_id':artist_id })
+  })
+  .then(response => response.json())
+  .then(responseJson => {
+      console.log(responseJson)}
+)
+  .catch(error => console.log(error))
+}
+
 
 export default function artists({ navigation }) {
 
   const [isLoading, setLoading] = useState(true);
   const [artistes, setArtiste] = useState(null);
   const [popularArtistes, setPopularArtistes] = useState(null);
+  const [token, setToken] = useState(null);
 
 
   useEffect(() => {
@@ -43,6 +58,10 @@ export default function artists({ navigation }) {
         setPopularArtistes(jsonResponse)
     )
     .catch(error => console.log(error))
+
+    AsyncStorage.getItem('token')
+     .then(token => setToken(token))
+      .catch((error) => console.log(error))
   }, [])
 
   return (
@@ -116,7 +135,7 @@ export default function artists({ navigation }) {
                     <Text style={styles.artistname}>{artist.name}</Text>
                     <Text style={styles.artistlikes}> 900K Followers</Text>
                     </View>
-                    <TouchableOpacity style={styles.followbutton}>
+                    <TouchableOpacity style={styles.followbutton} onPress={() => follow(artist.id, token)}>
                     <Text style={{color:'white', fontSize:20, fontWeight:'bold',alignSelf:'center',paddingTop:7,}}> Follow </Text>
                     </TouchableOpacity>
                     </View>))}
