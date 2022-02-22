@@ -2,6 +2,7 @@ from asyncore import read
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
 from .models import *
+from django.contrib.auth.models import User
 
 class CreateUserSerializer(serializers.ModelSerializer):
     username = serializers.CharField(required=True)
@@ -55,3 +56,18 @@ class LikedMusicSerializer(serializers.ModelSerializer):
     class Meta:
         model = LikedMusic
         fields = ('id','user_token','music')
+
+class ListenLaterSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ListenLater
+        fields = ('id','user_token','music')
+
+class FollowedArtistesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FollowedArtistes
+        fields = ('id','user_token','artistes')
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('id','username','email')

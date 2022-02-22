@@ -5,16 +5,32 @@ import { Feather, SimpleLineIcons, Ionicons, MaterialIcons, MaterialCommunityIco
 import doja2 from '../assets/doja2.jpg';
 import doja from '../assets/doja.jpg';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
-import sark from '../assets/sark.jpg';
-import arthur from '../assets/arthur.jpg';
-import kanye from '../assets/kanye.jpeg';
-import adele from '../assets/adele.jpg';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+
+const follow = (artist_id, user_token) => {
+  fetch('https://musebeta.herokuapp.com/museb/followedartists/',{
+      method: "POST",
+      headers: {
+          'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({'user_token': user_token, 'artist_id':artist_id })
+  })
+  .then(response => response.json())
+  .then(responseJson => {
+      console.log(responseJson)}
+)
+  .catch(error => console.log(error))
+}
+
 
 export default function artists({ navigation }) {
 
   const [isLoading, setLoading] = useState(true);
   const [artistes, setArtiste] = useState(null);
   const [popularArtistes, setPopularArtistes] = useState(null);
+  const [token, setToken] = useState(null);
+  const [length, setLength] = useState(0);
 
 
   useEffect(() => {
@@ -27,7 +43,7 @@ export default function artists({ navigation }) {
         }})
     .then(response => response.json())
     .then(jsonResponse => 
-        setArtiste(jsonResponse.slice(3,7))
+        {setArtiste(jsonResponse.slice(3,7)); setLength(Object.keys(jsonResponse).length);}
     )
     .catch(error => console.log(error))
     
@@ -43,6 +59,10 @@ export default function artists({ navigation }) {
         setPopularArtistes(jsonResponse)
     )
     .catch(error => console.log(error))
+
+    AsyncStorage.getItem('token')
+     .then(token => setToken(token))
+      .catch((error) => console.log(error))
   }, [])
 
   return (
@@ -53,7 +73,7 @@ export default function artists({ navigation }) {
                 <Text style={styles.headerText}>Artists</Text>
                 <View style={{flexDirection:'row'}}>
                 <MaterialCommunityIcons name="account-music-outline" size={20} color="white" />
-                <Text style={{fontSize:15,color:'white', paddingLeft:10,paddingTop:1,}}>783 Artists</Text>
+                <Text style={{fontSize:15,color:'white', paddingLeft:10,paddingTop:1,}}>{length} Artists</Text>
                 </View>
             </View>
             
@@ -114,9 +134,9 @@ export default function artists({ navigation }) {
                     </TouchableOpacity>
                     <View>
                     <Text style={styles.artistname}>{artist.name}</Text>
-                    <Text style={styles.artistlikes}> 900K Followers</Text>
+                  {/*<Text style={styles.artistlikes}> *900K Followers</Text>*/}
                     </View>
-                    <TouchableOpacity style={styles.followbutton}>
+                    <TouchableOpacity style={styles.followbutton} onPress={() => follow(artist.id, token)}>
                     <Text style={{color:'white', fontSize:20, fontWeight:'bold',alignSelf:'center',paddingTop:7,}}> Follow </Text>
                     </TouchableOpacity>
                     </View>))}
