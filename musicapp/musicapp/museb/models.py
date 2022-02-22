@@ -109,7 +109,7 @@ class CoverArtiste(models.Model):
 class Playlist(models.Model):
     image = models.ImageField(blank=False, null=False)
     title = models.CharField(max_length=100, blank=False, null=False)
-    songs = models.ForeignKey(Music, on_delete=models.CASCADE)
+    songs = models.ManyToManyField(Music)
 
     @property
     def imageURL(self):
@@ -126,15 +126,18 @@ class FollowedArtistes(models.Model):
     user_token = models.ForeignKey(Token, on_delete=models.SET_NULL, null=True)
     artistes = models.ForeignKey(Artiste, on_delete=models.SET_NULL, null=True)
     
+    def __str__(self):
+        return str(self.artistes)
 
 class LikedMusic(models.Model):
     user_token = models.ForeignKey(Token, on_delete=models.SET_NULL, null=True)
     music = models.ForeignKey(Music, on_delete=models.SET_NULL, null=True)
+    def __str__(self):
+        return str(self.music)
 
 class ListenLater(models.Model):
-    user_token = models.ForeignKey(Token, on_delete=models.SET_NULL, null=True)
-    music = models.ForeignKey(Music, on_delete=models.SET_NULL, null=True)
+    user_token = models.ForeignKey(Token, on_delete=models.CASCADE, null=False)
+    music = models.ForeignKey(Music, on_delete=models.CASCADE, null=False, blank=False)
 
     def __str__(self):
-        return self.music
-        
+        return str(self.music)

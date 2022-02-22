@@ -1,10 +1,20 @@
-import {React} from 'react';
+import React, {useEffect, useState} from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView} from 'react-native';
 import { Feather, SimpleLineIcons, Ionicons, MaterialIcons, MaterialCommunityIcons,  } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
-export default function MyMusic({ navigation }) {
+export default function MyMusic({route, navigation }) {
+    const [token, setToken] = useState(true);
+
+    useEffect(() => {
+      //request to get token from local storage
+      AsyncStorage.getItem('token')
+     .then(token => setToken(token))
+      .catch((error) => console.log(error))
+    }, [])
+
   return (
     <ScrollView style={styles.container}>
     <View  style={{marginLeft: "3%",}}>
@@ -30,7 +40,7 @@ export default function MyMusic({ navigation }) {
             <View style={{marginTop: 30, flexDirection: "row"}}>
 
 
-                <TouchableOpacity style={styles.downloadsContent} onPress={() => navigation.navigate("Playlists")}>
+                <TouchableOpacity style={styles.downloadsContent} onPress={() => {navigation.navigate("Playlists", {'token': token})}}>
                   <View style={{backgroundColor: "#151723", padding: "7%", borderRadius: 20}}>
                     <SimpleLineIcons name="playlist" size={24} color="white" />
                   </View>
@@ -48,7 +58,7 @@ export default function MyMusic({ navigation }) {
             </View>
             
             <View style={{marginTop: 30, flexDirection: "row"}} >
-                <TouchableOpacity style={styles.downloadsContent} onPress={() => navigation.navigate("AlbumList")}>
+                <TouchableOpacity style={styles.downloadsContent} onPress={() => {navigation.navigate("AlbumList", {'token': token})}}>
                   <View style={{backgroundColor: "#151723", padding: "7%", borderRadius: 20}}>
                   <MaterialIcons name="album" size={24} color="white" />
                   </View>
@@ -57,7 +67,7 @@ export default function MyMusic({ navigation }) {
                 </TouchableOpacity>
 
                 
-                <TouchableOpacity style={styles.downloadsContent} onPress={() => navigation.navigate("Favourites")}>
+                <TouchableOpacity style={styles.downloadsContent} onPress={() => {navigation.navigate("Favourites", {'token': token})}}>
                 <View style={{backgroundColor: "#151723", padding: "7%", borderRadius: 20}} >
                 <MaterialIcons name="favorite" size={24} color="white" />
                 </View>
@@ -82,7 +92,7 @@ export default function MyMusic({ navigation }) {
        marginTop: 9
     }}></View>
 
-          <TouchableOpacity  style={{display: "flex", flexDirection: "row", marginTop: 20 }} onPress={() => navigation.navigate("Favourites")}>
+          <TouchableOpacity  style={{display: "flex", flexDirection: "row", marginTop: 20 }} onPress={() => {navigation.navigate("Favourites", {'token': token})}}>
           <MaterialCommunityIcons name="heart-plus-outline" size={30} color="#282A2A" />
           <Text style={{color: "white", fontWeight: "100", fontSize: 17, marginLeft: "5%", marginRight: "48%"}} >Liked songs</Text>
           <MaterialIcons name="navigate-next" size={30} color="#282A2A" />
@@ -95,7 +105,7 @@ export default function MyMusic({ navigation }) {
        marginTop: 9
     }}  ></View>
 
-          <TouchableOpacity  style={{display: "flex", flexDirection: "row", marginTop: 20 }} onPress={() => navigation.navigate("FollowedArtists")}>
+          <TouchableOpacity  style={{display: "flex", flexDirection: "row", marginTop: 20 }} onPress={() => navigation.navigate("FollowedArtists", {'token': token})}>
           <SimpleLineIcons name="user-following" size={30} color="#282A2A" />
           <Text style={{color: "white", fontWeight: "100", fontSize: 17, marginLeft: "5%", marginRight: "38%"}}>Followed Artistes</Text>
           <MaterialIcons name="navigate-next" size={30} color="#282A2A" />

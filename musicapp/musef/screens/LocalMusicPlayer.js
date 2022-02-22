@@ -144,16 +144,27 @@ class LocalMusicPlayer extends Component {
         if (playbackInstance) {
             
             try {
-            index != 0 ? (index+=1 ) : (index = 0)
+            if (index < this.state.playlist.length - 1) {
+                index += 1
+                this.setState({
+                    index
+                })
+                this.loadAudio()
+            }
+
+            else {
+                this.setState({
+                    index: 0
+                })
+                this.loadAudio()
+            }
             }
             catch {
-                index = 1
+                this.setState({
+                    index: 0
+                })
+                this.loadAudio()
             }
-            this.setState({
-                index
-            })
-
-            this.loadAudio()
         }
     }
 
@@ -220,12 +231,15 @@ class LocalMusicPlayer extends Component {
 
                 {/* WaveForm */}
                 
-                    <Slider
+                <Slider
                     style={{width: '90%', height: 40, marginLeft:15,marginTop:10,}}
                     minimumValue={0}
                     maximumValue={10}
                     minimumTrackTintColor="#FFFFFF"
                     maximumTrackTintColor="grey"
+                    value={3}
+                    step={1}
+                    disabled={true}
                     />
 
                 <View style={styles.main}>

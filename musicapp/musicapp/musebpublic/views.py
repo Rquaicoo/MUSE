@@ -38,4 +38,3 @@ def users(request):
         return render(request, 'users.html', {'users': users})
 def downloadApp(request):
     return render(request, 'downloadapp.html')
-

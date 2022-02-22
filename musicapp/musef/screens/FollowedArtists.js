@@ -1,27 +1,31 @@
 import React, {useState, useEffect} from 'react';
-import { StyleSheet, Text, View,Image, ImageBackground, TouchableOpacity, ScrollView} from 'react-native';
+import { StyleSheet, Text, View,Image, ActivityIndicator, TouchableOpacity, ScrollView} from 'react-native';
 import { Feather, AntDesign,Entypo, Ionicons,FontAwesome5, SimpleLineIcons,FontAwesome, MaterialCommunityIcons,MaterialIcons,  } from '@expo/vector-icons';
 
 
 
 
-export default function FollowedArtists({navigation}) {
+export default function FollowedArtists({route, navigation}) {
 
-    const [music, setMusic] = useState(null);
+    const {token} = route.params
+    const [isLoading, setLoading] = useState(true);
+    const [artistes, setArtiste] = useState(null);
 
     useEffect(() => {
-        fetch('https://musebeta.herokuapp.com/museb/' , {
-            method: 'GET',
+        fetch('https://musebeta.herokuapp.com/museb/getfollowedartists/' , {
+            method: 'POST',
             headers: {
               Accept: 'application/json',
               'Content-Type': 'application/json',
             },
+            body: JSON.stringify({'user_token': token})
         })
         .then(response => response.json())
         .then(jsonResponse => 
-            setMusic(jsonResponse)
+            setArtiste(jsonResponse)
         )
         .catch(error => console.log(error))
+        .finally(() => setLoading(false));
     }, [])
    return (
             <ScrollView style={styles.container} showsVerticalScrollIndicator={false} >
@@ -44,6 +48,27 @@ export default function FollowedArtists({navigation}) {
                         </View>
                         
                          {/* container for albums */}
+                         {isLoading? (
+                             <View style={{justifyContent: "center", alignItems: "center"}}>
+                         <ActivityIndicator color="#fff" size="large"  style={{alignSelf: "center"}}/>
+                         </View>) :
+                         (<ScrollView showsHorizontalScrollIndicator={false} horizontal={true}>
+                            {artistes &&(
+                            <View style={{justifyContent: "center", alignItems: "center", flexDirection:'row'}}>
+                                {artistes.map((artist, index) => (
+                                <View key={index} onPress={() => navigation.navigate("ArtistPage", {artist: artist})}>
+                                <TouchableOpacity style={styles.popularalbums} onPress={() => navigation.navigate("ArtistPage", {artist: artist})}>
+                                <Image source={{
+                                uri: "https://musebeta.herokuapp.com" + artist.image
+                                }} style={styles.popularimage}/>
+                                </TouchableOpacity>
+                                <View>
+                                <Text style={styles.artistname}>{artist.name}</Text>
+                                </View>
+                                </View>))}
+                                </View>)}
+
+                </ScrollView>)}
 
             </ScrollView>
    );
@@ -73,6 +98,53 @@ const styles = StyleSheet.create({
       fontSize: 30,
       fontWeight: "bold",
       color: "#fff"
+    },
+    popularalbums: {
+        height:300,
+        width:200,
+        backgroundColor: '#1e202c',
+        marginLeft: 20,
+        marginTop: 20,
+        borderRadius: 50,
+       
+    },
+    
+    followbutton: {
+        height:40,
+        width:150,
+        backgroundColor: '#1E1F1F',
+        marginLeft: 20,
+        marginTop: 10,
+        borderRadius: 50,
+        marginBottom:50,
+        alignSelf: "center"
+       
+    },
+    popularimage: {
+        height:300,
+        width:200,
+        borderRadius: 25,
+    },
+    
+    
+    artistname:{
+        fontSize:20,
+        paddingLeft:20,
+        alignSelf:'center',
+        color:'#dbdbdb',
+        fontWeight:'bold',
+        paddingTop:10,
+    
+    },
+    
+    artistlikes:{
+        fontSize:17,
+        paddingLeft:20,
+        alignSelf:'center',
+        color:'#949293',
+        paddingTop:5,
+        
+    
     },
 
 });

@@ -1,12 +1,55 @@
-import {React, useState} from 'react';
+import {React, useState, useEffect} from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, TextInput, View, Image,Modal, TouchableOpacity, TouchableWithoutFeedback, ImageBackground,ScrollView} from 'react-native';
 import { Feather, AntDesign,Entypo, Ionicons,FontAwesome5, SimpleLineIcons,FontAwesome, MaterialCommunityIcons,MaterialIcons,  } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import memoji from '../assets/memoji.png';
 import UploadImage from './UploadImage';
 
+const logout = (token) => {
+    fetch('https://musebeta.herokuapp.com/museb/auth/logout/',{
+            method: 'POST',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({'token': token})
+        })
+        .then(response => response.json())
+        .then(jsonResponse => 
+            console.log(jsonResponse))
+        .then(() => {
+            AsyncStorage.removeItem('token');
+            navigation.navigate('Login');
+        })
+        .catch(error => console.log(error))
+}
+
+
+
 export default function myprofile ({navigation}) {
 
+    const [token, setToken] = useState(null);
+    const [user, setUser] = useState([]);
+    useEffect(() => {
+        AsyncStorage.getItem('token')
+        .then(token => {
+            setToken(token);
+            fetch('https://musebeta.herokuapp.com/museb/getuser/',{
+                method: 'POST',
+                headers: {
+                  Accept: 'application/json',
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({'user_token': token})
+            })
+            .then(response => response.json())
+            .then(jsonResponse => 
+                setUser(jsonResponse))
+            .catch(error => console.log(error))
+           })
+           
+    }, [])
     return(
         <ScrollView>
         <View style={styles.container}>
@@ -33,8 +76,9 @@ export default function myprofile ({navigation}) {
                    <UploadImage/>
                 </View>
             </TouchableOpacity>
-            <Text style={styles.text}>James Sakai</Text>
-            <Text style={styles.text1}>0203 000 0000</Text>
+            
+            <Text style={styles.text}>{user.username}</Text>
+            <Text style={styles.text1}>{user.email}</Text>
 
         {/* Details */}
         
@@ -62,7 +106,7 @@ export default function myprofile ({navigation}) {
 
             <TouchableOpacity style={styles.details}>
             
-            <MaterialCommunityIcons name="progress-download" size={30} color="white"  style={{paddingRight:'5%'}} />
+            <MaterialCommunityIcons name="progress-download" size={30} color="white"  style={{paddingRight:'5%'}} onPress={() => navigation.navigate("LocalAudio")} />
             <Text style={{color:'white', fontSize:20, fontWeight:'bold', paddingRight:'38%'}}> Downloads</Text>
             <Entypo name="chevron-right" size={30} color="white" />
             </TouchableOpacity>
@@ -70,7 +114,7 @@ export default function myprofile ({navigation}) {
 
             
             <TouchableOpacity style={styles.details}>
-            <SimpleLineIcons name="logout"size={28} color="white"  style={{paddingRight:'5%'}} />
+            <SimpleLineIcons name="logout"size={28} color="white"  style={{paddingRight:'5%'}} onPress={() => logout(token)} />
             <Text style={{color:'white', fontSize:20, fontWeight:'bold', paddingRight:'48%'}}> Logout</Text>
             <Entypo name="chevron-right" size={30} color="white" />
             </TouchableOpacity>
@@ -79,7 +123,7 @@ export default function myprofile ({navigation}) {
         </View>
 
 
-        <Text style={{ color:'white', fontSize:17, textAlign:'center', paddingTop:10 ,paddingBottom:50, paddingRight:10,}}> Version 1.0.0.1</Text>
+        <Text style={{ color:'white', fontSize:17, textAlign:'center', paddingTop:10 ,paddingBottom:50, paddingRight:10,}}> Version 1.0.0</Text>
 
 
 

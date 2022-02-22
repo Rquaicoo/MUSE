@@ -47,8 +47,25 @@ class Musicplayer extends Component {
     like (id){
         let token = this.getToken()
         console.log(token)
-        fetch('http://localhost:8000/museb/liked/',{
+        fetch('https://musebeta.herokuapp.com/museb/liked/',{
             method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({'user_token': this.state.token, 'music_id':this.props.route.params.artiste.id })
+        })
+        .then(response => response.json())
+        .then(responseJson => {
+            console.log(responseJson)}
+    )
+        .catch(error => console.log(error))
+    }
+
+    delete (id){
+        let token = this.getToken()
+        console.log(token)
+        fetch('https://musebeta.herokuapp.com/museb/liked/',{
+            method: "DELETE",
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -181,7 +198,7 @@ class Musicplayer extends Component {
 
         if (playbackInstance) {
             //clear curent track
-            index != 0 ? (index -=1 ) : (index = 0)
+            index != 0 ? (index -=1 ) : (index = 1)
 
             this.setState({
                 index
@@ -198,18 +215,30 @@ class Musicplayer extends Component {
         if (playbackInstance) {
             
             try {
-            index != 0 ? (index+=1 ) : (index = 0)
+            if (index < this.state.playlist.length - 1) {
+                index += 1
+                this.setState({
+                    index
+                })
+                this.loadAudio()
+            }
+
+            else {
+                this.setState({
+                    index: 0
+                })
+                this.loadAudio()
+            }
             }
             catch {
-                index = 1
+                this.setState({
+                    index: 0
+                })
+                this.loadAudio()
             }
-            this.setState({
-                index
-            })
-
-            this.loadAudio()
         }
     }
+
 
     goBack() {
         try {
@@ -270,7 +299,7 @@ class Musicplayer extends Component {
                 <MaterialCommunityIcons name="progress-download" size={32} color="white" style={{paddingLeft:'8%', paddingTop:2,}} />
                 <MaterialCommunityIcons name="account-check-outline" size={32} color="white"  style={{paddingLeft:'8%', paddingTop:2,}} />
                 {this.state.liked ?
-                (<Entypo name="heart" size={25} color="white" style={{paddingLeft:'8%', paddingTop:5,}} onPress={() => {this.changeLikedState();this.like(this.props.route.params.artiste.id)}} />):
+                (<Entypo name="heart" size={25} color="white" style={{paddingLeft:'8%', paddingTop:5,}} onPress={() => {this.changeLikedState();this.delete(this.props.route.params.artiste.id)}} />):
                 (<FontAwesome5 name="heart" size={25} color="white"  style={{paddingLeft:'8%', paddingTop:5,}} onPress={()=> {this.changeLikedState();this.like(this.props.route.params.artiste.id)}} />)}
                 </View>
                 <Text style={{fontSize:20,color:'white' ,paddingLeft:20, fontWeight:'bold', opacity:0.8}}>{this.props.route.params.artiste.collaborators}</Text>
@@ -283,6 +312,9 @@ class Musicplayer extends Component {
                     maximumValue={10}
                     minimumTrackTintColor="#FFFFFF"
                     maximumTrackTintColor="grey"
+                    value={3}
+                    step={1}
+                    disabled={true}
                     />
 
                 <View style={styles.main}>
