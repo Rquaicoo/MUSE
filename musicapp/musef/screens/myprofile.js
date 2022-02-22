@@ -4,6 +4,7 @@ import { StyleSheet, Text, TextInput, View, Image,Modal, TouchableOpacity, Touch
 import { Feather, AntDesign,Entypo, Ionicons,FontAwesome5, SimpleLineIcons,FontAwesome, MaterialCommunityIcons,MaterialIcons,  } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import memoji from '../assets/memoji.png';
+import UploadImage from './UploadImage';
 
 const logout = (token) => {
     fetch('https://musebeta.herokuapp.com/museb/auth/logout/',{
@@ -70,9 +71,9 @@ export default function myprofile ({navigation}) {
             </View>
              </View>
                 {/* Artist Image */}
-             <TouchableOpacity style={styles.albums}>
+             <TouchableOpacity style={styles.albums} onPress={() => navigation.navigate("UploadImage")}  >
                  <View style={styles.border}>
-                    <Image source={memoji} style={styles.albumimage3}/>
+                   <UploadImage/>
                 </View>
             </TouchableOpacity>
             
