@@ -122,7 +122,7 @@ export default function myprofile ({navigation}) {
         </View>
 
 
-        <Text style={{ color:'white', fontSize:17, textAlign:'center', paddingTop:10 ,paddingBottom:50, paddingRight:10,}}> Version 1.0.0.1</Text>
+        <Text style={{ color:'white', fontSize:17, textAlign:'center', paddingTop:10 ,paddingBottom:50, paddingRight:10,}}> Version 1.0.0</Text>
 
 
 
