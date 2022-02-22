@@ -34,7 +34,12 @@ import Favourites from './screens/Favourites';
 import Playlists from './screens/Playlists';
 import FollowedArtists from './screens/FollowedArtists';
 import ListenLater from './screens/ListenLater';
+
+import UploadImage from './screens/UploadImage';
+
+
 import PlaylistContent from './screens/PlaylistContent';
+
 
 const Stack = createNativeStackNavigator();
 
@@ -118,7 +123,13 @@ export default function App() {
             <Stack.Screen name="Playlists" component={Playlists} options={{
               headerShown: false
             }} />
+
+            <Stack.Screen name="UploadImage" component={UploadImage} options={{
+                headerShown: false
+            }} />
+
             <Stack.Screen name="PlaylistContent" component={PlaylistContent} options={{
+
               headerShown: false
             }} />
           </Stack.Navigator>
