@@ -7,7 +7,7 @@ import { Feather, SimpleLineIcons, Ionicons, MaterialIcons, MaterialCommunityIco
 export default function MyMusic({ navigation }) {
   return (
     <ScrollView style={styles.container}>
-    <View >
+    <View  style={{marginLeft: "3%",}}>
         <View  style={styles.headerContainer}>
             <View>
                 <Text style={styles.headerText}>My Music</Text>
@@ -19,7 +19,7 @@ export default function MyMusic({ navigation }) {
                     <Feather name="search" size={18} color="white" />
                   </TouchableOpacity>
 
-                  <TouchableOpacity onPress={() => navigation.navigate("myprofile")} >
+                  <TouchableOpacity onPress={() => navigation.navigate("myprofile")}>
                     <Image source={require('../assets/memoji.png')} style={styles.image} />
                     </TouchableOpacity>
             </View>
@@ -110,6 +110,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "#141515",
     height: "100%",
+    
 
   },
   image: {
@@ -117,7 +118,7 @@ const styles = StyleSheet.create({
       width: 35,
       resizeMode: "contain",
       borderRadius: 500,
-      marginLeft: "20%",
+      marginLeft: "10%",
       marginTop: -2,
     },
     headerContainer: {
