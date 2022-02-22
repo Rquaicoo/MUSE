@@ -3,6 +3,7 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, TextInput, View, Image,Modal, TouchableOpacity, TouchableWithoutFeedback, ImageBackground,ScrollView} from 'react-native';
 import { Feather, AntDesign,Entypo, Ionicons,FontAwesome5, SimpleLineIcons,FontAwesome, MaterialCommunityIcons,MaterialIcons,  } from '@expo/vector-icons';
 import memoji from '../assets/memoji.png';
+import UploadImage from './UploadImage';
 
 export default function myprofile ({navigation}) {
 
@@ -27,9 +28,9 @@ export default function myprofile ({navigation}) {
             </View>
              </View>
                 {/* Artist Image */}
-             <TouchableOpacity style={styles.albums}>
+             <TouchableOpacity style={styles.albums} onPress={() => navigation.navigate("UploadImage")}  >
                  <View style={styles.border}>
-                    <Image source={memoji} style={styles.albumimage3}/>
+                   <UploadImage/>
                 </View>
             </TouchableOpacity>
             <Text style={styles.text}>James Sakai</Text>
