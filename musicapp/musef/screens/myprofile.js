@@ -71,7 +71,7 @@ export default function myprofile ({navigation}) {
             </View>
              </View>
                 {/* Artist Image */}
-             <TouchableOpacity style={styles.albums} onPress={() => navigation.navigate("UploadImage")}  >
+             <TouchableOpacity style={styles.albums}  >
                  <View style={styles.border}>
                    <UploadImage/>
                 </View>
@@ -85,21 +85,21 @@ export default function myprofile ({navigation}) {
         <View style={{marginTop: '15%',opacity:0.8}}>
             <TouchableOpacity style={styles.details}>
             <MaterialCommunityIcons name="account-edit-outline" size={30} color="white"  style={{paddingRight:'5%'}} />
-            <Text style={{color:'white', fontSize:20, fontWeight:'bold', paddingRight:'40%'}}> Edit Profile</Text>
+            <Text style={{color:'white', fontSize:20,  paddingRight:'40%'}}> Edit Profile</Text>
             <Entypo name="chevron-right" size={30} color="white" />
             </TouchableOpacity>
             <View style={{backgroundColor: "#343547",width: "85%", height: 1, marginLeft: "7%", marginTop: 9, marginBottom:25,}}/>
                
             <TouchableOpacity style={styles.details}>
             <AntDesign name="playcircleo" size={30} color="white"  style={{paddingRight:'5%'}} />
-            <Text style={{color:'white', fontSize:20, fontWeight:'bold', paddingRight:'37%'}}> Listen Later</Text>
+            <Text style={{color:'white', fontSize:20,  paddingRight:'37%'}}> Listen Later</Text>
             <Entypo name="chevron-right" size={30} color="white" />
             </TouchableOpacity>
             <View style={{backgroundColor: "#343547",width: "85%", height: 1, marginLeft: "7%", marginTop: 9, marginBottom:25,}}/>
 
             <TouchableOpacity style={styles.details}>
             <MaterialIcons name="history" size={30} color="white"  style={{paddingRight:'5%'}} />
-            <Text style={{color:'white', fontSize:20, fontWeight:'bold', paddingRight:'47%'}}> History</Text>
+            <Text style={{color:'white', fontSize:20,  paddingRight:'47%'}}> History</Text>
             <Entypo name="chevron-right" size={30} color="white" />
             </TouchableOpacity>
             <View style={{backgroundColor: "#343547",width: "85%", height: 1, marginLeft: "7%", marginTop: 9, marginBottom:25,}}/>
@@ -107,15 +107,15 @@ export default function myprofile ({navigation}) {
             <TouchableOpacity style={styles.details}>
             
             <MaterialCommunityIcons name="progress-download" size={30} color="white"  style={{paddingRight:'5%'}} onPress={() => navigation.navigate("LocalAudio")} />
-            <Text style={{color:'white', fontSize:20, fontWeight:'bold', paddingRight:'38%'}}> Downloads</Text>
+            <Text style={{color:'white', fontSize:20,  paddingRight:'38%'}}> Downloads</Text>
             <Entypo name="chevron-right" size={30} color="white" />
             </TouchableOpacity>
             <View style={{backgroundColor: "#343547",width: "85%", height: 1, marginLeft: "7%", marginTop: 9, marginBottom:25,}}/>
 
             
-            <TouchableOpacity style={styles.details}>
+            <TouchableOpacity style={styles.details} onPress={() => navigation.navigate("SignIn")} >
             <SimpleLineIcons name="logout"size={28} color="white"  style={{paddingRight:'5%'}} onPress={() => logout(token)} />
-            <Text style={{color:'white', fontSize:20, fontWeight:'bold', paddingRight:'48%'}}> Logout</Text>
+            <Text style={{color:'white', fontSize:20, paddingRight:'48%'}}> Logout</Text>
             <Entypo name="chevron-right" size={30} color="white" />
             </TouchableOpacity>
             <View style={{backgroundColor: "#343547",width: "85%", height: 1, marginLeft: "7%", marginTop: 9, marginBottom:25,}}/>
