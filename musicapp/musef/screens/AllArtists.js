@@ -5,7 +5,7 @@ import { Feather, SimpleLineIcons, Ionicons, MaterialIcons, MaterialCommunityIco
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const follow = (artist_id, user_token) => {
-  fetch('http://localhost:8000/museb/followedartists/',{
+  fetch('https://musebeta.herokuapp.com/museb/followedartists/',{
       method: "POST",
       headers: {
           'Content-Type': 'application/json',
@@ -24,6 +24,7 @@ export default function AllPopularArtists({ navigation }) {
   const [isLoading, setLoading] = useState(true);
   const [artistes, setArtiste] = useState(null);
   const [token, setToken] = useState(null);
+  const [length, setLength] = useState(0);
 
 
   useEffect(() => {
@@ -36,7 +37,7 @@ export default function AllPopularArtists({ navigation }) {
         }})
     .then(response => response.json())
     .then(jsonResponse => 
-        setArtiste(jsonResponse)
+        {setArtiste(jsonResponse); setLength(Object.keys(jsonResponse).length);}
     )
     .catch(error => console.log(error))
     .finally(() => setLoading(false));
@@ -55,7 +56,7 @@ export default function AllPopularArtists({ navigation }) {
                 <Text style={styles.headerText}>Artists</Text>
                 <View style={{flexDirection:'row'}}>
                 <MaterialCommunityIcons name="account-music-outline" size={20} color="white" />
-                <Text style={{fontSize:15,color:'white', paddingLeft:10,paddingTop:1,}}>783 Artists</Text>
+                <Text style={{fontSize:15,color:'white', paddingLeft:10,paddingTop:1,}}>{length} Artists</Text>
                 </View>
             </View>
             
@@ -73,7 +74,7 @@ export default function AllPopularArtists({ navigation }) {
                 (<ScrollView showsHorizontalScrollIndicator={false} horizontal={true}>
                 {artistes &&(
                 <View style={{justifyContent: "center", alignItems: "center", flexDirection:'row'}}>
-                    {artistes.map((artist, index) => (
+                    {(artistes.slice(0, length/2)).map((artist, index) => (
                     <View key={index} onPress={() => navigation.navigate("ArtistPage", {artist: artist})}>
                     <TouchableOpacity style={styles.popularalbums} onPress={() => navigation.navigate("ArtistPage", {artist: artist})}>
                     <Image source={{
@@ -82,7 +83,7 @@ export default function AllPopularArtists({ navigation }) {
                     </TouchableOpacity>
                     <View>
                     <Text style={styles.artistname}>{artist.name}</Text>
-                    <Text style={styles.artistlikes}> 900K Followers</Text>
+                    {/*<Text style={styles.artistlikes}> 900K Followers</Text>*/}
                     </View>
                     <TouchableOpacity style={styles.followbutton} onPress={() => console.log(token)}>
                     <Text style={{color:'white', fontSize:20, fontWeight:'bold',alignSelf:'center',paddingTop:7,}}> Follow </Text>
@@ -99,7 +100,7 @@ export default function AllPopularArtists({ navigation }) {
                 (<ScrollView showsHorizontalScrollIndicator={false} horizontal={true}>
                 {artistes &&(
                 <View style={{justifyContent: "center", alignItems: "center", flexDirection:'row'}}>
-                    {artistes.map((artist, index) => (
+                    {(artistes.slice(length/2, length)).map((artist, index) => (
                     <View key={index} onPress={() => navigation.navigate("ArtistPage", {artist: artist})}>
                     <TouchableOpacity style={styles.popularalbums} onPress={() => navigation.navigate("ArtistPage", {artist: artist})}>
                     <Image source={{

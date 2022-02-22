@@ -39,7 +39,7 @@ export default function Browser ({navigation}) {
     useEffect(() => {
         //get request to get all the songs
         
-        fetch('http://localhost:8000/museb/album/',{
+        fetch('https://musebeta.herokuapp.com/museb/album/',{
             method: 'GET',
             headers: {
               Accept: 'application/json',
@@ -51,7 +51,7 @@ export default function Browser ({navigation}) {
         .catch(error => console.log(error))
         .finally(() => setAlbumLoading(false));
 
-        fetch('http://localhost:8000/museb/music/',{
+        fetch('https://musebeta.herokuapp.com/museb/music/',{
             method: 'GET',
             headers: {
               Accept: 'application/json',
@@ -98,7 +98,7 @@ export default function Browser ({navigation}) {
                     <View style={{flexDirection: "row", flexWrap: "wrap"}}>
                         {music.map((artiste, index) => (
                     <TouchableOpacity key={index} onPress={() => {updateStreams(artiste);navigation.navigate("Musicplayer", {artiste: artiste, playlist: music, index:index})}}  style={styles.musiccontent}>
-                    <Image source={{uri: "http://localhost:8000"+artiste.image}} style={styles.smallimage}/>
+                    <Image source={{uri: "https://musebeta.herokuapp.com"+artiste.image}} style={styles.smallimage}/>
                     </TouchableOpacity>))}
                     </View>
                     )}          
@@ -141,7 +141,7 @@ export default function Browser ({navigation}) {
                         
                         {albums.map((album, index) => (
                     <TouchableOpacity style={styles.albums} key={index} onPress={() => navigation.navigate("Album", {album: album})}>
-                    <Image source={{uri: "http://localhost:8000"+album.image}} style={styles.albumimage}/>
+                    <Image source={{uri: "https://musebeta.herokuapp.com"+album.image}} style={styles.albumimage}/>
                     </TouchableOpacity>
                         ))}
                     </View>

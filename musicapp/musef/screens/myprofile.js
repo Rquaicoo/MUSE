@@ -6,7 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import memoji from '../assets/memoji.png';
 
 const logout = (token) => {
-    fetch('http://localhost:8000/museb/auth/logout/',{
+    fetch('https://musebeta.herokuapp.com/museb/auth/logout/',{
             method: 'POST',
             headers: {
               Accept: 'application/json',
@@ -23,15 +23,31 @@ const logout = (token) => {
         })
         .catch(error => console.log(error))
 }
+
+
+
 export default function myprofile ({navigation}) {
 
     const [token, setToken] = useState(null);
-
+    const [user, setUser] = useState([]);
     useEffect(() => {
         AsyncStorage.getItem('token')
         .then(token => {
             setToken(token);
-        })
+            fetch('https://musebeta.herokuapp.com/museb/getuser/',{
+                method: 'POST',
+                headers: {
+                  Accept: 'application/json',
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({'user_token': token})
+            })
+            .then(response => response.json())
+            .then(jsonResponse => 
+                setUser(jsonResponse))
+            .catch(error => console.log(error))
+           })
+           
     }, [])
     return(
         <ScrollView>
@@ -59,8 +75,9 @@ export default function myprofile ({navigation}) {
                     <Image source={memoji} style={styles.albumimage3}/>
                 </View>
             </TouchableOpacity>
-            <Text style={styles.text}>James Sakai</Text>
-            <Text style={styles.text1}>0203 000 0000</Text>
+            
+            <Text style={styles.text}>{user.username}</Text>
+            <Text style={styles.text1}>{user.email}</Text>
 
         {/* Details */}
         
@@ -105,7 +122,7 @@ export default function myprofile ({navigation}) {
         </View>
 
 
-        <Text style={{ color:'white', fontSize:17, textAlign:'center', paddingTop:10 ,paddingBottom:50, paddingRight:10,}}> Version 1.0.0.1</Text>
+        <Text style={{ color:'white', fontSize:17, textAlign:'center', paddingTop:10 ,paddingBottom:50, paddingRight:10,}}> Version 1.0.0</Text>
 
 
 

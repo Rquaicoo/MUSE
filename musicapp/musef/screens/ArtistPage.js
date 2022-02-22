@@ -5,7 +5,7 @@ import memoji from '../assets/memoji.png';
 import { Feather, AntDesign,Entypo, Ionicons,FontAwesome5, SimpleLineIcons,FontAwesome, MaterialCommunityIcons,MaterialIcons,  } from '@expo/vector-icons';
 
 const updateStreams = (music) => {
-    fetch('http://localhost:8000/museb/music/',{
+    fetch('https://musebeta.herokuapp.com/museb/music/',{
         method: 'PUT',
         headers: {
           Accept: 'application/json',
@@ -24,6 +24,7 @@ export default function ArtistPage ({route, navigation}) {
     console.log(artiste)
     const [artisteMusic, setArtisteMusic] = useState(null);
     const [artisteAlbums, setArtisteAlbums] = useState(null);
+    const [length, setLength] = useState(0);
 
     useEffect(() => {
         fetch('https://musebeta.herokuapp.com/museb/artist_content/',{
@@ -37,8 +38,8 @@ export default function ArtistPage ({route, navigation}) {
         .then(response => response.json())
         .then(jsonResponse => 
             {setArtisteMusic(jsonResponse.music);
-            setArtisteAlbums(jsonResponse.album);}
-        )
+            setArtisteAlbums(jsonResponse.album);
+        setLength(Object.keys(jsonResponse.music).length)})
         .catch(error => console.log(error))
         
     }, [])
@@ -62,7 +63,7 @@ export default function ArtistPage ({route, navigation}) {
             <View>
                 <View style={{marginLeft: "5%", marginTop: "70%"}}>
                     <Text style={{fontSize:60,color:'#fff', fontWeight:'bold',}}>{artiste.name}</Text>
-                    <Text style={{fontSize:12,color:'#fff', fontWeight:'bold',}}>120 songs</Text>
+                    <Text style={{fontSize:12,color:'#fff', fontWeight:'bold',}}>{length} songs</Text>
                 </View>
              </View>
              </ImageBackground>
@@ -95,7 +96,7 @@ export default function ArtistPage ({route, navigation}) {
                         <Text style={{fontSize:20,color:'#fff', fontWeight:'bold',marginBottom:10}}>{artiste.name}'s songs</Text>
                         
                         {artisteMusic.map((song, index) => (
-                        <TouchableOpacity style={{display: "flex", flex:5, flexDirection: "row", borderColor: "#343547", borderBottomWidth:1, paddingBottom: "5%", marginBottom: "5%"}} key={index} onPress={() =>{updateStreams(song);navigation.navigate("Musicplayer", {artiste: song})}}>
+                        <TouchableOpacity style={{display: "flex", flex:5, flexDirection: "row", borderColor: "#343547", borderBottomWidth:1, paddingBottom: "5%", marginBottom: "5%"}} key={index} onPress={() =>{updateStreams(song);navigation.navigate("Musicplayer", {artiste: song, playlist: artisteMusic, index:index})}}>
                             <View style={{flex:4, flexDirection: "row"}}>
                                 <Image source={{
                                         uri: "https://musebeta.herokuapp.com" + song.image

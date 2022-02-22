@@ -4,7 +4,7 @@ import { Feather, AntDesign,Entypo, Ionicons,FontAwesome5, SimpleLineIcons,FontA
 
 
 const updateStreams = (music) => {
-    fetch('http://localhost:8000/museb/music/',{
+    fetch('https://musebeta.herokuapp.com/museb/music/',{
         method: 'PUT',
         headers: {
           Accept: 'application/json',
@@ -22,7 +22,7 @@ export default function AllNewTrending({route, navigation}) {
     const {musicType, endpoint} = route.params;
     const [music, setMusic] = useState(null);
     const [isMusicLoading, setMusicLoading] = useState(true);
-
+    const [length, setLength] = useState(0);
     useEffect(() => {
         fetch('https://musebeta.herokuapp.com/museb/' + endpoint, {
             method: 'GET',
@@ -33,8 +33,7 @@ export default function AllNewTrending({route, navigation}) {
         })
         .then(response => response.json())
         .then(jsonResponse => 
-            setMusic(jsonResponse)
-        )
+            {setMusic(jsonResponse); setLength(Object.keys(jsonResponse).length);})
         .catch(error => console.log(error))
         .finally(() => setMusicLoading(false));
     }, [])
@@ -45,7 +44,7 @@ export default function AllNewTrending({route, navigation}) {
                                 <Text style={styles.headerText}>{musicType}</Text>
                                 <View style={{flexDirection: "row",}}>
                                     <Feather name="music" size={18} color="white" />
-                                    <Text style={{fontSize:15,color:'white', paddingLeft:10,paddingTop:1,}}>Songs</Text>
+                                    <Text style={{fontSize:15,color:'white', paddingLeft:10,paddingTop:1,}}>{length} songs</Text>
                                 </View>
                             </View>
                     

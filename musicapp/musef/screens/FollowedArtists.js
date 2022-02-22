@@ -12,7 +12,7 @@ export default function FollowedArtists({route, navigation}) {
     const [artistes, setArtiste] = useState(null);
 
     useEffect(() => {
-        fetch('http://localhost:8000/museb/getfollowedartists/' , {
+        fetch('https://musebeta.herokuapp.com/museb/getfollowedartists/' , {
             method: 'POST',
             headers: {
               Accept: 'application/json',

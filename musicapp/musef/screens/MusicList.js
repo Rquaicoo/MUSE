@@ -25,6 +25,7 @@ export default function MusicList ({route, navigation}) {
     const {genre, image} = route.params;
     const [isLoading, setLoading] = useState(true);
     const [music, setMusic] = useState(null);
+    const [length, setLength] = useState(0);
 
     useEffect(() => {
         fetch('https://musebeta.herokuapp.com/museb/genre/',{
@@ -37,7 +38,7 @@ export default function MusicList ({route, navigation}) {
         })
         .then(response => response.json())
         .then(jsonResponse => 
-            setMusic(jsonResponse)
+            {setMusic(jsonResponse);setLength(Object.keys(jsonResponse).length);}
         )
         .catch(error => console.log(error))
         .finally(() => setLoading(false));
@@ -57,7 +58,7 @@ export default function MusicList ({route, navigation}) {
             <View>
                 <View style={{marginLeft: "5%", marginTop: "60%"}}>
                     <Text style={{fontSize:60,color:'#fff', fontWeight:'bold',}}>{genre}</Text>
-                    <Text style={{fontSize:12,color:'#fff', fontWeight:'bold',}}>120 songs</Text>
+                    <Text style={{fontSize:12,color:'#fff', fontWeight:'bold',}}>{length} songs</Text>
                 </View>
              </View>
              </ImageBackground>
