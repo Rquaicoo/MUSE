@@ -24,7 +24,7 @@ class Musicplayer extends Component {
         super(props);
     
         const artiste = this.props.route.params.artiste;
-        var imagePath = "http://localhost:8000" + artiste.image
+        var imagePath = "https://musebeta.herokuapp.com" + artiste.image
     }
     state = {
         isPlaying: false,
@@ -47,7 +47,7 @@ class Musicplayer extends Component {
     like (id){
         let token = this.getToken()
         console.log(token)
-        fetch('http://localhost:8000/museb/liked/',{
+        fetch('https://musebeta.herokuapp.com/museb/liked/',{
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -64,7 +64,7 @@ class Musicplayer extends Component {
     delete (id){
         let token = this.getToken()
         console.log(token)
-        fetch('http://localhost:8000/museb/liked/',{
+        fetch('https://musebeta.herokuapp.com/museb/liked/',{
             method: "DELETE",
             headers: {
                 'Content-Type': 'application/json',
@@ -124,7 +124,7 @@ class Musicplayer extends Component {
 
     getArtiste (){
         //const artiste_id = this.props.route.params.artiste;
-        fetch('http://localhost:8000/museb/artist/',{
+        fetch('https://musebeta.herokuapp.com/museb/artist/',{
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -153,7 +153,7 @@ class Musicplayer extends Component {
 
             //source of audio file
             const source = {
-                uri: "http://localhost:8000" + this.state.playlist[this.state.index].music_file
+                uri: "https://musebeta.herokuapp.com" + this.state.playlist[this.state.index].music_file
             }
 
             const status = {
@@ -198,7 +198,7 @@ class Musicplayer extends Component {
 
         if (playbackInstance) {
             //clear curent track
-            index != 0 ? (index -=1 ) : (index = 0)
+            index != 0 ? (index -=1 ) : (index = 1)
 
             this.setState({
                 index
@@ -215,18 +215,30 @@ class Musicplayer extends Component {
         if (playbackInstance) {
             
             try {
-            index != 0 ? (index+=1 ) : (index = 0)
+            if (index < this.state.playlist.length - 1) {
+                index += 1
+                this.setState({
+                    index
+                })
+                this.loadAudio()
+            }
+
+            else {
+                this.setState({
+                    index: 0
+                })
+                this.loadAudio()
+            }
             }
             catch {
-                index = 1
+                this.setState({
+                    index: 0
+                })
+                this.loadAudio()
             }
-            this.setState({
-                index
-            })
-
-            this.loadAudio()
         }
     }
+
 
     goBack() {
         try {
@@ -269,7 +281,7 @@ class Musicplayer extends Component {
                 <ScrollView showsVerticalScrollIndicator={false} >
                             <TouchableOpacity style={styles.albums}>
                             <Image source={{
-                                uri: "http://localhost:8000" + this.state.playlist[this.state.index].image
+                                uri: "https://musebeta.herokuapp.com" + this.state.playlist[this.state.index].image
                             }} style={styles.albumimage3}/>
                             </TouchableOpacity>
 
@@ -300,6 +312,9 @@ class Musicplayer extends Component {
                     maximumValue={10}
                     minimumTrackTintColor="#FFFFFF"
                     maximumTrackTintColor="grey"
+                    value={3}
+                    step={1}
+                    disabled={true}
                     />
 
                 <View style={styles.main}>

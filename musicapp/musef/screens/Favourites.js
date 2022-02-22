@@ -5,7 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const updateStreams = (music) => {
-    fetch('http://localhost:8000/museb/music/',{
+    fetch('https://musebeta.herokuapp.com/museb/music/',{
         method: 'PUT',
         headers: {
           Accept: 'application/json',
@@ -26,7 +26,7 @@ export default function Favourites({route, navigation}) {
 
     useEffect(() => {
         
-        fetch('http://localhost:8000/museb/getlikedmusic/' , {
+        fetch('https://musebeta.herokuapp.com/museb/getlikedmusic/' , {
             method: 'POST',
             headers: {
               Accept: 'application/json',
