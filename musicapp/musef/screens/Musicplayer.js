@@ -203,7 +203,6 @@ class Musicplayer extends Component {
             this.setState({
                 index
             })
-
             this.loadAudio()
             
         }
@@ -296,7 +295,7 @@ class Musicplayer extends Component {
                 <Text style={styles.mainheader}>
                     {this.state.artiste}
                 </Text>
-                <MaterialCommunityIcons name="progress-download" size={32} color="white" style={{paddingLeft:'8%', paddingTop:2,}} />
+                
                 <MaterialCommunityIcons name="account-check-outline" size={32} color="white"  style={{paddingLeft:'8%', paddingTop:2,}} />
                 {this.state.liked ?
                 (<Entypo name="heart" size={25} color="white" style={{paddingLeft:'8%', paddingTop:5,}} onPress={() => {this.changeLikedState();this.delete(this.props.route.params.artiste.id)}} />):
