@@ -6,8 +6,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import memoji from '../assets/memoji.png';
 import UploadImage from './UploadImage';
 
-const logout = (token) => {
-    fetch('https://musebeta.herokuapp.com/museb/auth/logout/',{
+const logout = (token, navigate) => {
+    fetch('http://localhost:8000/museb/auth/logout/',{
             method: 'POST',
             headers: {
               Accept: 'application/json',
@@ -15,12 +15,11 @@ const logout = (token) => {
             },
             body: JSON.stringify({'token': token})
         })
-        .then(response => response.json())
-        .then(jsonResponse => 
-            console.log(jsonResponse))
         .then(() => {
             AsyncStorage.removeItem('token');
-            navigation.navigate('Login');
+        })
+        .then(() => {
+           navigate('SignIn');
         })
         .catch(error => console.log(error))
 }
@@ -35,7 +34,7 @@ export default function myprofile ({navigation}) {
         AsyncStorage.getItem('token')
         .then(token => {
             setToken(token);
-            fetch('https://musebeta.herokuapp.com/museb/getuser/',{
+            fetch('http://localhost:8000/museb/getuser/',{
                 method: 'POST',
                 headers: {
                   Accept: 'application/json',
@@ -113,8 +112,8 @@ export default function myprofile ({navigation}) {
             <View style={{backgroundColor: "#343547",width: "85%", height: 1, marginLeft: "7%", marginTop: 9, marginBottom:25,}}/>
 
             
-            <TouchableOpacity style={styles.details} onPress={() => navigation.navigate("SignIn")} >
-            <SimpleLineIcons name="logout"size={28} color="white"  style={{paddingRight:'5%'}} onPress={() => logout(token)} />
+            <TouchableOpacity style={styles.details} onPress={() => logout(token, navigation.navigate)} >
+            <SimpleLineIcons name="logout"size={28} color="white"  style={{paddingRight:'5%'}} />
             <Text style={{color:'white', fontSize:20, paddingRight:'48%'}}> Logout</Text>
             <Entypo name="chevron-right" size={30} color="white" />
             </TouchableOpacity>
