@@ -4,6 +4,7 @@ import {LinearGradient} from 'expo-linear-gradient';
 import { AntDesign, Ionicons, MaterialIcons } from '@expo/vector-icons';
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 /*const navigation = useNavigation();
 const [secure, setSecure] = useState(true);*/
@@ -33,6 +34,15 @@ class SignUp extends Component{
         this.setState({secure: !this.state.secure})
     }
 
+    storeData = async (value) => {
+        try {
+          await AsyncStorage.setItem('token', value)
+        } catch (e) {
+          // saving error
+          console.log(e)
+        }
+      }
+
     handleRequest = (props) => {
         console.log(payload)
         const payload = {
@@ -53,6 +63,8 @@ class SignUp extends Component{
                 console.log(token);
                 //set returned token as default authorization header
                 axios.defaults.headers.common.Authorization = 'Token ${token}';
+                //store token in async storage
+                this.storeData(token);
 
                 //navigate to home screen
                 this.props.navigation.navigate("Tabs");
