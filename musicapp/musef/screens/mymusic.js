@@ -25,9 +25,9 @@ export default function MyMusic({route, navigation }) {
             
 
             <View style={{marginLeft: "43%", display: "flex", flexDirection: "row", alignItems: "center"}}>
-                <TouchableOpacity style={{borderColor: "#282A2A", borderWidth: 1, alignContent: "center", justifyContent: "center", padding: 8, borderRadius: 20}}>
+                 {/*<TouchableOpacity style={{borderColor: "#282A2A", borderWidth: 1, alignContent: "center", justifyContent: "center", padding: 8, borderRadius: 20}}>
                     <Feather name="search" size={18} color="white" />
-                  </TouchableOpacity>
+                  </TouchableOpacity>*/}
 
                   <TouchableOpacity onPress={() => navigation.navigate("myprofile")}>
                     <Image source={require('../assets/memoji.png')} style={styles.image} />

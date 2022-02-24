@@ -78,10 +78,10 @@ export default function artists({ navigation }) {
             </View>
             
             <View style={{marginLeft: "58%", display: "flex", flexDirection: "row", alignItems: "center"}}>
-                <TouchableOpacity   style={{borderColor: "#343547", borderWidth: 1, padding: 10,borderRadius: 20}}>
+                 {/*<TouchableOpacity   style={{borderColor: "#343547", borderWidth: 1, padding: 10,borderRadius: 20}}>
                     <Feather name="search" size={21} color="white" />
                   </TouchableOpacity  >
-                  {/* <TouchableOpacity onPress={() => navigation.navigate("myprofile")} >
+                  <TouchableOpacity onPress={() => navigation.navigate("myprofile")} >
                     <Image source={require('../assets/memoji.png')} style={styles.image} />
                     </TouchableOpacity> */}
             </View>
