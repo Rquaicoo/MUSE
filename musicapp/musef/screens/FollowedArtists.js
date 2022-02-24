@@ -10,7 +10,7 @@ export default function FollowedArtists({route, navigation}) {
     const {token} = route.params
     const [isLoading, setLoading] = useState(true);
     const [artistes, setArtiste] = useState(null);
-
+    console.log(token)
     useEffect(() => {
         fetch('https://musebeta.herokuapp.com/museb/getfollowedartists/' , {
             method: 'POST',
@@ -40,9 +40,9 @@ export default function FollowedArtists({route, navigation}) {
                     
 
                             <View style={{marginLeft: "45%", display: "flex", flexDirection: "row", alignItems: "center"}}>
-                                <TouchableOpacity style={{borderColor: "#343547", borderWidth: 1, alignContent: "center", justifyContent: "center", padding: 8, borderRadius: 20}}>
+                                 {/*<TouchableOpacity style={{borderColor: "#343547", borderWidth: 1, alignContent: "center", justifyContent: "center", padding: 8, borderRadius: 20}}>
                                     <Feather name="search" size={21} color="white" />
-                                </TouchableOpacity>
+                                </TouchableOpacity>*/}
                                 <Image source={require('../assets/memoji.png')} style={styles.image} />
                             </View>
                         </View>

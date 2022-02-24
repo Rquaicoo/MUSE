@@ -72,12 +72,12 @@ export default function Home({ navigation }) {
         {/* Search bar */}
             <TouchableOpacity style={styles.headercontent} >
                   <View style={{flexDirection: "row"}}> 
-                  <Feather name="search" size={26} color="white" style={{paddingTop:17,paddingLeft:20,}}/>
+                   {/*<Feather name="search" size={26} color="white" style={{paddingTop:17,paddingLeft:20,}}/>
                     <TextInput placeholder='Search Music'
                     placeholderTextColor="#ffffff"
                     style={{paddingTop:18, paddingLeft:10, width:'73%',color:'white',}}
 
-                    />  
+               />  */}
                     <Octicons name="settings" size={26} color="white" style={{paddingTop:17, paddingLeft:10,}}/>
                    </View>  
              </TouchableOpacity>
