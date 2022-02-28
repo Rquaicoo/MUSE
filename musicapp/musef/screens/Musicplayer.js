@@ -314,7 +314,7 @@ class Musicplayer extends Component {
                     maximumTrackTintColor="grey"
                     value={3}
                     step={1}
-                    disabled={true}
+                    disabled={false}
                     />
 
                 <View style={styles.main}>
