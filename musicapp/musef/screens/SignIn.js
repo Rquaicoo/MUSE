@@ -74,7 +74,7 @@ class SignIn extends Component {
         return (
                     <ScrollView style={{  backgroundColor: '#141515', height: "100%", }}>
                         <View style={styles.container}>
-                            <TouchableOpacity style={{borderColor: "#ffffff", borderWidth: 1, padding: "4%", borderRadius: 10, marginRight: 20}} onPress={() => navigation.goBack()}>
+                            <TouchableOpacity style={{padding: "4%", borderRadius: 10, marginRight: 20}} onPress={() => navigation.goBack()}>
                                 <Ionicons name="chevron-back-sharp" size={24} color="white" />
                             </TouchableOpacity>
                                 <Text style={{fontWeight:'bold', fontSize:30, color: "#fdfdfd", marginTop: "2%"}}>Log In</Text>
