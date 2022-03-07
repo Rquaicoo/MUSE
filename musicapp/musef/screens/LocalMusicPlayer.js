@@ -29,6 +29,8 @@ class LocalMusicPlayer extends Component {
         playbackInstance: null,
         currentIndex: 0,
         volume: 1.0,
+        durationMillis: 0,
+        positionMillis: 0,
         isBuffering: false,
         playlist: this.props.route.params.playlist,
         index: this.props.route.params.index,
@@ -94,7 +96,7 @@ class LocalMusicPlayer extends Component {
             //playbackInstance.setOnPlaybackStatusUpdate(this.OnPlaybackStatusUpdate)
             await playbackInstance.loadAsync(source, status, false) //prevents audio from downloadning before playing
             this.setState({playbackInstance})
-
+            
             this.handlePlayPause()
             
         }
@@ -114,6 +116,10 @@ class LocalMusicPlayer extends Component {
     handlePlayPause = async () => {
 
         const { isPlaying, playbackInstance} = this.state
+        this.state.playbackInstance.getStatusAsync()
+            .then(status => {
+                console.log(status)
+            })
         //check whether audio is playing or pausing
         isPlaying ? await playbackInstance.pauseAsync() : await playbackInstance.playAsync()
 
@@ -190,14 +196,11 @@ class LocalMusicPlayer extends Component {
         return true;
       };
     
-    startImageRotateFunction = () => {
-        Animated.loop(Animated.timing(this.state.rotateValueHolder, {
-          toValue: 1,
-          duration: 3000,
-          easing: Easing.linear,
-          useNativeDriver: false,
-        })).start();
-      };
+      millisToMinutesAndSeconds(millis) {
+        var minutes = Math.floor(millis / 60000);
+        var seconds = ((millis % 60000) / 1000).toFixed(0);
+        return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
+      }
     
     render() {
         const { navigation } = this.props;
@@ -234,12 +237,12 @@ class LocalMusicPlayer extends Component {
                 <Slider
                     style={{width: '90%', height: 40, marginLeft:15,marginTop:10,}}
                     minimumValue={0}
-                    maximumValue={10}
+                    maximumValue={this.state.durationMillis}
                     minimumTrackTintColor="#FFFFFF"
                     maximumTrackTintColor="grey"
-                    value={3}
-                    step={1}
-                    disabled={true}
+                    value={30000}
+                    disabled={false}
+                    onValueChange={value => this.setState({positionMillis: value})}
                     />
 
                 <View style={styles.main}>

@@ -34,7 +34,7 @@ export default function myprofile ({navigation}) {
         AsyncStorage.getItem('token')
         .then(token => {
             setToken(token);
-            fetch('http://localhost:8000/museb/getuser/',{
+            fetch('https://musebeta.herokuapp.com/museb/getuser/',{
                 method: 'POST',
                 headers: {
                   Accept: 'application/json',

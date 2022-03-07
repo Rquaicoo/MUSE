@@ -109,7 +109,6 @@ export default function AllPopularArtists({ navigation }) {
                     </TouchableOpacity>
                     <View>
                     <Text style={styles.artistname}>{artist.name}</Text>
-                    <Text style={styles.artistlikes}> 900K Followers</Text>
                     </View>
                     <TouchableOpacity style={styles.followbutton} onPress={() => follow(artist.id, token)}>
                     <Text style={{color:'white', fontSize:20, fontWeight:'bold',alignSelf:'center',paddingTop:7,}}> Follow </Text>

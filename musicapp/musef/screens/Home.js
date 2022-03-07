@@ -82,7 +82,7 @@ export default function Home({ navigation }) {
                    </View>  
              </TouchableOpacity>
 
-        <ScrollView style={{marginBottom: "20%"}}>
+        <ScrollView >
         {/* Artist Image */}
         <View style={{flexDirection:'row'}}>
             <TouchableOpacity style={styles.musiccontent}>
@@ -117,7 +117,6 @@ export default function Home({ navigation }) {
                     </TouchableOpacity>
                     <View>
                     <Text style={styles.artistname}>{artist.name}</Text>
-                    <Text style={styles.artistlikes}> 900K Followers</Text>
                     </View>
                     <TouchableOpacity style={styles.followbutton}>
                     <Text style={{color:'white', fontSize:20, fontWeight:'bold',alignSelf:'center',paddingTop:7,}}> Follow </Text>
@@ -132,8 +131,8 @@ export default function Home({ navigation }) {
     </ScrollView>
       
     {/* Music Player */}
-    <View style={{height: "18%"}}>
-      <MiniPlayer />
+    <View style={{height: "12%", borderTopLeftRadius: 10,  borderTopRightRadius: 10}}>
+      <MiniPlayer style={{borderTopLeftRadius: 10,  borderTopRightRadius: 10}} />
    </View>
     </View>
     </View>
