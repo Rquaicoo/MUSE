@@ -43,35 +43,42 @@ export class AudioProvider extends Component {
     }
 
     getPermission = async () => {
-        const permission = await MediaLibrary.getPermissionsAsync();
-        if (permission.granted) {
-            //get audio files
-            this.getAudioFiles();
-        }
-
-        if (!permission.canAskAgain) {
-            //display alert that they need to allow permissions
-            this.setState({...this.state, permissionError: true})
-        }
-
-        if (!permission.granted && permission.canAskAgain) {
-            const {status, canAskAgain } = await MediaLibrary.requestPermissionsAsync();
-            if (status === 'denied' && canAskAgain) {
-                //display alert that they need to allow permissions
-
-            }
-
-            if (status === 'granted') {
+        try {
+            const permission = await MediaLibrary.getPermissionsAsync();
+            if (permission.granted) {
                 //get audio files
                 this.getAudioFiles();
             }
 
-            if (status === 'denied' && !canAskAgain) {
+            if (!permission.canAskAgain) {
                 //display alert that they need to allow permissions
                 this.setState({...this.state, permissionError: true})
             }
-        } 
+
+            if (!permission.granted && permission.canAskAgain) {
+                const {status, canAskAgain } = await MediaLibrary.requestPermissionsAsync();
+                if (status === 'denied' && canAskAgain) {
+                    //display alert that they need to allow permissions
+                    this.permissionAlert();
+
+                }
+
+                if (status === 'granted') {
+                    //get audio files
+                    this.getAudioFiles();
+                }
+
+                if (status === 'denied' && !canAskAgain) {
+                    //display alert that they need to allow permissions
+                    this.setState({...this.state, permissionError: true})
+                }
+            } 
+    } 
+    catch (e) {
+        console.log(e)
     }
+    }
+
 
     componentDidMount() {
         this.getPermission();

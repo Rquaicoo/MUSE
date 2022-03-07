@@ -39,8 +39,6 @@ function Tabs({navigation}) {
           }
       }}
 
-      tabBarOptions={{
-      }}
      >
       <Tab.Screen name="Browser" component={Browser} 
       options={{ tabBarLabel:('Browser'), headerShown: false , tabBarIcon: ({color}) => 
