@@ -40,6 +40,10 @@ class CreateUserView(CreateAPIView):
 
         #generate token for future authentication
         token = Token.objects.create(user=serializer.instance).key
+        try:
+            UserImage.objects.create(token=token)
+        except:
+            pass
         token_data = {"token": token}
         print(token_data)
         return Response(
@@ -410,3 +414,19 @@ class GetUserView(APIView):
             user = request.user
         user = UserSerializer(user)
         return Response(user.data, status=status.HTTP_200_OK)
+
+
+class GetUserImageView(APIView):
+    def get(self, request):
+        try:
+            token = Token.objects.get(key=dict(request.data)["user_token"])
+        except:
+            token = Token.objects.get(user=request.user)
+        try:
+            UserImage.objects.create(token=token)
+        except:
+            pass
+        data = UserImage.objects.filter(token=token)
+        userData = UserImageSerializer(data, many=True)
+        return Response(userData.data, status=status.HTTP_200_OK)
+    
