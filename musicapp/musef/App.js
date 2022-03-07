@@ -43,17 +43,29 @@ import PlaylistContent from './screens/PlaylistContent';
 
 const Stack = createNativeStackNavigator();
 
+/*
+<><View>
+      <StatusBar barStyle="light-content" />
+    </View>
+*/
 
 export default function App() {
   return (
 
-    <><View>
-      <StatusBar barStyle="light-content" />
-    </View>
+    
     <AudioProvider>
         <NavigationContainer>
           <Stack.Navigator>
-          <Stack.Screen name="SignIn" component={SignIn} options={{
+          <Stack.Screen name="Intro1" component={Intro1} options={{
+              headerShown: false
+            }} />
+            <Stack.Screen name="Intro2" component={Intro2} options={{
+              headerShown: false
+            }} />
+            <Stack.Screen name="Intro3" component={Intro3} options={{
+              headerShown: false
+            }} />
+            <Stack.Screen name="SignIn" component={SignIn} options={{
               headerShown: false
             }} />
             <Stack.Screen name="SignUp" component={SignUp} options={{
@@ -66,17 +78,7 @@ export default function App() {
               headerShown: false
             }} />
           
-            
-            <Stack.Screen name="Intro1" component={Intro1} options={{
-              headerShown: false
-            }} />
-            <Stack.Screen name="Intro2" component={Intro2} options={{
-              headerShown: false
-            }} />
-            <Stack.Screen name="Intro3" component={Intro3} options={{
-              headerShown: false
-            }} />
-
+          
             <Stack.Screen name="AllArtists" component={AllPopularArtists} options={{
               headerShown: false
             }} />
@@ -134,7 +136,7 @@ export default function App() {
             }} />
           </Stack.Navigator>
         </NavigationContainer>
-      </AudioProvider></>
+      </AudioProvider>
   );
 }
 

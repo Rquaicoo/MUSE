@@ -8,7 +8,6 @@ import { Octicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
-
 const updateStreams = (music) => {
     fetch('https://musebeta.herokuapp.com/museb/music/',{
         method: 'PUT',
@@ -183,6 +182,7 @@ const styles = StyleSheet.create({
         marginLeft: '2%',
         borderRadius: 15,
         alignSelf: "center",
+        
     },
     mainimage: {
         height:hp('30%'),
