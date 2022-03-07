@@ -97,13 +97,6 @@ export default function myprofile ({navigation}) {
             <View style={{backgroundColor: "#343547",width: "85%", height: 1, marginLeft: "7%", marginTop: 9, marginBottom:25,}}/>
 
             <TouchableOpacity style={styles.details}>
-            <MaterialIcons name="history" size={30} color="white"  style={{paddingRight:'5%'}} />
-            <Text style={{color:'white', fontSize:20,  paddingRight:'47%'}}> History</Text>
-            <Entypo name="chevron-right" size={30} color="white" />
-            </TouchableOpacity>
-            <View style={{backgroundColor: "#343547",width: "85%", height: 1, marginLeft: "7%", marginTop: 9, marginBottom:25,}}/>
-
-            <TouchableOpacity style={styles.details}>
             
             <MaterialCommunityIcons name="progress-download" size={30} color="white"  style={{paddingRight:'5%'}} onPress={() => navigation.navigate("LocalAudio")} />
             <Text style={{color:'white', fontSize:20,  paddingRight:'38%'}}> Downloads</Text>

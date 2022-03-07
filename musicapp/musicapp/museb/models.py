@@ -1,3 +1,5 @@
+from email.policy import default
+from lib2to3.pgen2 import token
 from django.db import models
 from rest_framework.authtoken.models import Token
 
@@ -138,6 +140,14 @@ class LikedMusic(models.Model):
 class ListenLater(models.Model):
     user_token = models.ForeignKey(Token, on_delete=models.CASCADE, null=False)
     music = models.ForeignKey(Music, on_delete=models.CASCADE, null=False, blank=False)
+    
 
     def __str__(self):
         return str(self.music)
+
+class UserImage(models.Model):
+    token = models.OneToOneField(Token, on_delete=models.CASCADE, null=False)
+    image = models.ImageField(blank=False, null=False, default='memoji.png')
+
+    def __str__(self):
+        return str(self.token)
