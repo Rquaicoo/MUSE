@@ -32,6 +32,8 @@ class Musicplayer extends Component {
         currentIndex: 0,
         volume: 1.0,
         isBuffering: false,
+        durationMillis: 0,
+        positionMillis: 0,
         liked: false,
         artiste: "",
         token: "",
@@ -165,7 +167,10 @@ class Musicplayer extends Component {
             //playbackInstance.setOnPlaybackStatusUpdate(this.OnPlaybackStatusUpdate)
             await playbackInstance.loadAsync(source, status, false) //prevents audio from downloadning before playing
             this.setState({playbackInstance})
-
+            playbackInstance.getStatusAsync()
+            .then(status => {
+                console.log(status)
+            })
             this.handlePlayPause()
             
         }
@@ -256,14 +261,14 @@ class Musicplayer extends Component {
         return true;
       };
     
-    startImageRotateFunction = () => {
+    /*startImageRotateFunction = () => {
         Animated.loop(Animated.timing(this.state.rotateValueHolder, {
           toValue: 1,
           duration: 3000,
           easing: Easing.linear,
           useNativeDriver: false,
         })).start();
-      };
+      };*/
     
     render() {
         const { navigation } = this.props;
