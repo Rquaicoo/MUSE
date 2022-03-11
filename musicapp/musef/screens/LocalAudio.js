@@ -4,6 +4,12 @@ import { Feather, AntDesign,Entypo, Ionicons,FontAwesome5, SimpleLineIcons,FontA
 import { AudioContext } from './AudioProvider';
 import { useNavigation } from '@react-navigation/native';
 
+const toMinutesAndSeconds = (secs) => {
+    var minutes = Math.floor(secs / 60);
+    var seconds = ((secs % 60) / 1).toFixed(0);
+    console.log(minutes + ":" + (seconds < 10 ? '0' : '') + seconds)
+    return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
+  }
 
 export class LocalAudio extends React.Component {
     static contextType = AudioContext;
@@ -40,6 +46,7 @@ export class LocalAudio extends React.Component {
                             <Text style={{fontSize:16,color:'#fff', fontWeight:'bold',}}>{item.filename}</Text>
                             <View style={{display: "flex", flexDirection: "row",}} >
                             </View>
+                            <Text style={{fontSize:12,color:'#fff', fontWeight:'bold',}}>{toMinutesAndSeconds(item.duration)}</Text>
                         </View>
                         <View style={{justifyContent: "center", flex:1}}>
                             <Feather name="play" size={24} color="white" />
