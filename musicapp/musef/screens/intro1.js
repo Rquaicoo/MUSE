@@ -5,15 +5,6 @@ import { AntDesign } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Intro1({ navigation }) {
-
-  useEffect(() => {
-    AsyncStorage.getItem('token')
-    .then(token => {
-      if(token !== null || token !== "" || token !== undefined){
-        navigation.navigate('Tabs');
-      }
-    })
-  }, [])
   return (
     <View style={styles.container}>
       <Image source={require('../assets/yw.jpg')} style={styles.image} />

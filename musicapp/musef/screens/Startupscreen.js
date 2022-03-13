@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 import { Animated, StyleSheet,StatusBar,Text, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 
@@ -12,18 +12,13 @@ const FadeInView = (props) => {
   const fadeAnim = useRef(new Animated.Value(0)).current  // Initial value for opacity: 0
   
   useEffect(() => {
-    Animated.timing(
-      fadeAnim,
-      {
-        toValue: 1000,
-       
-        duration: 90000,
-        useNativeDriver: true, 
+    AsyncStorage.getItem('token')
+    .then(token => {
+      if(token !== null || token !== "" || token !== undefined){
+        navigation.navigate('Tabs');
       }
-    ).start()
-    , navigation.navigate('SignIn')
-     
-  }, [fadeAnim])
+    })
+  }, [])
 
   
   return (
