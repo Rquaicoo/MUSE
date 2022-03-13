@@ -1,13 +1,13 @@
 import {React, useState, useEffect} from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, TextInput, View, Image,Modal, TouchableOpacity, TouchableWithoutFeedback, ImageBackground,ScrollView} from 'react-native';
+import { StyleSheet, Text, TextInput, View, Image,Modal, TouchableOpacity, Alert, ImageBackground,ScrollView} from 'react-native';
 import { Feather, AntDesign,Entypo, Ionicons,FontAwesome5, SimpleLineIcons,FontAwesome, MaterialCommunityIcons,MaterialIcons,  } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import memoji from '../assets/memoji.png';
 import UploadImage from './UploadImage';
 
 const logout = (token, navigate) => {
-    fetch('http://localhost:8000/museb/auth/logout/',{
+    fetch('https://musebeta.herokuapp.com/museb/auth/logout/',{
             method: 'POST',
             headers: {
               Accept: 'application/json',
@@ -29,7 +29,21 @@ const logout = (token, navigate) => {
 export default function myprofile ({navigation}) {
 
     const [token, setToken] = useState(null);
+    const [userImage, setUserImage] = useState(null);
     const [user, setUser] = useState([]);
+
+    const showAlert = () => {
+        Alert.alert(
+            'Not Available',
+            'This feature will be available soon',
+            [
+                {text: 'OK', onPress: () => console.log('OK Pressed')},
+            ],
+            {cancelable: false},
+        );
+    }
+
+
     useEffect(() => {
         AsyncStorage.getItem('token')
         .then(token => {
@@ -45,7 +59,22 @@ export default function myprofile ({navigation}) {
             .then(response => response.json())
             .then(jsonResponse => 
                 setUser(jsonResponse))
-            .catch(error => console.log(error))
+            .catch(error => console.log(error));
+
+            fetch('https://musebeta.herokuapp.com/museb/getuserimage/',{
+                method: 'POST',
+                headers: {
+                  Accept: 'application/json',
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({'user_token': token})
+            })
+            .then(response => response.json())
+            .then(jsonResponse => 
+                setUserImage(jsonResponse[0].image))
+            .catch(error => console.log(error));
+            
+
            })
            
     }, [])
@@ -72,7 +101,10 @@ export default function myprofile ({navigation}) {
                 {/* Artist Image */}
              <TouchableOpacity style={styles.albums}  >
                  <View style={styles.border}>
-                   <UploadImage/>
+                   {/*<UploadImage/>*/}
+                   <Image source={{
+                       uri: "https://musebeta.herokuapp.com" + userImage
+                   }} style={styles.albumimage3}/> 
                 </View>
             </TouchableOpacity>
             
@@ -82,23 +114,23 @@ export default function myprofile ({navigation}) {
         {/* Details */}
         
         <View style={{marginTop: '15%',opacity:0.8}}>
-            <TouchableOpacity style={styles.details}>
+            <TouchableOpacity style={styles.details} onPress={showAlert()}>
             <MaterialCommunityIcons name="account-edit-outline" size={30} color="white"  style={{paddingRight:'5%'}} />
             <Text style={{color:'white', fontSize:20,  paddingRight:'40%'}}> Edit Profile</Text>
             <Entypo name="chevron-right" size={30} color="white" />
             </TouchableOpacity>
             <View style={{backgroundColor: "#343547",width: "85%", height: 1, marginLeft: "7%", marginTop: 9, marginBottom:25,}}/>
                
-            <TouchableOpacity style={styles.details}>
+            <TouchableOpacity style={styles.details} onPress={() => navigation.navigate("ListenLater")}>
             <AntDesign name="playcircleo" size={30} color="white"  style={{paddingRight:'5%'}} />
             <Text style={{color:'white', fontSize:20,  paddingRight:'37%'}}> Listen Later</Text>
             <Entypo name="chevron-right" size={30} color="white" />
             </TouchableOpacity>
-            <View style={{backgroundColor: "#343547",width: "85%", height: 1, marginLeft: "7%", marginTop: 9, marginBottom:25,}}/>
+            <View style={{backgroundColor: "#343547",width: "85%", height: 1, marginLeft: "7%", marginTop: 9, marginBottom:25,}} />
 
-            <TouchableOpacity style={styles.details}>
+            <TouchableOpacity style={styles.details} onPress={() => navigation.navigate("LocalAudio")}>
             
-            <MaterialCommunityIcons name="progress-download" size={30} color="white"  style={{paddingRight:'5%'}} onPress={() => navigation.navigate("LocalAudio")} />
+            <MaterialCommunityIcons name="progress-download" size={30} color="white"  style={{paddingRight:'5%'}} />
             <Text style={{color:'white', fontSize:20,  paddingRight:'38%'}}> Downloads</Text>
             <Entypo name="chevron-right" size={30} color="white" />
             </TouchableOpacity>
@@ -115,7 +147,7 @@ export default function myprofile ({navigation}) {
         </View>
 
 
-        <Text style={{ color:'white', fontSize:17, textAlign:'center', paddingTop:10 ,paddingBottom:50, paddingRight:10,}}> Version 1.0.0</Text>
+        <Text style={{ color:'white', fontSize:17, textAlign:'center', paddingTop:10 ,paddingBottom:50, paddingRight:10,}}> Version 1.0.1</Text>
 
 
 

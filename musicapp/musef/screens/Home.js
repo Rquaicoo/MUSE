@@ -131,9 +131,9 @@ export default function Home({ navigation }) {
     </ScrollView>
       
     {/* Music Player */}
-    <View style={{height: "12%", borderTopLeftRadius: 10,  borderTopRightRadius: 10}}>
+    {/*<View style={{height: "12%", borderTopLeftRadius: 10,  borderTopRightRadius: 10}}>
       <MiniPlayer style={{borderTopLeftRadius: 10,  borderTopRightRadius: 10}} />
-   </View>
+   </View>*/}
     </View>
     </View>
   )};

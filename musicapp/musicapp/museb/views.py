@@ -429,4 +429,17 @@ class GetUserImageView(APIView):
         data = UserImage.objects.filter(token=token)
         userData = UserImageSerializer(data, many=True)
         return Response(userData.data, status=status.HTTP_200_OK)
+
+    def post(self, request):
+        try:
+            token = Token.objects.get(key=dict(request.data)["user_token"])
+        except:
+            token = Token.objects.get(user=request.user)
+        try:
+            UserImage.objects.create(token=token)
+        except:
+            pass
+        data = UserImage.objects.filter(token=token)
+        userData = UserImageSerializer(data, many=True)
+        return Response(userData.data, status=status.HTTP_200_OK)
     
