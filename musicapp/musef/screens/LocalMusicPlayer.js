@@ -56,6 +56,8 @@ class LocalMusicPlayer extends Component {
                 playThroughEarpieceAndroid: false
             })
             this.loadAudio()
+
+            
             
         }
         catch(error) {
@@ -96,36 +98,60 @@ class LocalMusicPlayer extends Component {
             //playbackInstance.setOnPlaybackStatusUpdate(this.OnPlaybackStatusUpdate)
             await playbackInstance.loadAsync(source, status, false) //prevents audio from downloadning before playing
             this.setState({playbackInstance})
-            
+            this.state.playbackInstance.getStatusAsync().then(status => {
+                this.setState({
+                    durationMillis: status.durationMillis,
+                    positionMillis: status.positionMillis,
+                })
+            })
+
             this.handlePlayPause()
             
         }
         catch (error) {
             console.log(error)
         }
-
-        /*{ OnPlaybackStatusUpdate = status => {
-            this.setState({
-                isBuffering: status.isBuffering
-            })}
-        }*/
     }
 
     /*control handlers */
 
+    
+
     handlePlayPause = async () => {
 
         const { isPlaying, playbackInstance} = this.state
-        this.state.playbackInstance.getStatusAsync()
-            .then(status => {
-                console.log(status)
-            })
+        console.log(this.state.durationMillis)
         //check whether audio is playing or pausing
         isPlaying ? await playbackInstance.pauseAsync() : await playbackInstance.playAsync()
 
         this.setState({
             isPlaying: !isPlaying
         })
+
+        while(isPlaying) {
+            playbackInstance.getStatusAsync().then(status => {
+                this.setState({
+                    positionMillis: status.positionMillis
+                })
+            })
+            if (this.state.positionMillis >= this.state.durationMillis) {
+                break
+            }
+        }
+    }
+
+
+    moveSlider() {
+        const {playbackInstance} = this.state
+      
+            playbackInstance.getStatusAsync().then(status => {
+                this.setState({
+                    positionMillis: status.positionMillis
+                })
+            })
+            if (this.state.positionMillis >= this.state.durationMillis) {
+                this.handlePlayPause()
+            }
     }
 
     handlePreviousTrack = async () => {
@@ -201,9 +227,17 @@ class LocalMusicPlayer extends Component {
         var seconds = ((millis % 60000) / 1000).toFixed(0);
         return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
       }
-    
+
+    onSliderChange = async (value) => {
+        const { playbackInstance } = this.state
+        await playbackInstance.setPositionAsync(value)
+        this.setState({
+            positionMillis: value
+        })
+    }
     render() {
         const { navigation } = this.props;
+        
         
             return(
 
@@ -240,14 +274,15 @@ class LocalMusicPlayer extends Component {
                     maximumValue={this.state.durationMillis}
                     minimumTrackTintColor="#FFFFFF"
                     maximumTrackTintColor="grey"
-                    value={30000}
+                    value={this.state.positionMillis}
                     disabled={false}
-                    onValueChange={value => this.setState({positionMillis: value})}
+                    onValueChange={(value) => {this.setState({positionMillis: value});this.state.playbackInstance.setPositionAsync(value)}}
+                    
                     />
 
                 <View style={styles.main}>
-                <Text style={{fontSize:15,color:'white' ,paddingLeft:16, paddingTop:10, fontWeight:'bold', opacity:0.7}}> 0:00</Text>
-                <Text style={{fontSize:15,color:'white' ,paddingLeft:'73%', paddingTop:10, fontWeight:'bold', opacity:0.7}}> 3:45</Text>
+                <Text style={{fontSize:15,color:'white' ,paddingLeft:16, paddingTop:10, fontWeight:'bold', opacity:0.7}}> {this.millisToMinutesAndSeconds(this.state.positionMillis)}</Text>
+                <Text style={{fontSize:15,color:'white' ,paddingLeft:'73%', paddingTop:10, fontWeight:'bold', opacity:0.7}}>{this.millisToMinutesAndSeconds(this.state.durationMillis)}</Text>
                 </View>
 
                 {/* PLay */}

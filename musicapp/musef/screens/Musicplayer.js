@@ -165,7 +165,7 @@ class Musicplayer extends Component {
             
             
             //playbackInstance.setOnPlaybackStatusUpdate(this.OnPlaybackStatusUpdate)
-            await playbackInstance.loadAsync(source, status, false) //prevents audio from downloadning before playing
+            await playbackInstance.loadAsync(source, status, true) //prevents audio from downloadning before playing
             this.setState({playbackInstance})
             playbackInstance.getStatusAsync()
             .then(status => {
