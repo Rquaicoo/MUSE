@@ -14,7 +14,11 @@ const FadeInView = (props) => {
   useEffect(() => {
     AsyncStorage.getItem('token')
     .then(token => {
-      if(token !== null || token !== "" || token !== undefined){
+      if(token == null){
+        console.log(token)
+        navigation.navigate('SignIn');
+      }
+      else {
         navigation.navigate('Tabs');
       }
     })

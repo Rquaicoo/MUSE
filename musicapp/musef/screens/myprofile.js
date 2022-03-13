@@ -24,7 +24,16 @@ const logout = (token, navigate) => {
         .catch(error => console.log(error))
 }
 
-
+const showAlert = () => {
+    Alert.alert(
+        'Not Available',
+        'This feature will be available soon',
+        [
+            {text: 'OK', onPress: () => console.log('OK Pressed')},
+        ],
+        {cancelable: false},
+    );
+}
 
 export default function myprofile ({navigation}) {
 
@@ -32,16 +41,7 @@ export default function myprofile ({navigation}) {
     const [userImage, setUserImage] = useState(null);
     const [user, setUser] = useState([]);
 
-    const showAlert = () => {
-        Alert.alert(
-            'Not Available',
-            'This feature will be available soon',
-            [
-                {text: 'OK', onPress: () => console.log('OK Pressed')},
-            ],
-            {cancelable: false},
-        );
-    }
+    
 
 
     useEffect(() => {
