@@ -1,5 +1,5 @@
 import React, {useState, Component } from 'react';
-import { StyleSheet, Text, View,Image, TouchableOpacity, StatusBar, TextInput, ScrollView } from 'react-native';
+import { StyleSheet, Text, View,Image, TouchableOpacity, ActivityIndicator, TextInput, ScrollView } from 'react-native';
 import {LinearGradient} from 'expo-linear-gradient';
 import { AntDesign, Ionicons, MaterialIcons } from '@expo/vector-icons';
 import axios from 'axios';
@@ -16,6 +16,11 @@ class SignUp extends Component{
         email: '',
         password: '',
         secure: true,
+        startloader: false,
+    }
+
+    startLoader() {
+        this.setState({startloader: true})
     }
 
     onUnsernameChange = (text) => {
@@ -44,7 +49,7 @@ class SignUp extends Component{
       }
 
     handleRequest = (props) => {
-        console.log(payload)
+        this.startLoader()
         const payload = {
             username: this.state.username,
             email: this.state.email,
@@ -143,6 +148,15 @@ render () {
                 
                     </LinearGradient>
                     </TouchableOpacity>
+
+                    {
+                                this.state.startloader ? (
+                                    <View style={{alignContent: "center", justifyContent: "center", alignSelf: "center", marginTop: 10, marginBottom: 10}}>
+                                        <ActivityIndicator color="#fff" size="large"  />
+                                    </View>)
+                                    :
+                                    (<View></View>)
+                            }
 
                     <Text style={{fontWeight:'bold', fontSize:15, alignSelf:'center',color:'white', marginTop: 13}} onPress={() => navigation.navigate("SignIn")} > Already have an account? Sign in</Text>
             </ScrollView>       
