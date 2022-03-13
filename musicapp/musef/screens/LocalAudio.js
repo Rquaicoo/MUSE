@@ -7,7 +7,6 @@ import { useNavigation } from '@react-navigation/native';
 const toMinutesAndSeconds = (secs) => {
     var minutes = Math.floor(secs / 60);
     var seconds = ((secs % 60) / 1).toFixed(0);
-    console.log(minutes + ":" + (seconds < 10 ? '0' : '') + seconds)
     return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
   }
 
