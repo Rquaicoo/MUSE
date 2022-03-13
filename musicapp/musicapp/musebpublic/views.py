@@ -26,10 +26,10 @@ def signUp(request):
             timestamp = datetime.datetime.today()
             )
         return render(request, 'betasignup.html')
-    elif BetaUsers.objects.count() == 10:
+    elif BetaUsers.objects.count() == 15:
         return render(request, 'full.html')
     else:
-        context = {'numberleft': 10 - BetaUsers.objects.count()}
+        context = {'numberleft': 15 - BetaUsers.objects.count()}
         return render(request, 'betasignup.html', context)
 
 def users(request):
