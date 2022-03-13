@@ -34,7 +34,7 @@ class LocalMusicPlayer extends Component {
         isBuffering: false,
         playlist: this.props.route.params.playlist,
         index: this.props.route.params.index,
-        rotateValueHolder: new Animated.Value(0)
+        timer: null,
     }
 
 
@@ -106,6 +106,7 @@ class LocalMusicPlayer extends Component {
             })
 
             this.handlePlayPause()
+            this.moveSlider()
             
         }
         catch (error) {
@@ -128,30 +129,24 @@ class LocalMusicPlayer extends Component {
             isPlaying: !isPlaying
         })
 
-        while(isPlaying) {
-            playbackInstance.getStatusAsync().then(status => {
-                this.setState({
-                    positionMillis: status.positionMillis
-                })
-            })
-            if (this.state.positionMillis >= this.state.durationMillis) {
-                break
-            }
-        }
+        //if audio is playing, start timer
+    
     }
 
 
     moveSlider() {
         const {playbackInstance} = this.state
-      
+        this.timer = setInterval(() => {
             playbackInstance.getStatusAsync().then(status => {
                 this.setState({
                     positionMillis: status.positionMillis
                 })
             })
-            if (this.state.positionMillis >= this.state.durationMillis) {
-                this.handlePlayPause()
-            }
+        }, 1000)
+      
+        if (this.state.positionMillis >= this.state.durationMillis) {
+            this.handlePlayPause()
+        }
     }
 
     handlePreviousTrack = async () => {
@@ -234,6 +229,8 @@ class LocalMusicPlayer extends Component {
         this.setState({
             positionMillis: value
         })
+
+        
     }
     render() {
         const { navigation } = this.props;

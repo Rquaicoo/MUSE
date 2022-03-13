@@ -87,8 +87,9 @@ export class AudioProvider extends Component {
     render () {
         if(this.state.permissionError) {
             return <View style={{justifyContent: "center", alignItem: "center", alignContent: "center"}}>
-                <Text>
+                <Text style={{color: "white"}}>
                     You have not accepted the permissions
+                    Please allow permissions in your settings
                 </Text>
             </View>
         }
