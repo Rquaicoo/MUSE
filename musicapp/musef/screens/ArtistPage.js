@@ -107,8 +107,7 @@ export default function ArtistPage ({route, navigation}) {
                                     <View style={{display: "flex", flexDirection: "row",}} >
                                         <MaterialCommunityIcons name="play-box-multiple-outline" size={11} color="white" />
                                         <Text style={{fontSize:11,color:'#fff', fontWeight:'200',marginLeft: "4%"}}>{song.streams} streams</Text>
-                                        <Ionicons name="ios-timer-outline" size={11} color="white" style={{marginLeft: "15%"}} />
-                                        <Text style={{fontSize:11,color:'#fff', fontWeight:'200',marginLeft: "4%"}}>3.14</Text>
+                                        
                                     </View>
                                 </View>
                             </View>

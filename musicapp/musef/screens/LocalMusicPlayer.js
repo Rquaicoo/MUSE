@@ -1,6 +1,6 @@
 import React, {Component, useState} from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, TextInput, View, Image,Modal, TouchableOpacity, BackHandler, Animated,ScrollView} from 'react-native';
+import { StyleSheet, Text, TextInput, View, Image,Alert, TouchableOpacity, BackHandler, Animated,ScrollView} from 'react-native';
 import { Feather, Entypo, Ionicons,FontAwesome5, FontAwesome, MaterialCommunityIcons,MaterialIcons,  } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import Slider from '@react-native-community/slider';
@@ -149,8 +149,17 @@ class LocalMusicPlayer extends Component {
         }
     }
 
+    //stop and reset timer function
+    stopAndResetTimer() {
+        clearInterval(this.timer)
+        this.setState({
+            positionMillis: 0
+        })
+    }
+
     handlePreviousTrack = async () => {
         let { playbackInstance, index } = this.state
+        this.stopAndResetTimer() 
 
         if (playbackInstance) {
             //clear curent track
@@ -167,6 +176,7 @@ class LocalMusicPlayer extends Component {
 
     handleNextTrack = async () => {
         let { playbackInstance, index } = this.state
+        this.stopAndResetTimer()
 
         if (playbackInstance) {
             
@@ -228,9 +238,18 @@ class LocalMusicPlayer extends Component {
         await playbackInstance.setPositionAsync(value)
         this.setState({
             positionMillis: value
-        })
-
-        
+        })   
+    }
+    //alert that this feature is not available
+    showAlert() {
+        Alert.alert(
+            'Not Available',
+            'This feature will be available soon',
+            [
+                {text: 'OK', onPress: () => console.log('OK Pressed')},
+            ],
+            {cancelable: false},
+        );
     }
     render() {
         const { navigation } = this.props;
@@ -296,10 +315,10 @@ class LocalMusicPlayer extends Component {
                 </View>
 
                 <View style={styles.main1}>
-                <MaterialCommunityIcons name="playlist-music" size={40} color="grey"  style={{ paddingRight:60}}/>
-                <Ionicons name="ios-repeat" size={40} color="grey" style={{ paddingRight:60}} />
-                <Ionicons name="md-shuffle" size={40} color="grey"  style={{ paddingRight:60}}/>
-                <MaterialIcons name="playlist-add" size={40} color="grey" />
+                <MaterialCommunityIcons name="playlist-music" size={40} color="grey"  style={{ paddingRight:60}} onPress={() => this.showAlert()}/>
+                <Ionicons name="ios-repeat" size={40} color="grey" style={{ paddingRight:60}}  onPress={() => this.showAlert()}/>
+                <Ionicons name="md-shuffle" size={40} color="grey"  style={{ paddingRight:60}} onPress={() => this.showAlert()}/>
+                <MaterialIcons name="playlist-add" size={40} color="grey"  onPress={() => this.showAlert()}/>
                 </View>
 
                 <View style={styles.main1}>

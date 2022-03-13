@@ -1,6 +1,6 @@
 import React, {Component, useState} from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, TextInput, View, Image,Modal, TouchableOpacity, BackHandler, Animated,ScrollView} from 'react-native';
+import { StyleSheet, Text, TextInput, View, Image,Alert, TouchableOpacity, BackHandler, Animated,ScrollView} from 'react-native';
 import { Feather, Entypo, Ionicons,FontAwesome5, FontAwesome, MaterialCommunityIcons,MaterialIcons,  } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import Slider from '@react-native-community/slider';
@@ -39,7 +39,7 @@ class Musicplayer extends Component {
         token: "",
         playlist: this.props.route.params.playlist,
         index: this.props.route.params.index,
-        rotateValueHolder: new Animated.Value(0)
+        timer: null,
     }
 
     changeLikedState = () => {
@@ -167,22 +167,20 @@ class Musicplayer extends Component {
             //playbackInstance.setOnPlaybackStatusUpdate(this.OnPlaybackStatusUpdate)
             await playbackInstance.loadAsync(source, status, true) //prevents audio from downloadning before playing
             this.setState({playbackInstance})
-            playbackInstance.getStatusAsync()
-            .then(status => {
-                console.log(status)
+            this.state.playbackInstance.getStatusAsync().then(status => {
+                this.setState({
+                    durationMillis: status.durationMillis,
+                    positionMillis: status.positionMillis,
+                })
             })
             this.handlePlayPause()
+            this.moveSlider()
             
         }
         catch (error) {
             console.log(error)
         }
 
-        /*{ OnPlaybackStatusUpdate = status => {
-            this.setState({
-                isBuffering: status.isBuffering
-            })}
-        }*/
     }
 
     /*control handlers */
@@ -198,9 +196,31 @@ class Musicplayer extends Component {
         })
     }
 
+    moveSlider() {
+        const {playbackInstance} = this.state
+        this.timer = setInterval(() => {
+            playbackInstance.getStatusAsync().then(status => {
+                this.setState({
+                    positionMillis: status.positionMillis
+                })
+            })
+        }, 1000)
+      
+        if (this.state.positionMillis >= this.state.durationMillis) {
+            this.handlePlayPause()
+        }
+    }
+
+    //stop and reset timer function
+    stopAndResetTimer() {
+        clearInterval(this.timer)
+        this.setState({
+            positionMillis: 0
+        })
+    }
     handlePreviousTrack = async () => {
         let { playbackInstance, index } = this.state
-
+        this.stopAndResetTimer()
         if (playbackInstance) {
             //clear curent track
             index != 0 ? (index -=1 ) : (index = 1)
@@ -215,7 +235,7 @@ class Musicplayer extends Component {
 
     handleNextTrack = async () => {
         let { playbackInstance, index } = this.state
-
+        this.stopAndResetTimer()
         if (playbackInstance) {
             
             try {
@@ -260,16 +280,32 @@ class Musicplayer extends Component {
         }
         return true;
       };
+
+      millisToMinutesAndSeconds(millis) {
+        var minutes = Math.floor(millis / 60000);
+        var seconds = ((millis % 60000) / 1000).toFixed(0);
+        return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
+      }
+
+      onSliderChange = async (value) => {
+        const { playbackInstance } = this.state
+        await playbackInstance.setPositionAsync(value)
+        this.setState({
+            positionMillis: value
+        })
+    }
     
-    /*startImageRotateFunction = () => {
-        Animated.loop(Animated.timing(this.state.rotateValueHolder, {
-          toValue: 1,
-          duration: 3000,
-          easing: Easing.linear,
-          useNativeDriver: false,
-        })).start();
-      };*/
-    
+    //alert that this feature is not available
+    showAlert() {
+        Alert.alert(
+            'Not Available',
+            'This feature will be available soon',
+            [
+                {text: 'OK', onPress: () => console.log('OK Pressed')},
+            ],
+            {cancelable: false},
+        );
+    }
     render() {
         const { navigation } = this.props;
         
@@ -313,17 +349,17 @@ class Musicplayer extends Component {
                     <Slider
                     style={{width: '90%', height: 40, marginLeft:15,marginTop:10,}}
                     minimumValue={0}
-                    maximumValue={10}
+                    maximumValue={this.state.durationMillis}
                     minimumTrackTintColor="#FFFFFF"
                     maximumTrackTintColor="grey"
-                    value={3}
-                    step={1}
+                    value={this.state.positionMillis}
                     disabled={false}
+                    onValueChange={(value) => {this.setState({positionMillis: value});this.state.playbackInstance.setPositionAsync(value)}}
                     />
 
                 <View style={styles.main}>
-                <Text style={{fontSize:15,color:'white' ,paddingLeft:16, paddingTop:10, fontWeight:'bold', opacity:0.7}}> 0:00</Text>
-                <Text style={{fontSize:15,color:'white' ,paddingLeft:'73%', paddingTop:10, fontWeight:'bold', opacity:0.7}}> 3:45</Text>
+                <Text style={{fontSize:15,color:'white' ,paddingLeft:16, paddingTop:10, fontWeight:'bold', opacity:0.7}}>{this.millisToMinutesAndSeconds(this.state.positionMillis)}</Text>
+                <Text style={{fontSize:15,color:'white' ,paddingLeft:'73%', paddingTop:10, fontWeight:'bold', opacity:0.7}}>{this.millisToMinutesAndSeconds(this.state.durationMillis)}</Text>
                 </View>
 
                 {/* PLay */}
@@ -340,10 +376,10 @@ class Musicplayer extends Component {
                 </View>
 
                 <View style={styles.main1}>
-                <MaterialCommunityIcons name="playlist-music" size={40} color="grey"  style={{ paddingRight:60}}/>
-                <Ionicons name="ios-repeat" size={40} color="grey" style={{ paddingRight:60}} />
-                <Ionicons name="md-shuffle" size={40} color="grey"  style={{ paddingRight:60}}/>
-                <MaterialIcons name="playlist-add" size={40} color="grey" />
+                <MaterialCommunityIcons name="playlist-music" size={40} color="grey"  style={{ paddingRight:60}} onPress={() => this.showAlert()}/>
+                <Ionicons name="ios-repeat" size={40} color="grey" style={{ paddingRight:60}} onPress={() => this.showAlert()} />
+                <Ionicons name="md-shuffle" size={40} color="grey"  style={{ paddingRight:60}} onPress={() => this.showAlert()}/>
+                <MaterialIcons name="playlist-add" size={40} color="grey" onPress={() => this.showAlert()} />
                 </View>
 
                 <View style={styles.main1}>
