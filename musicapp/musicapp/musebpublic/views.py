@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 
 # Create your views here.
 
@@ -25,6 +25,7 @@ def signUp(request):
             email=email,
             timestamp = datetime.datetime.today()
             )
+            return redirect('downloadApp')
         return render(request, 'betasignup.html')
     elif BetaUsers.objects.count() == 15:
         return render(request, 'full.html')
