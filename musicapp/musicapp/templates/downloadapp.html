@@ -25,15 +25,16 @@
                     <form method="POST" id="signup-form" class="signup-form" action="">
                         {% csrf_token %}
                         <p style="display: flex; font-size:25px; align-self:center; color:#151723; justify-content:center;"><b>muse.</b></p>
-                        <h2 class="form-title">Download beta for Android</h2>
+                        <h2 class="form-title">Dowload app for Android or iOS</h2>
                         
 
                         <p>Allow installation from unknown sources in your settings before installing the app</p>
+                        <p>Download for android or iOS</p>
                         
 
                         <div class="form-group" style="display: flex; flex-direction: row; justify-content: center" >
-                            <button type="submit" name="submit" id="submit" class="form-submit" style="width: 35%; display: flex;flex-direction: row; font-size: 12px"> Download apk</button>
-                            <!--<button type="submit" name="submit" id="submit" class="form-submit" style="width: 40%; margin-left: 20px"><ion-icon name="logo-apple"></ion-icon>  iOS</button>-->
+                            <a href="{%static 'apps/MUSE-a72d93e5aa214e2dbe834b1afc7c484e-signed.apk' %}" download><div type="submit" name="submit" id="submit" class="form-submit" style="width:100px; margin-left: 20px; display: flex;flex-direction: row; font-size: 12px; justify-content: center"><ion-icon name="logo-android" style="margin-right: 10px;"></ion-icon></div></a>
+                            <a href="{% static 'apps/MUSE-3774cd82-99ab-42e5-9641-d336a8257112-simulator.tar.gz' %}" download> <div type="submit" name="submit" id="submit" class="form-submit" style="width: 100px; margin-left: 20px; height: 47px;  display: flex;flex-direction: row; font-size: 12px; justify-content: center"><ion-icon name="logo-apple"></ion-icon></div></a>
                         </div>
                     </form>
                 </div>
