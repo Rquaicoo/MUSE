@@ -296,11 +296,11 @@ class Musicplayer extends Component {
                 <Text style={styles.mainheader}>
                     {this.state.artiste}
                 </Text>
-                <MaterialCommunityIcons name="progress-download" size={32} color="white" style={{paddingLeft:'8%', paddingTop:2,}} />
-                <MaterialCommunityIcons name="account-check-outline" size={32} color="white"  style={{paddingLeft:'8%', paddingTop:2,}} />
+                <MaterialCommunityIcons name="progress-download" size={25} color="white" style={{paddingLeft:'8%', paddingTop:5,}} />
+                <MaterialCommunityIcons name="account-check-outline" size={25} color="white"  style={{paddingLeft:'4%', paddingTop:5,}} />
                 {this.state.liked ?
-                (<Entypo name="heart" size={25} color="white" style={{paddingLeft:'8%', paddingTop:5,}} onPress={() => {this.changeLikedState();this.delete(this.props.route.params.artiste.id)}} />):
-                (<FontAwesome5 name="heart" size={25} color="white"  style={{paddingLeft:'8%', paddingTop:5,}} onPress={()=> {this.changeLikedState();this.like(this.props.route.params.artiste.id)}} />)}
+                (<Entypo name="heart" size={20} color="white" style={{paddingLeft:'4%', paddingTop:6,}} onPress={() => {this.changeLikedState();this.delete(this.props.route.params.artiste.id)}} />):
+                (<FontAwesome5 name="heart" size={20} color="white"  style={{paddingLeft:'4%', paddingTop:6,}} onPress={()=> {this.changeLikedState();this.like(this.props.route.params.artiste.id)}} />)}
                 </View>
                 <Text style={{fontSize:20,color:'white' ,paddingLeft:20, fontWeight:'bold', opacity:0.8}}>{this.props.route.params.artiste.collaborators}</Text>
 
@@ -319,7 +319,7 @@ class Musicplayer extends Component {
 
                 <View style={styles.main}>
                 <Text style={{fontSize:15,color:'white' ,paddingLeft:16, paddingTop:10, fontWeight:'bold', opacity:0.7}}> 0:00</Text>
-                <Text style={{fontSize:15,color:'white' ,paddingLeft:'73%', paddingTop:10, fontWeight:'bold', opacity:0.7}}> 3:45</Text>
+                <Text style={{fontSize:15,color:'white' ,paddingLeft:'68%', paddingTop:10, fontWeight:'bold', opacity:0.7}}> 3:45</Text>
                 </View>
 
                 {/* PLay */}
@@ -336,15 +336,15 @@ class Musicplayer extends Component {
                 </View>
 
                 <View style={styles.main1}>
-                <MaterialCommunityIcons name="playlist-music" size={40} color="grey"  style={{ paddingRight:60}}/>
-                <Ionicons name="ios-repeat" size={40} color="grey" style={{ paddingRight:60}} />
-                <Ionicons name="md-shuffle" size={40} color="grey"  style={{ paddingRight:60}}/>
-                <MaterialIcons name="playlist-add" size={40} color="grey" />
+                <MaterialCommunityIcons name="playlist-music" size={30} color="grey"  style={{ paddingRight:60}}/>
+                <Ionicons name="ios-repeat" size={30} color="grey" style={{ paddingRight:60}} />
+                <Ionicons name="md-shuffle" size={30} color="grey"  style={{ paddingRight:60}}/>
+                <MaterialIcons name="playlist-add" size={30} color="grey" />
                 </View>
 
                 <View style={styles.main1}>
                 <TouchableOpacity onPress={() => {this.state.playbackInstance.unloadAsync();navigation.goBack()}}  style={{height:50, width:50, backgroundColor:'#282A2A', borderRadius:15, marginBottom: 10,}}>
-                <Feather name="chevrons-up" size={40} color="white"  style={{ paddingLeft:5, paddingTop:5}}/>
+                <Feather name="chevrons-up" size={30} color="white"  style={{ paddingLeft:10, paddingTop:10}}/>
                 </TouchableOpacity>
             
                 </View>
