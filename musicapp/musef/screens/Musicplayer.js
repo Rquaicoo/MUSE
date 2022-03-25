@@ -40,6 +40,8 @@ class Musicplayer extends Component {
         playlist: this.props.route.params.playlist,
         index: this.props.route.params.index,
         timer: null,
+        repeat: false,
+        shuffle: false,
     }
 
     changeLikedState = () => {
