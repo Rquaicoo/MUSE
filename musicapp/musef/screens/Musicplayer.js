@@ -206,11 +206,26 @@ class Musicplayer extends Component {
                     positionMillis: status.positionMillis
                 })
             })
+
+            if (this.state.positionMillis >= this.state.durationMillis) {
+                if (this.state.repeat) {
+                    this.handlePlayPause()
+                    this.setState({
+                        positionMillis: 0
+                    })
+                    this.loadAudio()
+                }
+
+                else {
+                    this.handlePlayPause()
+                    this.setState({
+                        positionMillis: 0
+                    })
+                    this.handleNextTrack()
+                }
+            }
         }, 1000)
       
-        if (this.state.positionMillis >= this.state.durationMillis) {
-            this.handlePlayPause()
-        }
     }
 
     //stop and reset timer function
@@ -308,6 +323,18 @@ class Musicplayer extends Component {
             {cancelable: false},
         );
     }
+
+    changeRepeat = () => {
+        this.setState({
+            repeat: !this.state.repeat
+        })
+    }
+
+    changeShuffle = () => {
+        this.setState({
+            shuffle: !this.state.shuffle
+        })
+    }
     render() {
         const { navigation } = this.props;
         
@@ -379,9 +406,14 @@ class Musicplayer extends Component {
 
                 <View style={styles.main1}>
                 <MaterialCommunityIcons name="playlist-music" size={40} color="grey"  style={{ paddingRight:60}} onPress={() => this.showAlert()}/>
-                <Ionicons name="ios-repeat" size={40} color="grey" style={{ paddingRight:60}} onPress={() => this.showAlert()} />
-                <Ionicons name="md-shuffle" size={40} color="grey"  style={{ paddingRight:60}} onPress={() => this.showAlert()}/>
-                <MaterialIcons name="playlist-add" size={40} color="grey" onPress={() => this.showAlert()} />
+                {this.state.repeat ?
+                (<Ionicons name="ios-repeat" size={40} color="green" style={{ paddingRight:60}}  onPress={() => this.changeRepeat()}/>) :
+                (<Ionicons name="ios-repeat" size={40} color="grey" style={{ paddingRight:60}}  onPress={() => this.changeRepeat()}/>)}
+                {this.state.shuffle ?
+                (<Ionicons name="md-shuffle" size={40} color="green"  style={{ paddingRight:60}} onPress={() => this.changeShuffle()}/>):
+                (<Ionicons name="md-shuffle" size={40} color="grey"  style={{ paddingRight:60}} onPress={() => this.changeShuffle()}/>)}
+
+                <MaterialIcons name="playlist-add" size={40} color="grey"  onPress={() => this.showAlert()}/>
                 </View>
 
                 <View style={styles.main1}>
