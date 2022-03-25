@@ -43,7 +43,7 @@ export default function FollowedArtists({route, navigation}) {
                                  {/*<TouchableOpacity style={{borderColor: "#343547", borderWidth: 1, alignContent: "center", justifyContent: "center", padding: 8, borderRadius: 20}}>
                                     <Feather name="search" size={21} color="white" />
                                 </TouchableOpacity>*/}
-                                <Image source={require('../assets/memoji.png')} style={styles.image} />
+                                <Feather name="refresh-ccw" size={15} color="white" />
                             </View>
                         </View>
                         
