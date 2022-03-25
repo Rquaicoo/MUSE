@@ -61,7 +61,7 @@ export default function Home({ navigation }) {
             {/* Profile */}
             <View style={{marginLeft: "50%", display: "flex", flexDirection: "row", alignItems: "center"}}>
                 <TouchableOpacity style={{borderColor: "#343547", borderWidth: 1, alignContent: "center", justifyContent: "center", padding: 8, borderRadius: 20}}>
-                    <Octicons name="radio-tower" size={15} color="white" />
+                <Feather name="refresh-ccw" size={15} color="white" />
                   </TouchableOpacity >
                   <TouchableOpacity onPress={() => navigation.navigate("myprofile")} >
                     <Image source={require('../assets/memoji.png')} style={styles.image} />
