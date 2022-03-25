@@ -1,0 +1,2 @@
+musicapp/musicapp/static/apps/MUSE-3774cd82-99ab-42e5-9641-d336a8257112-simulator.tar.gz filter=lfs diff=lfs merge=lfs -text
+musicapp/musicapp/static/apps/MUSE-a72d93e5aa214e2dbe834b1afc7c484e-signed.apk filter=lfs diff=lfs merge=lfs -text

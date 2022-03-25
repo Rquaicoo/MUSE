@@ -83,7 +83,7 @@ export default function myprofile ({navigation}) {
         <View style={styles.container}>
             <View  style={styles.headerContainer}>
             <View>
-            <Ionicons name="arrow-back-outline" size={30} color="white"  onPress={() => navigation.navigate("Home")} style={{paddingTop:6,}}/>
+            <Ionicons name="arrow-back-outline" size={30} color="white"  onPress={() => navigation.goBack()} style={{paddingTop:6,}}/>
              <View style={{flexDirection:'row'}}>
                 </View>
             </View>
