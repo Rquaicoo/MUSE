@@ -1,3 +1,4 @@
+musev/
 node_modules/
 .expo/
 dist/
@@ -13,7 +14,7 @@ musev/
 *.mobileprovision
 *.orig.*
 web-build/
-musev/
+images/
 
 # macOS
 .DS_Store
