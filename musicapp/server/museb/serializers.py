@@ -1,4 +1,5 @@
 from django.contrib.auth import get_user_model
+from numpy import require
 from rest_framework import serializers
 from .models import *
 from django.contrib.auth.models import User
@@ -22,9 +23,12 @@ class CreateUserSerializer(serializers.ModelSerializer):
         return user
 
 class MusicSerializer(serializers.ModelSerializer):
+    image = serializers.ImageField(required=False)
+    music_file = serializers.FileField(required=False)
+
     class Meta:
         model = Music
-        fields = ('id', 'title', 'imageURL', 'image', 'fileURL','main_artiste', 'collaborators', 'music_file', 'streams', 'trending', 'genre')
+        fields = ('id', 'title', 'imageURL', 'image', 'fileURL','main_artiste', 'collaborators', 'music_file', 'streams', 'genre')
 
 class CoverArtiseSerilizer(serializers.ModelSerializer):
     class Meta:
