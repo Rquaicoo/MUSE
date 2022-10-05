@@ -15,6 +15,7 @@ musev/
 *.orig.*
 web-build/
 images/
+settings.py
 
 # macOS
 .DS_Store

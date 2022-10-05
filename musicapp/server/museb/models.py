@@ -1,3 +1,4 @@
+from datetime import date
 from email.policy import default
 from lib2to3.pgen2 import token
 from django.db import models
@@ -49,12 +50,11 @@ class Music(models.Model):
     title = models.CharField(max_length=100, blank=False, null=False)
     genre = models.ForeignKey(Genre, on_delete=models.CASCADE)
     album = models.ForeignKey(Album, on_delete=models.CASCADE, null=True, blank=True)
-    trending = models.BooleanField(null=False)
-    new = models.BooleanField(null=False)
     main_artiste = models.ForeignKey(Artiste, on_delete=models.CASCADE)
     collaborators = models.CharField(max_length=100, blank=True, null=True)
     music_file = models.FileField(blank=False)
     streams = models.IntegerField(default=0)
+    date = models.DateField(default=date.today)
     
 
     @property

@@ -1,3 +1,4 @@
+from distutils.log import error
 import json
 
 import random
@@ -16,6 +17,8 @@ import json
 
 from rest_framework.parsers import JSONParser
 from django.utils.decorators import method_decorator
+from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.parsers import MultiPartParser, FormParser
 
 #from allauth.socialaccount.providers.facebook.views import FacebookOAuth2Adapter
 ##from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
@@ -70,14 +73,51 @@ class GoogleLogin(SocialLoginView):
     adapter_class = GoogleOAuth2Adapter
 """    
 
-class MusicView(APIView):
-    def get(self, request, *args, **kwargs):
-        music = Music.objects.all()
+def get_song_by_primary_key(pk):
+    if pk.isdigit():
+        music = Music.objects.get(id=pk)
+        serializer = MusicSerializer(music)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    #check if the pk is 'trending'
+    elif pk == 'trending':
+        music = Music.objects.all().order_by('-streams')
         serializer = MusicSerializer(music, many=True)
-        return Response(serializer.data)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    #check if the pk is 'new'
+    elif pk == 'new':
+        music = Music.objects.all().order_by('-date')
+        serializer = MusicSerializer(music, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    #check if the pk is 'random'
+    elif pk == 'random':
+        music = Music.objects.all()
+        music = random.choice(music)
+        serializer = MusicSerializer(music)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+class MusicView(APIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = MusicSerializer 
+
+    def get(self, request, pk=None):
+        if pk:
+            try:
+                return get_song_by_primary_key(pk)
+            except:
+                return Response( status=status.HTTP_404_NOT_FOUND)
+        else:
+            music = Music.objects.all()
+            serializer = MusicSerializer(music, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
     
-    def post(self, ):
-        pass
+    def post(self, request):
+        parser_classes = (MultiPartParser, FormParser)
+
+        serializer = MusicSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+        
 
     def put(self, request):
         try:
@@ -92,6 +132,10 @@ class MusicView(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         except:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request):
+        return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
 
 class TrendingMusicView(APIView):
     def get(self, request):

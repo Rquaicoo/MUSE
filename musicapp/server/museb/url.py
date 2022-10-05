@@ -41,10 +41,11 @@ urlpatterns = [
     
     #path('rest-auth/facebook/', FacebookLogin.as_view(), name='fb_login'),
     #path('rest-auth/google/', GoogleLogin.as_view(), name='google_login'),
+
     path('music/', MusicView.as_view(), name="music_list"),
+    path('music/<str:pk>/', MusicView.as_view(), name="music_detail"),
+ 
     path('cover/', CoverArtisteView.as_view(), name="cover"),
-    path('new/', NewMusicView.as_view(), name="new_music"),
-    path('trending/', TrendingMusicView.as_view(), name="trending_music"),
     
     
     path('liked/', LikedMusicView.as_view(), name="liked_music"),
