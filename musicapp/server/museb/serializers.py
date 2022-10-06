@@ -1,3 +1,4 @@
+from asyncore import read
 from django.contrib.auth import get_user_model
 from numpy import require
 from rest_framework import serializers
@@ -22,18 +23,17 @@ class CreateUserSerializer(serializers.ModelSerializer):
         user.save()
         return user
 
-class MusicSerializer(serializers.ModelSerializer):
-    image = serializers.ImageField(required=False)
-    music_file = serializers.FileField(required=False)
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = get_user_model()
+        fields = ('username', 'email','is_active', 'date_joined', 'last_login')
+
+class UserImageSerializer(serializers.ModelSerializer):
+    user = UserSerializer(read_only=True)
 
     class Meta:
-        model = Music
-        fields = ('id', 'title', 'imageURL', 'image', 'fileURL','main_artiste', 'collaborators', 'music_file', 'streams', 'genre')
-
-class CoverArtiseSerilizer(serializers.ModelSerializer):
-    class Meta:
-        model = CoverArtiste
-        fields = ('id', 'title', 'imageURL', 'image', 'fileURL','main_artiste', 'collaborators', 'music_file', 'streams', 'trending')
+        model = UserImage
+        fields = ('id','image', 'user')
 
 class AlbumSerializer(serializers.ModelSerializer):
     class Meta:
@@ -45,37 +45,62 @@ class ArtistSerializer(serializers.ModelSerializer):
         model = Artiste
         fields = ('id', 'name', 'image', 'imageURL', 'popular')
 
-class PlaylistSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Playlist
-        fields = ('id', 'title', 'image', 'imageURL', 'songs')
-
 class GenreSerializer(serializers.ModelSerializer):
     class Meta:
         model = Genre
         fields = ('id', 'title')
 
+
+class MusicSerializer(serializers.ModelSerializer):
+    image = serializers.ImageField(required=False)
+    music_file = serializers.FileField(required=False)
+    
+    album = AlbumSerializer(read_only=True)
+    main_artiste = ArtistSerializer(read_only=True)
+    genre = GenreSerializer(read_only=True)
+
+    class Meta:
+        model = Music
+        fields = ('id', 'title', 'imageURL', 'image', 'fileURL','main_artiste', 'album', 'collaborators', 'music_file', 'streams', 'genre')
+
+class CoverArtiseSerializer(serializers.ModelSerializer):
+    album = AlbumSerializer(read_only=True)
+    main_artiste = ArtistSerializer(read_only=True)
+    genre = GenreSerializer(read_only=True)
+
+    class Meta:
+        model = CoverArtiste
+        fields = ('id', 'title', 'imageURL', 'image', 'fileURL','main_artiste', 'album', 'collaborators', 'music_file', 'streams', 'genre')
+
+
+
+class PlaylistSerializer(serializers.ModelSerializer):
+
+    songs = MusicSerializer(read_only=True, many=True)
+
+    class Meta:
+        model = Playlist
+        fields = ('id', 'title', 'image', 'imageURL', 'songs')
+
+
+
 class LikedMusicSerializer(serializers.ModelSerializer):
+    music = MusicSerializer(read_only=True, many=True)
+    
     class Meta:
         model = LikedMusic
-        fields = ('id','user_token','music')
+        fields = ('id','user','music')
 
 class ListenLaterSerializer(serializers.ModelSerializer):
+    music = MusicSerializer(read_only=True, many=True)
     class Meta:
         model = ListenLater
-        fields = ('id','user_token','music')
+        fields = ('id','user','music')
 
 class FollowedArtistesSerializer(serializers.ModelSerializer):
+    artistes = ArtistSerializer(read_only=True, many=True)
     class Meta:
         model = FollowedArtistes
-        fields = ('id','user_token','artistes')
+        fields = ('id','user','artistes')
 
-class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ('id','username','email')
 
-class UserImageSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = UserImage
-        fields = ('id','image')
