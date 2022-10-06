@@ -1,6 +1,4 @@
 from datetime import date
-from email.policy import default
-from lib2to3.pgen2 import token
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -125,29 +123,29 @@ class Playlist(models.Model):
         return self.title
 
 class FollowedArtistes(models.Model):
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    artistes = models.ForeignKey(Artiste, on_delete=models.SET_NULL, null=True)
+    user = models.OneToOneField(User, on_delete=models.SET_NULL, null=True)
+    artistes = models.ManyToManyField(Artiste)
     
     def __str__(self):
-        return str(self.artistes)
+        return str(self.user.username)
 
 class LikedMusic(models.Model):
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    music = models.ForeignKey(Music, on_delete=models.SET_NULL, null=True)
+    user = models.OneToOneField(User, on_delete=models.SET_NULL, null=True)
+    music = models.ManyToManyField(Music)
     def __str__(self):
-        return str(self.music)
+        return str(self.user.username)
 
 class ListenLater(models.Model):
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    music = models.ForeignKey(Music, on_delete=models.CASCADE, null=False, blank=False)
+    user = models.OneToOneField(User, null=True, on_delete=models.SET_NULL)
+    music = models.ManyToManyField(Music)
     
 
     def __str__(self):
-        return str(self.music)
+        return str(self.user.username)
 
 class UserImage(models.Model):
-    user = models.OneToOneField(User, on_delete=models.SET_NULL, null=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
     image = models.ImageField(blank=False, null=False, default='memoji.png')
 
     def __str__(self):
-        return str(self.token)
+        return str(self.user.username)
