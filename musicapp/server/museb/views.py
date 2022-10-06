@@ -1,4 +1,3 @@
-from distutils.log import error
 import json
 
 import random
@@ -135,28 +134,13 @@ class MusicView(APIView):
 
     def delete(self, request):
         return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
-
-
-class TrendingMusicView(APIView):
-    def get(self, request):
-        trending_music = Music.objects.filter(trending=True)
-        serializer = MusicSerializer(trending_music, many=True)
-
-        return Response(serializer.data, status=status.HTTP_200_OK)
-
-class NewMusicView(APIView):
-    def get(self, request):
-        new_music = Music.objects.filter(new=True)
-        serializer = MusicSerializer(new_music, many=True)
-
-        return Response(serializer.data, status=status.HTTP_200_OK)
         
         
 
 class CoverArtisteView(APIView):
     def get(self, request, *args, **kwargs):
         cover = CoverArtiste.objects.all()
-        serializer = CoverArtiseSerilizer(cover, many=True)
+        serializer = CoverArtiseSerializer(cover, many=True)
         return Response(serializer.data)
     
     def post(self, ):
@@ -180,93 +164,112 @@ class CoverArtisteView(APIView):
 class PopularArtistView(APIView):
     def get(self, request, *args, **kwargs):
         music = Artiste.objects.filter(popular=True)
-        #for song in music:
-        #print(MP3(song.music_file).info.length)
-        serializer = ArtistSerializer(music, many=True)
-        return Response(serializer.data)
-
-
-
-class AlbumView(APIView):
-    def get(self, *args, **kwargs):
-        albums = Album.objects.all()
-        serializer = AlbumSerializer(albums, many=True)
-        return Response(serializer.data)
-
-    def post(self, request):
-        if request.method == "POST":
-            serializer = AlbumSerializer(data=request.data)
-            album_id = dict(serializer.initial_data)["id"]
-
-            album = Album.objects.get(id=album_id)
-            music = Music.objects.filter(album=album)
         
-
-            
-            music_serializer = MusicSerializer(music, many=True)
-            print(music_serializer.data)
-            if serializer.is_valid():
-                print("yes")
-                return Response(music_serializer.data, status=status.HTTP_201_CREATED)
-            return Response(music_serializer.data,status=status.HTTP_302_FOUND)
+        serializer = ArtistSerializer(music, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 
-class ArtistView(APIView):
-    def get(self, *args, **kwargs):
-        artistes = Artiste.objects.all()
-        serializer = ArtistSerializer(artistes, many=True)
-        return Response(serializer.data)
-    
-    def post(self, request):
-        if request.method == 'POST':
-            serializer = ArtistSerializer(data=request.data)
+class AlbumAPIView(APIView):
+    serializer_class = AlbumSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, pk=None):
+        if pk:
             try:
-                song_id = dict(serializer.initial_data)["main_artiste"]
+                album = Album.objects.get(id=pk)
+                serializer = AlbumSerializer(album)
+                return Response(serializer.data, status=status.HTTP_200_OK)
             except:
-                song_id = int(serializer.initial_data)
-
-            artiste_name = str(Artiste.objects.get(id=song_id))
-            
-            artiste_name = dict({"artiste": artiste_name})
-            print(artiste_name)
-            if serializer.is_valid():
-                print(serializer.initial_data)
-                return Response(serializer.data, status=status.HTTP_201_CREATED)
-            return Response(artiste_name, status=status.HTTP_302_FOUND)
-
-
-
-class PlaylistView(APIView):
-    def get(self, *args, **kwargs):
-        playlists = Playlist.objects.all()
-        serializer = PlaylistSerializer(playlists, many=True)
-        return Response(serializer.data)
+                return Response(status=status.HTTP_404_NOT_FOUND)
+        else:
+            albums = Album.objects.all()
+            serializer = AlbumSerializer(albums, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request):
-        songs_list = dict(request.data)["songs"]
-        music = Music.objects.filter(id__in=songs_list)
-        serializer = MusicSerializer(music, many=True)
+        parser_classes = (MultiPartParser, FormParser)
+
+        serializer = AlbumSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
 
+class ArtistAPIView(APIView):
+    serializer_class = ArtistSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, pk=None):
+        if pk:
+            try:
+                artist = Artiste.objects.get(id=pk)
+                serializer = ArtistSerializer(artist)
+                return Response(serializer.data, status=status.HTTP_200_OK)
+            except:
+                return Response(status=status.HTTP_404_NOT_FOUND)
+        else:
+            artists = Artiste.objects.all()
+            serializer = ArtistSerializer(artists, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+    
+    def post(self, request):
+        parser_classes = (MultiPartParser, FormParser)
+
+        serializer = ArtistSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+
+
+class PlaylistAPIView(APIView):
+    def get(self, request, pk=None):
+        if pk:
+            try:
+                playlist = Playlist.objects.get(id=pk)
+                serializer = PlaylistSerializer(playlist)
+                return Response(serializer.data, status=status.HTTP_200_OK)
+            except:
+                return Response(status=status.HTTP_404_NOT_FOUND)
+        else:
+            playlists = Playlist.objects.all()
+            serializer = PlaylistSerializer(playlists, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def post(self, request):
+        parser_classes = (MultiPartParser, FormParser)
+
+        serializer = PlaylistSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+
 
 class GenreView(APIView):
-    def get(self, *args, **kwargs):
-        genres = Genre.objects.all()
-        serializer = GenreSerializer(genres, many=True)
-        return Response(serializer.data)
+    def get(self, request, pk=None):
+        if pk:
+            try:
+                genre = Genre.objects.get(id=pk)
+                serializer = GenreSerializer(genre)
+                return Response(serializer.data, status=status.HTTP_200_OK)
+            except:
+                return Response(status=status.HTTP_404_NOT_FOUND)
+        else:
+            genres = Genre.objects.all()
+            serializer = GenreSerializer(genres, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request,):
-        genre = list(json.dumps(request.data).split(":")[1])
-        genre = "".join([x for x in genre if x.isalpha()])
-        genre_id = Genre.objects.get(title=genre).id
-        music = Music.objects.filter(genre=genre_id)
+        parser_classes = (MultiPartParser, FormParser)
 
-        serialized_music = MusicSerializer(music, many=True)
+        serializer = GenreSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
-        return Response(serialized_music.data, status=status.HTTP_302_FOUND)
 
 class ArtistePageView(APIView):
     def post(self, request,):
@@ -289,193 +292,101 @@ class ArtistePageView(APIView):
 
 
 class LikedMusicView(APIView):
+    permission_classes = [IsAuthenticated]
+
     def get(self, request):
-            token = Token.objects.get(user=request.user)
-            liked_music = LikedMusic.objects.filter(user_token=token)
-            print(liked_music)
-            serializer = LikedMusicSerializer(liked_music, many=True)
-            return Response(serializer.data, status=status.HTTP_200_OK)
-            
-    def post(self, request,):
-        serializer = LikedMusicSerializer(data=request.data)
-        liked_music_dict = dict(serializer.initial_data)
-        print(liked_music_dict)
-        token = Token.objects.get(key=liked_music_dict["user_token"])
-        music = Music.objects.get(id=liked_music_dict["music_id"])
-        try:
-            LikedMusic.objects.create(user_token=token, music=music)
-        except:
-            pass
-        if serializer.is_valid():
-            pass
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        liked_music = LikedMusic.objects.filter(user=request.user)
+        serializer = LikedMusicSerializer(liked_music, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+        
+    def post(self, request, pk=None):
+        if pk:
+            user = request.user
+            LikedMusic.objects.create(user=user, music_id=pk)
+            return Response(status=status.HTTP_201_CREATED)
+        else:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+    
+    def delete(self, request, pk=None):
+        if pk:
+            user = request.user
+            LikedMusic.objects.filter(user=user, music_id=pk).delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        else:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
 
-    def delete(self, request):
-        serializer = LikedMusicSerializer(data=request.data)
-        liked_music_dict = dict(serializer.initial_data)
-        token = Token.objects.get(key=liked_music_dict["user_token"])
-        music = Music.objects.get(id=liked_music_dict["music_id"])
-        try:
-            liked_music = LikedMusic.objects.get(user_token=token, music=music)
-        except: 
-            pass
-        liked_music.delete()
-        if serializer.is_valid():
-            pass
-            return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
-        return Response(serializer.data, status=status.HTTP_200_OK)
-
+        
 
 class ListenLaterView(APIView):
-    def get(self, request):
-            token = Token.objects.get(user=request.user)
-            listen_later = ListenLater.objects.filter(user_token=token)
-            print(listen_later)
-            serializer = ListenLaterSerializer(listen_later, many=True)
-            return Response(serializer.data, status=status.HTTP_200_OK)
-            
-    def post(self, request,):
-        serializer = ListenLaterSerializer(data=request.data)
-        listen_later_dict = dict(serializer.initial_data)
-        print(listen_later_dict)
-        token = Token.objects.get(key=listen_later_dict["user_token"])
-        music = Music.objects.get(id=listen_later_dict["music_id"])
-        try:
-            ListenLater.objects.create(user_token=token, music=music)
-        except:
-            pass
-        if serializer.is_valid():
-            pass
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+    permission_classes = [IsAuthenticated]
 
-    def delete(self, request):
-        serializer = ListenLaterSerializer(data=request.data)
-        listen_later_dict = dict(serializer.initial_data)
-        token = Token.objects.get(key=listen_later_dict["user_token"])
-        music = Music.objects.get(id=listen_later_dict["music_id"])
-        try:
-            listen_later = ListenLater.objects.get(user_token=token, music=music)
-        except: 
-            pass
-        listen_later.delete()
-        if serializer.is_valid():
-            pass
-            return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
+    def get(self, request):
+        listen_later = ListenLater.objects.filter(user=request.user)
+        serializer = ListenLaterSerializer(listen_later, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+            
+    def post(self, request, pk=None):
+        if pk:
+            user = request.user
+            ListenLater.objects.create(user=user, music_id=pk)
+            return Response(status=status.HTTP_201_CREATED)
+        else:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk=None):
+        if pk:
+            user = request.user
+            ListenLater.objects.filter(user=user, music_id=pk).delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        else:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
         
 
 class FollowedArtistesView(APIView):
+    permission_classes = [IsAuthenticated]
+
     def get(self, request):
-            token = Token.objects.get(user=request.user)
-            liked_music = LikedMusic.objects.filter(user_token=token)
-            print(liked_music)
-            serializer = LikedMusicSerializer(liked_music, many=True)
-            return Response(serializer.data, status=status.HTTP_200_OK)
+        followed_artistes = FollowedArtistes.objects.filter(user=request.user)
+        serializer = FollowedArtistesSerializer(followed_artistes, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
             
-    def post(self, request,):
-        serializer = FollowedArtistesSerializer(data=request.data)
-        artist_dict = dict(serializer.initial_data)
-        print(artist_dict)
-        token = Token.objects.get(key=artist_dict["user_token"])
-        artist = Artiste.objects.get(id=artist_dict["artist_id"])
-        try:
-            FollowedArtistes.objects.create(user_token=token, artistes=artist)
-        except:
-            pass
-        if serializer.is_valid():
-            pass
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.data, status=status.HTTP_200_OK)
-
-class GetFollowedArtistsView(APIView):
-    def get(self, request):
-            try:
-                token = Token.objects.get(key=dict(request.data)["user_token"])
-            except KeyError:    
-                token = Token.objects.get(user=request.user)
-            followed_artists = FollowedArtistes.objects.filter(user_token=token)
-            artists = Artiste.objects.filter(id__in=followed_artists.values_list("artistes_id", flat=True))
-            serializer = ArtistSerializer(artists, many=True)
-            return Response(serializer.data, status=status.HTTP_200_OK)
-
-    def post(self, request):
-        try:
-            token = Token.objects.get(key=dict(request.data)["user_token"])
-        except KeyError:
-            token = Token.objects.get(user=request.user)
-        followed_artists = FollowedArtistes.objects.filter(user_token=token).values_list('artistes')
-        artists = Artiste.objects.filter(id__in=followed_artists)
-        print(artists)
-        serializer = ArtistSerializer(artists, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
-
-class GetLikedMusicView(APIView):
-    def get(self, request):
-            try:
-                token = Token.objects.get(key=dict(request.data)["user_token"])
-            except KeyError:
-                token = Token.objects.get(user=request.user)
-            liked_music = LikedMusic.objects.filter(user_token=token).values_list('music')
-            music = Music.objects.filter(id__in=liked_music)
-            print(music)
-            serializer = MusicSerializer(music, many=True)
-            return Response(serializer.data, status=status.HTTP_200_OK)
-
-    def post(self, request):
-        try:
-            token = Token.objects.get(key=dict(request.data)["user_token"])
-        except KeyError:
-            token = Token.objects.get(user=request.user)
-        liked_music = LikedMusic.objects.filter(user_token=token).values_list('music')
-        music = Music.objects.filter(id__in=liked_music)
-        print(music)
-        serializer = MusicSerializer(music, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
-
-class GetUserView(APIView):
-    def get(self, request):
-        try:
-            user = Token.objects.get(key=dict(request.data)["user_token"]).user
-        except KeyError:
+    def post(self, request, artist_id=None):
+        if artist_id:
             user = request.user
-        user = UserSerializer(user)
-        return Response(user.data, status=status.HTTP_200_OK)
+            FollowedArtistes.objects.create(user=user, artiste_id=artist_id)
+            return Response(status=status.HTTP_201_CREATED)
+        else:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, artist_id=None):
+        if artist_id:
+            user = request.user
+            FollowedArtistes.objects.filter(user=user, artiste_id=artist_id).delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        else:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
         
-    def post(self, request):
-        try:
-            user = Token.objects.get(key=dict(request.data)["user_token"]).user
-        except KeyError:
-            user = request.user
-        user = UserSerializer(user)
-        return Response(user.data, status=status.HTTP_200_OK)
 
-
-class GetUserImageView(APIView):
+class UserAPIView(APIView):
     def get(self, request):
-        try:
-            token = Token.objects.get(key=dict(request.data)["user_token"])
-        except:
-            token = Token.objects.get(user=request.user)
-        try:
-            UserImage.objects.create(token=token)
-        except:
-            pass
-        data = UserImage.objects.filter(token=token)
-        userData = UserImageSerializer(data, many=True)
-        return Response(userData.data, status=status.HTTP_200_OK)
+        user = request.user
+        serializer = UserSerializer(user)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class UserImageView(APIView):
+    def get(self, request):
+        user_data = UserImage.objects.filter(user=request.user)
+        serializer = UserImageSerializer(user_data)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request):
-        try:
-            token = Token.objects.get(key=dict(request.data)["user_token"])
-        except:
-            token = Token.objects.get(user=request.user)
-        try:
-            UserImage.objects.create(token=token)
-        except:
-            pass
-        data = UserImage.objects.filter(token=token)
-        userData = UserImageSerializer(data, many=True)
-        return Response(userData.data, status=status.HTTP_200_OK)
+        parser_classes = (MultiPartParser, FormParser)
+
+        serializer = UserImageSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
