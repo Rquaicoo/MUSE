@@ -127,13 +127,13 @@ class FollowedArtistes(models.Model):
     artistes = models.ManyToManyField(Artiste)
     
     def __str__(self):
-        return str(self.user.username)
+        return str(self.user)
 
 class LikedMusic(models.Model):
     user = models.OneToOneField(User, on_delete=models.SET_NULL, null=True)
     music = models.ManyToManyField(Music)
     def __str__(self):
-        return str(self.user.username)
+        return str(self.user)
 
 class ListenLater(models.Model):
     user = models.OneToOneField(User, null=True, on_delete=models.SET_NULL)
@@ -141,11 +141,11 @@ class ListenLater(models.Model):
     
 
     def __str__(self):
-        return str(self.user.username)
+        return str(self.user)
 
 class UserImage(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
     image = models.ImageField(blank=False, null=False, default='memoji.png')
 
     def __str__(self):
-        return str(self.user.username)
+        return str(self.user)
