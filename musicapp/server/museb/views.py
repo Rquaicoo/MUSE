@@ -274,13 +274,13 @@ class GenreView(APIView):
 class ArtistePageView(APIView):
     def post(self, request,):
         artist_serializer = ArtistSerializer(data=request.data)
-        print(artist_serializer.initial_data)
+        
         
         artist = str(dict(artist_serializer.initial_data)["name"])
 
         artist_id = Artiste.objects.get(name=artist).id
         artist_music = Music.objects.filter(main_artiste_id=artist_id)
-        print(artist_music)
+        
         artist_album = Album.objects.filter(artiste=artist_id)
 
         artiste_music_serializer = MusicSerializer(artist_music, many=True)
