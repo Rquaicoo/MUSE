@@ -1,0 +1,77 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to MUSE</title>
+
+    <!--set background svg image-->
+    <style>
+        body {
+            background-image: url("{% static 'pictures/muse.svg' %}");
+            background-repeat: repeat;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            align-content: center;
+        }
+
+       /*adjust image for mobile devices*/
+        @media only screen and (max-width: 600px) {
+            body {
+                background-color: #202222;
+                background-image: url("{% static 'pictures/museMobile.png' %}");
+                background-repeat:  no-repeat;
+                position: relative;
+                width: 389px;
+                height: 977px;
+
+            }
+        }
+
+        button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            align-self: center;
+            width: 13rem;
+            height: 3.6rem;
+        }
+
+        .button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            align-self: center;
+            background-color: rgb(76, 192, 153);
+            border-radius: 10px;
+            border-color: rgb(76, 192, 153);
+        }
+
+        /*center button postion for big screens*/
+        @media only screen and (min-width: 600px) {
+            .button {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+        }
+
+        .button-text {
+            color: white;
+            font-size: 1.1rem;
+            font-weight: bold;
+            padding: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    
+    <div>
+        <button class="button"><p class="button-text">Join Beta</p></button>
+    </div>
+</body>
+</html>

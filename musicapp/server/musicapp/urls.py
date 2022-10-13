@@ -21,7 +21,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     re_path(r'museb/', include('museb.url')),
-    re_path(r'musebpublic/', include('musebpublic.url')),
+    re_path('', include('musebpublic.url')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

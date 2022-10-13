@@ -9,6 +9,11 @@ from .models import *
 import datetime
 # Create your views here.
 
+
+def home(request):
+    return render(request, 'home.html')
+
+    
 def signUp(request):
     users = BetaUsers.objects.all()
     existing_mails = []
